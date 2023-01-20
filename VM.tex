@@ -4232,7 +4232,7 @@ Hamilton方程组对应的泛函不是下方有界的, 故不能采用直接求�
 从而有 
 \begin{align*}
     -\pi = \lim\limits_{j \rightarrow \infty}G(w_j, \rho_j) &= \lim\limits_{j \rightarrow \infty}\int_0^{2\pi}(-\dot\rho_j \cdot w_j + \dot w_j \cdot \rho_j) \,{\rm d}t \\ 
-    &= \lim\limits_{j \rightarrow \infty}\int_0^{2\pi}(-\dot\rho^* \cdot w^* + \dot w^* \cdot \rho^*) \,{\rm d}t = G(w^*, \rho^*).
+    &= \int_0^{2\pi}(-\dot\rho^* \cdot w^* + \dot w^* \cdot \rho^*) \,{\rm d}t = G(w^*, \rho^*).
 \end{align*}
 这表明$(w^*, \rho^*) \in M$, 故$M$是弱序列闭的. 综上所述, 我们利用直接方法验证了极小点$(w_0, \rho_0)$的存在性.
 
@@ -4259,16 +4259,16 @@ Hamilton方程组对应的泛函不是下方有界的, 故不能采用直接求�
 \end{equation*}
 即 
 \begin{equation*}
-    \lambda\pi = \langle (H^*)'(\dot\rho_0, -\dot w_0), (\dot \rho_0, -\dot w_0)\rangle \geq H^*(\dot\rho_0, -\dot w_0) \geq 0.
+    \lambda\pi = \langle \nabla H^*(\dot\rho_0, -\dot w_0), (\dot \rho_0, -\dot w_0)\rangle \geq H^*(\dot\rho_0, -\dot w_0) \geq 0.
 \end{equation*}
 这表明$\lambda \geq 0$. 以下验证$\lambda \neq 0$. 若$\lambda = 0$, 那么必有 
 \begin{equation*}
-    (H^*)'(\dot\rho_0, -\dot w_0) = (0, 0).
+    \nabla H^*(\dot\rho_0, -\dot w_0) = (0, 0).
 \end{equation*}
 从而 
 \begin{equation*}
     \begin{cases}
-        \dot\rho_0 = H_u(0, 0), \\ 
+        \dot\rho_0 = H_w(0, 0), \\ 
         \dot w_0 = -H_{\rho}(0, 0).
     \end{cases}
 \end{equation*}
