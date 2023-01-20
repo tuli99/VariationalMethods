@@ -2143,15 +2143,6 @@ Jacobi方程的任一$C^2$解为沿$u^*$的\textbf{Jacobi场}.
     是闭的, 即${\rm d}\omega = 0$. 这也是守恒律的一种体现.
 \end{remark}
 
-我们还可以对Noether恒等式作进一步的简化. 引入\textbf{Hamilton能量动量张量}(简称\textbf{能动张量})$T(x, u, p) = (T_i^j(x, u, p))$, 其中
-\begin{equation*}
-    T_i^j = \sum_{m = 1}^Np_i^mL_{p_j^m} - \delta_{ij}L.
-\end{equation*} 
-若设$u \in C^2$是极小点, 使用该记号, Noether恒等式也可以写为
-\begin{equation*}
-    \boxed{\sum_{i = 1}^n\partial_i\left(\sum_{m = 1}^NL_{p_i^m}\bar{U}^m - \sum_{j = 1}^nT_j^i\bar{X}^j\right) = 0.}
-\end{equation*}
-
 \begin{example}
     考虑$k$个质点所构成的系统, 其质量分别为$m_1, \cdots, m_k$.
     位置坐标$X = (X_1, \cdots, X_k)$, 其中$X_i = (x_i, y_i, z_i)$是第$i$个质点的空间坐标.
@@ -2234,7 +2225,7 @@ $u + \varepsilon\varphi$ $\leadsto$ E-L方程, etc; $u \circ \eta_{\varepsilon}$
     &= \int_{\Omega}(\partial_iL -\partial_i(L) +\partial_j(L_{p_j^m}\partial_iu^m))\bar{X}^i \,{\rm d}x \\  
     &= -\int_{\Omega}E_L(u) \cdot \left(\partial_iu\bar{X}^i\right) \,{\rm d}x. 
 \end{align*} 
-上述推导过程中无非用到了分布积分公式和复合求导法则. 注意到在第三个表达式中, $\partial_iL$代表取值, 而$\partial_i(L)$代表求导.
+上述推导过程中无非用到了分部积分公式和复合求导法则. 注意到在第三个表达式中, $\partial_iL$代表取值, 而$\partial_i(L)$代表求导.
 
 \begin{definition}
     称$u \in C^1(\overline{\Omega})$为$I$的一个\textbf{内极小点}, 如果对于任意的$\bar{X} \in C_0^1(\Omega)$, $I$在$v_{\varepsilon}$的变换下满足
@@ -2362,9 +2353,9 @@ $u + \varepsilon\varphi$ $\leadsto$ E-L方程, etc; $u \circ \eta_{\varepsilon}$
 其中$t \in \mathbb{R}$. 若存在$t > m$使得$f_t$是列紧的, 那么由于当$N$充分大时有$\{x_j\colon j \geq N\} \subseteq f_t$, 故有子列$x_{k_j} \rightarrow x^* \in f_t \subseteq X$. 
 进一步地, 若$f$在$x = x^*$处还满足条件 
 \begin{equation}\label{35}
-    f(x^*) \leq \liminf\limits_{k \rightarrow \infty}f(x_{j_k}),
+    f(x^*) \leq \varliminf\limits_{k \rightarrow \infty}f(x_{j_k}),
 \end{equation}
-则有$f(x^*) = m = \inf_Mf$. 特别地, 若$f$是\textbf{序列下半连续的}, 即条件$x_n \rightarrow x$蕴含$f(x) \leq \liminf f(x_n)$, 则不等式\eqref{35}成立.
+则有$f(x^*) = m = \inf_Mf$. 特别地, 若$f$是\textbf{序列下半连续的}, 即条件$x_n \rightarrow x$蕴含$f(x) \leq \varliminf f(x_n)$, 则不等式\eqref{35}成立.
 
 \begin{itemize}
     \item 下半连续性. 一般定义: 称$f$是下半连续的, 若对任意的$t \in \mathbb{R}$, 下方水平集$f_t$是闭的.
@@ -2486,7 +2477,7 @@ $u + \varepsilon\varphi$ $\leadsto$ E-L方程, etc; $u \circ \eta_{\varepsilon}$
         根据推论\ref{coro2.9}, $\{x_n\}$有弱\textsuperscript{*}收敛子列: $x_{k_n} \rightharpoonup^* x^*$. 再由题设条件可知, $x^* \in E$.
         注意到$f$是弱序列下半连续的, 从而有 
         \begin{equation*}
-            f(x^*) \leq \liminf\limits_{n \rightarrow \infty}f(x_{k_n}) \leq \inf_Ef.
+            f(x^*) \leq \varliminf\limits_{n \rightarrow \infty}f(x_{k_n}) \leq \inf_Ef.
         \end{equation*}
         由此表明$f(x^*) = \inf_Ef$.
     \end{proof}
@@ -2567,9 +2558,9 @@ $C^1(\overline{\Omega})$在此范数下不是完备的. 我们将其完备化空
     \end{equation*}
     此时Schwarz不等式给出 
     \begin{equation*}
-        D(v) = \lim\limits_{n \rightarrow \infty}\int_{\Omega}\nabla v_n \cdot \nabla v \,{\rm d}x \leq \liminf\limits_{n \rightarrow \infty}D(v)^{1/2}D(v_n)^{1/2}, 
+        D(v) = \lim\limits_{n \rightarrow \infty}\int_{\Omega}\nabla v_n \cdot \nabla v \,{\rm d}x \leq \varliminf\limits_{n \rightarrow \infty}D(v)^{1/2}D(v_n)^{1/2}, 
     \end{equation*}
-    即$D(v) \leq \liminf D(v_n)$. 由此足以说明$D(u)$的弱序列下半连续性.
+    即$D(v) \leq \varliminf D(v_n)$. 由此足以说明$D(u)$的弱序列下半连续性.
 \end{itemize}
 
 综上所述, 我们利用定理\ref{th2.10}证明了Dirichlet积分可以在$H^1(\Omega)$上达到极小值, 即验证了Dirichlet原理.
@@ -2844,7 +2835,7 @@ $C^1(\overline{\Omega})$在此范数下不是完备的. 我们将其完备化空
 
 以下是一种常见的特殊情形:
 
-\begin{proposition}
+\begin{proposition}[Rellich]
     设$\Omega$为$\mathbb{R}^n$中的有界区域, $1 \leq p < \infty$, 则$W_0^{1, p}(\Omega)$中的单位闭球是$L^p(\Omega)$中的列紧集.
     \begin{proof}
         记$\mathbb{B}$为$W_0^{1, p}(\Omega)$中的单位闭球. 以下证明对任意的$\varepsilon > 0$, 在$L^p$模下, $\mathbb{B}$是完全有界的, 即存在有限的$\varepsilon$-网. 
@@ -2954,13 +2945,13 @@ $C^1(\overline{\Omega})$在此范数下不是完备的. 我们将其完备化空
 
 \subsection{弱下半连续性}
 
-\subsubsection{凸性与弱下半连续性}
-
-回顾下半连续性的定义: 称函数$f\colon X \rightarrow \mathbb{R}$是弱下半连续的, 如果对任意的$t \in \mathbb{R}$, 下方水平集
+回顾下半连续性的定义: 称函数$f\colon X \rightarrow \mathbb{R}$是\textbf{弱下半连续}的, 如果对任意的$t \in \mathbb{R}$, 下方水平集
 \begin{equation*}
     f_t = \{x \in X\colon f(x) \leq t\}
 \end{equation*}
-是闭的. 以下我们主要探究如何判断\textbf{弱序列下半连续性}.
+是闭的. 以下我们主要探究如何判断弱序列下半连续性.
+
+\subsubsection{凸性与弱下半连续性}
 
 注意到对于Banach空间中的凸子集而言, (强)闭等价于弱闭. 以下命题是对前述结论的推广:
 
@@ -2997,11 +2988,11 @@ $C^1(\overline{\Omega})$在此范数下不是完备的. 我们将其完备化空
     容易验证, $I$是连续凸的, 所以也是弱下半连续的. 若去掉$c$的非负性限制, 此时$I$不再是凸的, 因此$I$未必是弱序列下半连续的.
     然而, 若进一步假设$r < p^*$, 那么$I$仍是弱序列下半连续的. 事实上, 若$u_j$在$W_0^{1, p}(\Omega)$中收敛到$u$, 则 
     \begin{equation*}
-        \int_{\Omega}|\nabla u(x)|^p \,{\rm d}x \leq \liminf\limits_{j \rightarrow \infty}\int_{\Omega}|\nabla u_j(x)|^p \,{\rm d}x.
+        \int_{\Omega}|\nabla u(x)|^p \,{\rm d}x \leq \varliminf\limits_{j \rightarrow \infty}\int_{\Omega}|\nabla u_j(x)|^p \,{\rm d}x.
     \end{equation*}
     我们还有 
     \begin{equation*}
-        \int_{\Omega}c(x)|\nabla u(x)|^r \,{\rm d}x \leq \liminf\limits_{j \rightarrow \infty}\int_{\Omega}c(x)|\nabla u_j(x)|^r \,{\rm d}x,
+        \int_{\Omega}c(x)|\nabla u(x)|^r \,{\rm d}x \leq \varliminf\limits_{j \rightarrow \infty}\int_{\Omega}c(x)|\nabla u_j(x)|^r \,{\rm d}x,
     \end{equation*}
     由此足以说明$I$的弱序列下半连续性. 因若不然, 则存在$\varepsilon_0 > 0$以及子列$\{u_{k_j}\}$, 使得 
     \begin{equation*}
@@ -3069,7 +3060,7 @@ $C^1(\overline{\Omega})$在此范数下不是完备的. 我们将其完备化空
         \end{equation*}
         综上所述, 当$I(u) < +\infty$时, 有 
         \begin{equation*}
-            \liminf\limits_{j \rightarrow \infty}I(u_j) \geq \int_KL(x, u(x), \nabla u(x)) \geq I(u) - \varepsilon.
+            \varliminf\limits_{j \rightarrow \infty}I(u_j) \geq \int_KL(x, u(x), \nabla u(x)) \geq I(u) - \varepsilon.
         \end{equation*}
         由$\varepsilon > 0$的任意性, 即可表明$I$的弱序列下半连续性. $I(u) = +\infty$的情形的证明是类似的.
     \end{proof}
@@ -3816,7 +3807,7 @@ $u = (u^1, \cdots, u^n) \in C^1(\Omega)$, $f \in C^1(\mathbb{R})$是凸函数.
         \end{equation*}
         这表明$x \in S_i, \forall i$. 在\eqref{46}不等式两侧取下极限, 并利用$f$的下半连续性, 我们有 
         \begin{equation*}
-            f(u^*) \leq \varliminf\limits_{i \rightarrow \infty}\inf_{S_n}f \leq f(x)
+            f(u^*) \leq \varvarliminf\limits_{i \rightarrow \infty}\inf_{S_n}f \leq f(x)
         \end{equation*}
         这与\eqref{48}矛盾.
     \end{proof}
@@ -4075,7 +4066,7 @@ Hamilton方程组对应的泛函不是下方有界的, 故不能采用直接求�
 具体地, 设$f\colon \mathbb{R}^n \rightarrow (-\infty, +\infty]$, 且$f \not\equiv +\infty$ (此时称$f$为\textbf{真}函数).
 定义 
 \begin{equation*}
-    \boxed{f^*(\xi) = \sup_{x \in \mathbb{R}^n}[(\xi, x)_{\mathbb{R}^n} - f(x)]}.
+    \boxed{f^*(\xi) = \sup_{x \in \mathbb{R}^n}((\xi, x)_{\mathbb{R}^n} - f(x))}.
 \end{equation*}
 称$f^*$为$f$的\textbf{Legendre变换.}
 
@@ -4094,7 +4085,7 @@ Hamilton方程组对应的泛函不是下方有界的, 故不能采用直接求�
         \end{equation*}
     \end{enumerate}
     \begin{proof}
-        1. 注意到$f^*$可以看作是一族凸的, 连续的(从而也是下半连续的)函数之上确界, 而凸且连续的函数族的上确界还是凸且连续的.
+        1. 注意到$f^*$可以看作是一族凸的, 连续的(从而也是下半连续的)函数之上确界, 而凸且下半连续的函数族的上确界还是凸且下半连续的.
 
         2. 由于$f$是真的, 故可以选取$x_0 \in \mathbb{R}^n$使得$f(x_0) < +\infty$.
         由假设可知, 上图
