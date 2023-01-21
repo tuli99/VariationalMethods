@@ -1,0 +1,321 @@
+\subsection{应用: Noether定理}
+
+为了表达式的简洁, 本节我们在公式推导有时会使用Einstein求和约定.
+
+\subsubsection{一阶变分的推广}
+
+我们先对经典的一阶变分$\delta I(u^*, \varphi)$进行推广. 在前几节我们讨论的变分问题中, $M$中的函数均具有相同的定义域.
+事实上, 这种限制不是必需的.
+
+设$\Omega$为$\mathbb{R}^n$中的有界区域, 并给定$u \in C^1(\Omega)$和Lagrange函数$L \in C^2(\overline{\Omega} \times \mathbb{R}^N \times \mathbb{R}^{nN})$.
+现引入一族单参数微分同胚$\eta_{\varepsilon} = \eta(\cdot, \varepsilon)\colon \Omega \rightarrow \Omega_{\varepsilon}$,  其中$\Omega_{\varepsilon} = \eta_{\varepsilon}(\Omega) \subseteq \mathbb{R}^n, \eta_0 = \eta( \cdot, 0) = {\rm id}$.
+若设$\partial_{\varepsilon}\eta_{\varepsilon}(x)|_{\varepsilon = 0} = \bar{X}(x)$, 那么
+\begin{equation}\label{25}
+    \eta_{\varepsilon}(x) = x + \varepsilon\bar{X}(x) + o(\varepsilon) \qquad (\varepsilon \rightarrow 0).
+\end{equation}
+我们再考虑一族从$\Omega_{\varepsilon}$映到$\mathbb{R}^N$的函数$v_{\varepsilon} = v( \cdot, \varepsilon), |\varepsilon| < \varepsilon_0$, 其中$v_0 = u$.
+设$\partial_{\varepsilon}\eta_{\varepsilon}(x)|_{\varepsilon = 0} = \bar{X}(x)$, 则有
+\begin{equation*}
+    v_{\varepsilon}(x) = u(x) + \varepsilon\varphi(x) + o(\varepsilon) \qquad (\varepsilon \rightarrow 0).
+\end{equation*}
+现记 
+\begin{equation*}
+    I = I(u, \Omega) = \int_{\Omega}L(x,u(x), \nabla u(x)) \,{\rm d}x,
+\end{equation*}
+我们考虑$(u_{\varepsilon}, \Omega_{\varepsilon})$在$I$上的取值. 即
+\begin{align*}
+    \Phi(\varepsilon) = I(v_{\varepsilon}, \Omega_{\varepsilon}) &= \int_{\Omega_{\varepsilon}}L(y, v_{\varepsilon}(y), \nabla v_{\varepsilon}(y)) \,{\rm d}y \\
+    &= \int_{\Omega}L(\eta_{\varepsilon}(x), v_{\varepsilon}(\eta_{\varepsilon}(x)), \nabla_y v_{\varepsilon}(\eta_{\varepsilon}(x))) \det(\partial_{x_i}\eta_{\varepsilon}^j) \,{\rm d}x.
+\end{align*} 
+进一步地, 由表达式\eqref{25}和行列式求导法则可知, 
+\begin{equation*}
+    \det(\partial_i\eta_{\varepsilon}^j)|_{\varepsilon = 0} = 1, \quad \left.\frac{{\rm d}}{{\rm d}\varepsilon}\det(\partial_{x_i}\eta_{\varepsilon}^j)\right|_{\varepsilon = 0} = \partial_i\bar{X}^i = {\rm div}\ \bar{X},
+\end{equation*}
+从而当$u \in C^2$时, 我们有
+\begin{align*}
+    \dot\Phi(0) &= \int_{\Omega}(\partial_iL(\tau)\bar{X}^i(x) + L_{u^m}(\tau) \varphi^m(x) + L_{p^m_i}(\tau)\partial_i\varphi^m(x) + L(\tau){\rm div}\ \bar{X}(x)) \,{\rm d}x \\  
+    &= \int_{\Omega}({\rm div}(L\bar{X})(\tau) + L_{u^m}(\tau) \varphi^m(x) - \partial_iL_{p_i^m}(\tau)\varphi^m(x) + {\rm div}(L_{p^m} \varphi^m)(\tau)) \,{\rm d}x,
+\end{align*}
+其中$\tau = (x, u(x), \nabla u(x))$. 化简得 
+\begin{equation}\label{26}
+    \boxed{\dot \Phi(0) = \int_{\Omega}(E_L(u)^m\varphi^m + {\rm div}(L \bar{X} + L_{p^m}\varphi^m)) \,{\rm d}x.}
+\end{equation}
+\eqref{26}式也可以看作是一种推广形式的一阶变分. 我们将其记为$\delta^*I(u; \varphi, \bar{X})$.
+
+\begin{example}[Pohozaev恒等式]
+    给定有光滑边界的有界区域$\Omega \subseteq \mathbb{R}^n$和函数$g \in C^1(\mathbb{R})$, 考虑下列非线性椭圆方程:
+    \begin{equation}\label{27}
+        \begin{cases} 
+            -\Delta u = g(u) \quad &{\rm in}\ \Omega, \\  
+            u = 0 \quad &{\rm on}\ \partial\Omega. 
+        \end{cases} 
+    \end{equation}
+    则当$n \geq 3$时, 它的解满足下列\textbf{Pohozaev恒等式}:
+    \begin{equation*}
+        \frac{n - 2}{2}\int_{\Omega}|\nabla u|^2 \,{\rm d}x - n\int_{\Omega}G(u) \,{\rm d}x + \frac{1}{2}\int_{\partial\Omega}\left|\frac{\partial u}{\partial\nu}\right|^2(x \cdot \nu) \,{\rm d}S = 0, 
+    \end{equation*}
+    其中$G$是$g$的原函数, $G(0) = 0$; $\nu$是$\partial\Omega$的单位外法向量. 事实上, 取Lagrange函数 
+    \begin{equation*}
+        L = \frac{1}{2}p^2 - G(u)
+    \end{equation*}
+    以及$M = C_0^1(\Omega)$. 容易验证, $L$对应的E-L方程正是\eqref{27}. 不妨假设$0 \in \Omega$. 
+    考虑一族单参数微分同胚$\eta_{\varepsilon}\colon \Omega \rightarrow \Omega_{\varepsilon}, x \mapsto (1 + \varepsilon)x$, 其中$\Omega_{\varepsilon} = \eta_{\varepsilon}(\Omega)$. 显然有$\eta_0 = {\rm id}$.
+    现设$u \in M$是\eqref{27}的解. 令$v_{\varepsilon} = u \circ \eta_{\varepsilon}$. 显然有$v_0 = u$.
+    通过直接计算可知, $\partial_{\varepsilon}\eta_{\varepsilon}|_{\varepsilon = 0} = 1, \partial_{\varepsilon}v_{\varepsilon}|_{\varepsilon = 0} = -x \cdot \nabla u$.
+    利用$\delta^*I(u; \varphi, \bar{X})$的具体表达式, 我们有 
+    \begin{equation*}
+        \left.\frac{{\rm d}}{{\rm d}\varepsilon}I(v_{\varepsilon}, \Omega_{\varepsilon})\right|_{\varepsilon = 0} = \int_{\Omega}{\rm div}\left(\left(\frac{1}{2}|\nabla u|^2 - G(u)\right)x - \nabla u(x \cdot \nabla u)\right) \,{\rm d}x.
+    \end{equation*}
+    一方面, 注意到$u$满足方程\eqref{27}, 故等式右端可以化为
+    \begin{equation}\label{28}
+        \begin{aligned}
+            \int_{\Omega}&\left(\frac{n}{2}|\nabla u|^2 - nG(u) + x \cdot \nabla\left(\frac{1}{2}|\nabla u|^2 -G(u)\right) - \Delta u(x \cdot \nabla u) - \nabla u \cdot \nabla(x \cdot \nabla u)\right) \,{\rm d}x \\ 
+            &= \int_{\Omega}\left(\frac{n}{2}|\nabla u|^2 - nG(u) + \frac{x}{2} \cdot \nabla (|\nabla u|^2) - \frac{x}{2} \cdot \nabla (|\nabla u|^2) - |\nabla u|^2\right) \,{\rm d}x \\  
+            &= \int_{\Omega}\left(\frac{n - 2}{2}|\nabla u|^2 - nG(u)\right) \,{\rm d}x.
+        \end{aligned}
+    \end{equation}
+    这里我们用到了公式
+    \begin{equation*}
+        \nabla (f \cdot g) = f \times (\nabla \times g) + g \times (\nabla \times f) + (f \cdot \nabla)g + (g \cdot \nabla)f, 
+    \end{equation*}
+    其中$f, g$均为向量场. 另一方面, 注意到条件$G(0) = 0$且$u|_{\partial\Omega} = 0$, 故由散度定理可得 
+    \begin{equation}\label{29}
+        \begin{aligned}
+            \frac{{\rm d}}{{\rm d}\varepsilon}I(v_{\varepsilon},\Omega_{\varepsilon})\Bigg|_{\varepsilon = 0} &= \int_{\partial\Omega}\left(\frac{1}{2}|\nabla u|^2(x \cdot \nu) - (\nabla u \cdot \nu)(x \cdot \nabla u)\right) \,{\rm d}S \\  
+            &= \int_{\partial\Omega}\left(\frac{1}{2}\left|\frac{\partial u}{\partial\nu}\right|^2(x \cdot \nu) - (\nabla u \cdot \nabla u)(x \cdot \nu)\right) \,{\rm d}S \\ 
+            &= -\frac{1}{2}\int_{\partial\Omega}\left|\frac{\partial u}{\partial\nu}\right|^2(x \cdot \nu) \,{\rm d}x,
+        \end{aligned}
+    \end{equation}
+    其中$\nu$是$\partial\Omega$的单位外法向量. 联立\eqref{28}和\eqref{29}, 即得欲证恒等式.
+\end{example}
+
+\subsubsection{Noether定理}
+
+粗略地说, Noether定理表明: 若变分积分$I$在某单参数变换群下保持不变, 则对于$I$的极值点$u^*$有某种守恒律成立.
+
+在前一节的讨论中, 我们固定了$u$, 让$x$在一定范围内作形变. 现在我们考虑更一般的情况, 即在相空间$(x, u)$中作形变.
+取$\mathbb{R}^n$中的有界区域$\Omega$. 给定向量场\footnote{这里特指微分流形中的概念.}
+\begin{equation}\label{30}
+    X = X^i(x, u)\frac{\partial}{\partial x_i} + U^m(x, u)\frac{\partial}{\partial u^m},
+\end{equation}
+我们可以找到一族定义在$\Omega \times \mathbb{R}^N$上的单参数变换群$\{\phi_{\varepsilon}\}_{|\varepsilon| < \varepsilon_0}$, 其中$\phi_0 = {\rm id}$.
+进一步地, 若设$\phi_{\varepsilon}(x, u) = (Y(x, u, \varepsilon), W(x, u, \varepsilon))$, 则有 
+\begin{equation*}
+    \begin{cases} 
+        X(x, u) = \partial_{\varepsilon}Y(x, u, \varepsilon)|_{\varepsilon = 0}, \\  
+        U(x, u) = \partial_{\varepsilon}W(x, u, \varepsilon)|_{\varepsilon = 0}. 
+    \end{cases}
+\end{equation*}
+现对任意的$u \in C^1(\overline{\Omega})$, 我们令
+\begin{equation*}
+    \begin{cases} 
+        \eta(x, \varepsilon) = Y(x, u(x), \varepsilon), \\  
+        \omega(x, \varepsilon) = W(x, u(x), \varepsilon). 
+    \end{cases}
+\end{equation*}
+则有$\eta(x, 0) = x, \omega(x, 0) = u(x)$. 再令
+\begin{equation}\label{31}
+    \begin{cases} 
+        \bar{X}(x) = \partial_{\varepsilon}\eta(x, \varepsilon)|_{\varepsilon = 0} = X(x, u(x)), \\  
+        \bar{U}(x) = \partial_{\varepsilon}\omega(x, \varepsilon)|_{\varepsilon = 0} = U(x, u(x)), 
+    \end{cases} 
+\end{equation}
+从而有 
+\begin{equation*}
+    \eta_{\varepsilon}(x) = \eta(x, \varepsilon) = x+ \varepsilon\bar{X}(x) + o(\varepsilon) \qquad (\varepsilon \rightarrow 0). 
+\end{equation*}
+若记$\Omega_{\varepsilon} = \eta_{\varepsilon}(\Omega)$, 则由上述表达式可知, $\eta_{\varepsilon}\colon \Omega \rightarrow \Omega_{\varepsilon}$是一族微分同胚, 其中$|\varepsilon| < \varepsilon_0, \varepsilon_0 > 0$充分小.
+此外, 注意到$\eta_{\varepsilon}$有逆映射$\xi_{\varepsilon} = \eta_{-\varepsilon}$, 从而有
+\begin{equation*}
+    \xi_{\varepsilon}(x) = x - \varepsilon\bar{X}(x) + o(\varepsilon), \quad \varepsilon \rightarrow 0.
+\end{equation*} 
+由此我们可以导出一族从$\Omega_{\varepsilon}$映到$\mathbb{R}^N$的映射:
+\begin{equation*}
+    v_{\varepsilon}(x) = \omega(\xi_{\varepsilon}(x), \varepsilon). 
+\end{equation*}
+且有$v_0(y) = \omega(\xi_0(y), 0) = \omega(x, 0) = u(x)$. 若设$\partial_{\varepsilon}v(x, \varepsilon)|_{\varepsilon = 0} = \varphi(x)$, 则有  
+\begin{equation*}
+    \bar{U}(x) = \partial_{\varepsilon}v(\eta_{\varepsilon}(x), \varepsilon)|_{\varepsilon = 0} = \varphi(x) + \sum_{i = 1}^n\partial_iu(x)\bar{X}^i(x).
+\end{equation*}
+即 
+\begin{equation}\label{32}
+    \varphi = \bar{U} - \sum_{i = 1}^n\partial_iu\bar{X}^i. 
+\end{equation}
+这样一来, 结合\eqref{31}和\eqref{32}, 并将式子中出现的$\bar{X}$和$\varphi$代入至$\delta^*I(u; \varphi, \bar{X})$的表达式中, 我们便得到了在\textbf{一般的局部单参数变换群下所满足的恒等式}.
+进一步地, 若变分积分$I(u_{\varepsilon}, \Omega_{\varepsilon})$与$\varepsilon$无关(此时我们也称$I$关于$\{\phi_{\varepsilon}\}$是不变的), 那么$\delta^*I(u; \varphi, \bar{X})$.
+特别地, 对于任意的$x \in \Omega$,  我们取$\Omega = B_r(x)$, 其中$r > 0$充分小, 从而有
+\begin{equation*}
+    \frac{1}{|B_r(x)|}\int_{B_r(x)}(E_L(u)^m\varphi^m + {\rm div}(L\bar{X} + L_{p^m}\varphi^m)) \,{\rm d}x = 0.
+\end{equation*}
+在上述等式两边令$r \rightarrow 0$, 并注意到$x \in \Omega$的任意性, 我们便有
+\begin{equation*}
+    \boxed{E_L(u)^m\varphi^m + {\rm div}(L\bar{X} + L_{p^m}\varphi^m) = 0.}
+\end{equation*}
+称上述恒等式为\textbf{Noether恒等式}, 它便是守恒律的体现.
+
+\begin{theorem}[Noether定理]
+    设局部单参数变换群$\{\phi_{\varepsilon}\}$是由向量场\eqref{30}生成的, 又设泛函
+    \begin{equation*}
+        I(u) = \int_{\Omega}L(x, u(x), \nabla u(x)) \,{\rm d}x.
+    \end{equation*}
+    则对任意的$u \in C^2(\Omega)$, 有恒等式\eqref{26}成立, 其中
+    \begin{equation*}
+        \begin{cases} 
+            \bar{X}(x) = X(x, u(x)), \\  
+            \bar{U}(x) = U(x, u(x)), \\  
+            \displaystyle \varphi(x) = \bar{U}(x)  - \sum_{i = 1}^n\partial_i\bar{X}^i(x).  
+        \end{cases}
+    \end{equation*}
+    进一步地, 若$\{\phi_{\varepsilon}\}$关于$I$是不变的, 那么有如下的Noether恒等式成立L
+    \begin{equation*}
+        E_L(u)^m\varphi^m + {\rm div}(L\bar{X} + L_{p^m}\varphi^m) = 0.
+    \end{equation*}
+\end{theorem}
+
+\begin{remark}
+    当$u \in C^2$是$I$的弱极小点时, 由Noether恒等式可知, 微分形式 
+    \begin{equation*}
+        \omega = \sum_{i = 1}^n\left(L\bar{X}^i + \sum_{m = 1}^NL_{p_i^m}\left(\bar{U}^m - \sum_{j = 1}^n\partial_ju^m\bar{X}^j\right)\right) {\rm d}x_1 \wedge \cdots {\rm d}x_{i - 1} \wedge {\rm d}x_{i + 1} \wedge \cdots {\rm d}x_n
+    \end{equation*}
+    是闭的, 即${\rm d}\omega = 0$. 这也是守恒律的一种体现.
+\end{remark}
+
+\begin{example}
+    考虑$k$个质点所构成的系统, 其质量分别为$m_1, \cdots, m_k$.
+    位置坐标$X = (X_1, \cdots, X_k)$, 其中$X_i = (x_i, y_i, z_i)$是第$i$个质点的空间坐标.
+    则系统的总动能为
+    \begin{equation*}
+        T = \frac{1}{2}\sum_{i = 1}^km_i|\dot X_i(t)|^2 = \frac{1}{2}\sum_{i = 1}^km_i(\dot x_i^2 + \dot y_i^2 + \dot z_i^2),
+    \end{equation*}
+    势能为 
+    \begin{equation*}
+        V = -k\sum_{i < j}\frac{m_im_j}{|X_i - X_j|} = -k\sum_{i < j}\frac{m_im_j}{((x_i - x_j)^2 + (y_i - y_j)^2 + (z_i - z_j)^2)^{1/2}}.
+    \end{equation*}
+    Lagrange函数$L = T - V$, 对应的变分积分为 
+    \begin{equation*}
+        I(X) = \int_{t_0}^{t_1}L(X(t), \dot X(t)).
+    \end{equation*}
+    \begin{itemize}
+        \item \textbf{空间平移群}. 设$\{S_{\varepsilon}\}$是空间坐标依赖于参数$\varepsilon$的一族变换:
+        \begin{equation*}
+            \widetilde{t} = t, \quad \widetilde{x_i} = x_i + \varepsilon, \quad\widetilde{y_i} = y_i, \quad\widetilde{z_i} = z_i \qquad (1 \leq i \leq k).
+        \end{equation*}
+        注意到$L$在这组变换下有相同的表达式, 故$I$关于$\{S_{\varepsilon}\}$是不变的.
+        此时对应的向量场$X = 0$, 而$ U = (e_1, \cdots, e_1)$, 其中$e_1 = (1, 0, 0)$. 
+        此时由Noether恒等式可得
+        \begin{equation*}
+            \sum_{i = 1}^km_i\dot x_i = {\rm const}.
+        \end{equation*}
+        同理, 对$y, z$方向作平移, 我们也可以得到类似的等式. 由此可得 
+        \begin{equation*}
+            \sum_{i = 1}^km_i\dot X_i(t) = \sum_{i = 1}^km_i(\dot x_i(t), \dot y_i(t), \dot z_i(t)) = {\rm const}.
+        \end{equation*}
+        即\textbf{动量守恒}.
+        \item \textbf{时间平移群}. 设$\{T_{\varepsilon}\}$是空间坐标依赖于参数$\varepsilon$的一族变换:
+        \begin{equation*}
+            \widetilde{t} = t + \varepsilon, \widetilde{X_i} = X_i \qquad (1 \leq i \leq k).
+        \end{equation*}
+        由于$I$与$t$无关, 故$I$关于$\{T_{\varepsilon}\}$是不变的. 此时$X = 1, U = 0$, 故由Noether恒等式得到
+        \begin{equation*}
+            H = pL_p - L = {\rm const}. 
+        \end{equation*}
+        这是\textbf{能量守恒}.
+        \item \textbf{单参数转动群}. 设$\{R_{\varepsilon}\}$是时空坐标依赖于$\varepsilon$的一族变换:
+        \begin{equation*}
+            \widetilde{t} = t, \quad \widetilde{x_i} = x_i\cos\varepsilon + y_i\sin\varepsilon, \quad \widetilde{y_i} = -x_i\sin\varepsilon + y_i\cos\varepsilon, \quad \widetilde{z_i} = z_i \ (1 \leq i \leq k).
+        \end{equation*}
+        可以验证, $I$关于$\{R_{\varepsilon}\}$是不变的. 直接计算得
+        \begin{equation*}
+            X = 0, U = (Z_1, \cdots, Z_k), 
+        \end{equation*}
+        其中$Z_i= (y_i, -x_i, 0), 1 \leq i \leq k$. 因此, 由Noether恒等式可知
+        \begin{equation*}
+            \sum_{i = 1}^km_i(y_i\dot x_i - x_i\dot y_i) = {\rm const}. 
+        \end{equation*}
+        类似地, 对于平面$yOz$和$zOx$上的转动, 也有类似的等式. 从而有
+        \begin{equation*}
+            \sum_{i = 1}^km_i X_i \times \dot X_i = {\rm const}.
+        \end{equation*}
+        上述等式即代表\textbf{角动量守恒}.
+    \end{itemize}
+\end{example}
+
+\subsubsection{内极小}
+
+本节我们从另一个角度来探究泛函极值的必要条件.
+
+\emph{Motivation:} Noether定理 $\leadsto$ 自变量$x$可以作``形变''. 
+$u + \varepsilon\varphi$ $\leadsto$ E-L方程, etc; $u \circ \eta_{\varepsilon}$ $\leadsto$ ? 
+
+具体地, 设$\eta_{\varepsilon}\colon \overline{\Omega} \rightarrow \overline{\Omega}$是一个微分自同胚:
+\begin{equation*}
+    y = \eta_{\varepsilon}(x) = x + \varepsilon\bar{X}(x) + o(\varepsilon),
+\end{equation*}
+其中$\bar{X}|_{\partial\Omega} = 0$. 对于给定的函数$u \in C^1(\overline{\Omega})$, 令$v_{\varepsilon} = u \circ \xi_{\varepsilon}$, 从而有 
+\begin{align*}
+    I(v_{\varepsilon}, \Omega) &= \int_{\Omega}L(y, v_{\varepsilon}(y), \nabla u(y)) \,{\rm d}x,\\  
+    &= \int_{\Omega}(\eta_{\varepsilon}(x), u(x), \partial_y\xi_{\varepsilon}(y)\nabla u(x))\det(\partial_i\eta_{\varepsilon}^j) \,{\rm d}x. 
+\end{align*}
+因此, 对于任意的$u \in C^2$, 我们有
+\begin{align*}
+    \left.\frac{{\rm d}}{{\rm d}\varepsilon}I(v_{\varepsilon}, \Omega)\right|_{\varepsilon = 0} &= \int_{\Omega}(\partial_iL\bar{X}^i  -L_{p_j^m}\partial_j\bar{X}^i\partial_iu^m + L\partial_i\bar{X}^i) \,{\rm d}x \\
+    &= \int_{\Omega}(\partial_iL -\partial_i(L) +\partial_j(L_{p_j^m}\partial_iu^m))\bar{X}^i \,{\rm d}x \\  
+    &= -\int_{\Omega}E_L(u) \cdot \left(\partial_iu\bar{X}^i\right) \,{\rm d}x. 
+\end{align*} 
+上述推导过程中无非用到了分部积分公式和复合求导法则. 注意到在第三个表达式中, $\partial_iL$代表取值, 而$\partial_i(L)$代表求导.
+
+\begin{definition}
+    称$u \in C^1(\overline{\Omega})$为$I$的一个\textbf{内极小点}, 如果对于任意的$\bar{X} \in C_0^1(\Omega)$, $I$在$v_{\varepsilon}$的变换下满足
+    \begin{equation*}
+        \boxed{\left.\frac{{\rm d}}{{\rm d}\varepsilon}I(v_{\varepsilon}, \Omega)\right|_{\varepsilon = 0}  = 0.}
+    \end{equation*} 
+\end{definition}
+
+从上述推导过程中我们可以看出, 若$u \in C^2$是一个内极小点, 则有 
+\begin{equation*}
+    \boxed{E_L(u) \cdot \partial_iu = 0, \qquad \forall 1 \leq i \leq n.}
+\end{equation*}
+这便是\textbf{内极小点的必要条件}. 此外, 我们还可以得出, $C^2$的内极小点一定是弱极小点.
+
+\subsubsection{例}
+
+\begin{example}
+    设$L(t, u, p) = t^2(p^2 - u^6/3)$. 又设$\phi_{\varepsilon}\colon \mathbb{R} \times \mathbb{R}^N \rightarrow \mathbb{R} \times \mathbb{R}^N , (t, u) \mapsto(Y, W)$, 其中 
+    \begin{equation*}
+        Y(t, u, \varepsilon) = (1 + \varepsilon)t, \quad W(t, u, \varepsilon) = \frac{u}{\sqrt{1 + \varepsilon}}. 
+    \end{equation*}
+    求证:
+    \begin{enumerate}
+        \item $L$对应的变分积分 
+        \begin{equation*}
+            I(u) = \int_0^1L(t, u, p) \,{\rm d}t
+        \end{equation*}
+        是$\{\phi_{\varepsilon}\}$不变的.
+        \item 若设$u$为$I$的E-L方程的解, 则有 
+        \begin{equation*}
+            \frac{t^3}{3}u^6 + t^3\dot u^2 + t^2u\dot u = {\rm const}.
+        \end{equation*}
+    \end{enumerate}
+    \begin{proof}
+        1. 由题设条件, 直接计算可得, 形变$\eta_{\varepsilon}(t) = Y(t, u(t), \varepsilon) = (1 + t)\varepsilon$, 其诱导的映射 
+        \begin{equation*}
+            v_{\varepsilon}(y) = W(\eta_{\varepsilon}^{-1}(y), u(\eta_{\varepsilon}^{-1}(y)), \varepsilon) = \frac{u\left(\frac{y}{1 + \varepsilon}\right)}{\sqrt{1 + \varepsilon}}.
+        \end{equation*}
+        从而有 
+        \begin{align*}
+            I(v_{\varepsilon}, \Omega_{\varepsilon}) &= \int_0^{1 + \varepsilon}y^2\left(\frac{\dot u\left(\frac{y}{1 + \varepsilon}\right)}{(1 + \varepsilon)^3} - \frac{1}{3}\frac{u\left(\frac{y}{1 + \varepsilon}\right)^6}{(1 + \varepsilon)^3}\right) \,{\rm d}y \\  
+            &= \int_0^1t^2\left(\dot u(t) - \frac{1}{3}u(t)^6\right) \,{\rm d}t =I(u, \Omega).
+        \end{align*}
+        由此表明$I$关于$\{\phi_{\varepsilon}\}$是不变的.
+
+        2. 直接计算得$\bar{X}(t) = \partial_{\varepsilon}\eta_{\varepsilon}(t)|_{\varepsilon = 0} = t$, 
+        \begin{equation*}
+            \varphi(t) = \partial_{\varepsilon}W(x, u(x), \varepsilon)|_{\varepsilon = 0} - \dot u \bar{X} = -\frac{1}{2}u(t) - t\dot u(t).
+        \end{equation*}
+        将上述计算结果代入至Noether恒等式中, 并注意到$u$是E-L方程的解, 我们有
+        \begin{equation*}
+            t^3\left(\dot u^2 - \frac{1}{3}u^6\right) - 2t^2\dot u\left(\frac{1}{2}u + t\dot u\right) = {\rm const}.
+        \end{equation*} 
+        化简即得欲证等式.
+    \end{proof}
+\end{example}
