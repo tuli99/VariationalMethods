@@ -1,0 +1,399 @@
+\subsection{Hamilton-Jacobi理论}
+
+\subsubsection{Hamilton方程组}
+
+Hamilton方程组:
+\begin{equation*}
+    \begin{cases} 
+        \dot\xi = -\partial_u H \\ 
+        \dot u = \partial_{\xi}H. 
+    \end{cases} 
+\end{equation*}
+其中$H = H(t, u(t), \xi(t))$. 利用Legendre变换, 上述方程组可以从变分的角度导出, 且其与E-L方程法有着深刻的联系.
+
+\begin{definition}
+    设$X$是赋范线性空间, 函数$\varphi\colon X \rightarrow (-\infty, +\infty]$满足
+    \begin{equation*}
+        \{x \in X\colon \varphi(x) < +\infty\} \neq \varnothing.
+    \end{equation*}
+    称函数 
+    \begin{equation*}
+        \boxed{\varphi^*\colon X^* \rightarrow (-\infty, +\infty], f \mapsto \sup_{x \in X}[\langle f, x\rangle - f(x)]}
+    \end{equation*}
+    为$\varphi$的\textbf{Legendre变换}(或称为$\varphi$的\textbf{共轭函数}), 其中$X^*$代表$X$的对偶空间.
+\end{definition}
+
+以上是Legendre变换的一般定义, 在这里我们只考虑标准欧式空间的情形: 若函数$f \in C^2(\mathbb{R}^N)$且其梯度$\xi = \nabla f(x)$有逆映射$\psi$, 则$f$的Legendre变换有表达式 
+\begin{equation*}
+    \boxed{f^*(\xi) = \xi \cdot x - f(x)= \xi \cdot \psi(\xi) - (f \circ \psi)(\xi).} 
+\end{equation*}
+
+\begin{remark}
+    Legendre变换有着如下的几何意义: 记 
+    \begin{equation*}
+        G(f) = \{(x, y) \in \mathbb{R}^N \times \mathbb{R}\colon y = f(x)\}
+    \end{equation*}
+    为$f$的图像, 它在点$P = (x, y)$处的切平面
+    \begin{equation*}
+        S = \{(\alpha, \beta)\colon \beta - f(x) = \nabla f(x) \cdot (\alpha - x)\}. 
+    \end{equation*}
+    因此, 任取$S$上的一点$Q = (\alpha, \beta)$, 我们有 
+    \begin{equation*}
+        \beta - \nabla f(x) \cdot \alpha = f(x) - \nabla f(x) \cdot x,
+    \end{equation*}
+    从而有$\beta - \xi \cdot \alpha = -f^*(\xi)$. 这表明$-f^*(\xi)$是超平面$S$在$\beta$轴上的截距.
+\end{remark}
+
+\begin{proposition}
+    Legendre变换有着如下简单性质:
+    \begin{enumerate}
+        \item 若$f \in C^k$, 则$f^* \in C^k$;
+        \item $f^{**} = f$, 即Legendre变换是\textbf{自反的};
+        \item $\left.(\partial_{\xi_i\xi_j}f^*(\xi))\right|_{\xi = \nabla f(x)} = (\partial_{x_ix_j}f(x))^{-1}$.
+    \end{enumerate}
+    \begin{proof}
+        1. 注意到$x = \psi(\xi) \in C^{k - 1}$, 因此$f^* \in C^{k - 1}$. 另一方面, 注意到等式 
+        \begin{equation*}
+            \nabla f^*(\xi) = \psi(\xi) + \xi \cdot \nabla\psi(\xi) - \nabla f(\psi(\xi)) \cdot \psi(\xi) = \psi(\xi),
+        \end{equation*}
+        由此表明$f^* \in C^k$.
+
+        2. 由1的证明过程可知$x = \psi(\xi) = \nabla f^*(\xi)$, 故有 
+        \begin{equation*}
+            f^{**}(x) = \xi \cdot x - f^*(\xi) = f(x).
+        \end{equation*}
+
+        3. 注意到$x = (\nabla f^*)(\nabla f(x))$, 等式两边取梯度, 即得 
+        \begin{equation*}
+            I_N = \left.(\partial_{\xi_i\xi_j}f^*(\xi))\right|_{\xi = \nabla f(x)} \cdot (\partial_{x_ix_j}f(x)).
+        \end{equation*}
+    \end{proof}
+\end{proposition}
+
+上述命题中展现了一些对称性的结果:
+
+\begin{equation*}
+    \boxed{f(x) + f^*(\xi) = \xi \cdot x, \quad \xi = \nabla f(x), \quad x = f^*(\xi).}
+\end{equation*}
+
+\begin{example}
+    设$f(x) = x^p/p, x \geq 0, p > 1$. 直接计算得$f^*(\xi) = \xi^{p'}/p', \xi \geq 0$, 其中$1/p + 1/p' = 1$.
+    注意到Legendre变换的定义, 我们便有 
+    \begin{equation*}
+        x\xi \leq \frac{1}{p}x^p + \frac{1}{p'}\xi^{p'}, \qquad x, \xi \geq 0.
+    \end{equation*}
+    这便是经典的Young不等式.
+\end{example}
+
+以下我们利用Legendre变换来推导Hamilton方程组. 给定$L \in C^2(\mathbb{R} \times \mathbb{R}^N \times \mathbb{R}^N)$, 并假设$\det(L_{p_ip_j}(t, u, p)) \neq 0$.
+令$\xi = \xi = L_p(t, u, p)$, 根据隐函数定理, 我们可以局部地解出$p = \varphi(t, u, \xi)$, 即 
+\begin{equation*}
+    p_i = \varphi_i(t, u, \xi), \quad 1 \leq i \leq N.
+\end{equation*} 
+现固定$(t, u)$, 将$L$看作是$p$的函数, 并对其(关于$p$)作Legendre变换:
+\begin{equation*}
+    \boxed{H(t, u, \xi):= L^*(t, u, \xi) = (\xi \cdot p - L(t, u, p))|_{p = \varphi(t, u, \xi)}.}
+\end{equation*}
+称$H$是\textbf{Hamilton函数}(Hamiltonian). 从上述分析中可以看出, $H$无非是$L$的Legendre变换.
+注意到Legendre变换是自反的, 故$L$也可以看作是$H$的Legendre变换.
+
+接下来考虑$L$对应的E-L方程, 并将其改写成方程组的形式:
+\begin{equation*}
+    \begin{cases} 
+        \dot u(t) = p(t), \\  
+        \displaystyle\frac{{\rm d}}{{\rm d}t}L_p(t, u(t), p(t)) - L_u(t, u, p(t)) = 0,
+    \end{cases}
+\end{equation*}
+设其解为$(u(t), p(t))$. 在等式$H(t, u, \xi)= \left.(\xi \cdot p - L(t, u, p))\right|_{p = \varphi(t, u, \xi)}$两边作微分, 即得 
+\begin{equation*}
+    H_t \,{\rm d}t + H_u \cdot {\rm d}u + H_{\xi} \cdot {\rm d}\xi = -L_t {\rm d}t - L_u \cdot {\rm d}u + p \cdot {\rm d}\xi,
+\end{equation*}
+从而有 
+\begin{equation*}
+    H_t = -L_t, \quad H_u = -L_u, \quad H_{\xi} = p.
+\end{equation*}
+若令$\xi(t) = L_p(t, u(t), p(t))$, 结合上述等式, 便有 
+\begin{equation*}
+    \dot\xi(t) = L_u(t, u(t), \dot u(t)) = L_u(t, u(t), p(t)) = -H_u(t, u(t), \xi(t)) 
+\end{equation*}
+与$\dot u(t) = p(t) = H_{\xi}(t, u(t), \xi(t))$. 综上所述, 我们有
+\begin{equation*}
+    \boxed{\begin{cases} 
+        \dot\xi(t) = -H_u(t, u(t), \xi(t)), \\ 
+        \dot u(t) = H_{\xi}(t, u(t), \xi(t)). 
+    \end{cases}}
+\end{equation*}
+这便是经典的\textbf{Hamilton方程组}, 简称H-S.
+
+\begin{remark}
+    在上述分析中, 我们先假设$(u(t), p(t))$是E-L方程的解, 从而推导出$(u(t), \xi(t))$是H-S的解.
+    反之, 对于给定的H-S的解$(u(t), \xi(t))$, 注意到关系$p(t) = \dot u(t)$和$\xi(t) = L_p(t, u(t), p(t))$, 我们有 
+    \begin{equation*}
+        \frac{{\rm d}}{{\rm d}t}L_p(t, u(t), \dot u(t)) = \dot\xi(t) = -H_u(t, u(t), \xi(t)) = L_u(t, u(t), \dot u(t)). 
+    \end{equation*}
+    这表明$(u(t), p(t))$是E-L方程的解. 综上, 我们得到了E-L方程和H-S二者之间的一个一一对应关系.
+\end{remark}
+
+以下考察H-S对应的变分积分. 可以验证, H-S是泛函 
+\begin{equation*}
+    \boxed{F(u, \xi) = \int_J(\dot u \cdot \xi - H) \,{\rm d}t}
+\end{equation*}
+所对应的E-L方程, 相应的1-形式是 
+\begin{equation*}
+    \boxed{\alpha = \xi \cdot \,{\rm d}u - H \,{\rm d}t,}
+\end{equation*}
+我们称其为\textbf{Poincaré-Cartan积分不变量}. 注意到$H$是$L$的Legendre变换, 因此泛函$F$与$I$表达式中的被积函数实际上是\textbf{同一个函数在不同变量下的表示}, 而Poincaré-Cartan积分不变量则就是上一节中提到的Hilbert积分不变量.
+
+\begin{remark}
+    Hamilton方程组对应的泛函$F$不是下方有界的, 从而没有最小值, 因此H-S的解是相应泛函的``临界点''.
+    在实际问题中, 我们视实际情况从而选用E-L方程或H-S进行求解.
+\end{remark}
+
+\begin{example}
+    对于有$n$个自由度的质点组, 记位置坐标$q = (q_1, \cdots, q_N)$, 则其动能$T = T(q) = \sum_{i, j = 1}^Na_{ij}\dot q_i\dot q_j/2$, 其中$(a_{ij})$是正定阵.
+    设位能$V = V(q)$, 则Lagrange函数$L = T - V$. 通过直接计算可知, $L$对应的E-L方程为 
+    \begin{equation*}
+        \frac{{\rm d}}{{\rm d}t}\sum_{j = 1}^na_{ij}\dot q_j = -\partial_{q_i}V(q) \quad (i = 1, \cdots, N).
+    \end{equation*}
+    此时Hamilton函数 
+    \begin{equation*}
+        H(q, \xi) = \frac{1}{2}\sum_{i, j = 1}^Na^{ij}\xi_i\xi_j + V(q)
+    \end{equation*}
+    是这个质点组的能量, 其中$(a^{ij}) = (a_{ij})^{-1}$. 对应的Hamilton方程组为 
+    \begin{equation*}
+        \begin{cases} 
+            \dot\xi_i = -\partial_{q_i}V(q), \\  
+            \dot q_i = \sum_{j = 1}^Na^{ij}\xi_j,  
+        \end{cases} 
+        \quad i= 1, \cdots, N.
+    \end{equation*}
+    一般地, 若设$(u(t), p(t))$是E-L方程的解, 直接计算得 
+    \begin{equation*}
+        \boxed{\frac{{\rm d}}{{\rm d}t}H(u(t), \xi(t)) = 0.}
+    \end{equation*}
+    即\textbf{Hamilton方程组的解曲线都保持在同一个等值面上}. 将此结果运用到上述分析中, 即得: 在运动过程中质点组的能量守恒.
+\end{example}
+
+\subsubsection{Hamilton-Jacobi方程}
+
+对于给定的Hamilton函数$H = H(t, u, \xi)$, 称一阶偏微分方程 
+\begin{equation*}
+    \boxed{\partial_tS(t, u) + H(t, u, \nabla_uS(t, u)) = 0}
+\end{equation*}
+为\textbf{Hamilton-Jacobi方程}(简称\textbf{H-J方程}), 其中$S = S(t, u)$是定义在$\mathbb{R}^{1 + N}$上的函数.
+以下我们结合Mayer场和Legendre变换等概念, 导出此方程, 并探究其与H-S之间的联系.
+
+先引入一些概念. 给定一个Lagrange函数$L$. 对于一个极值场$(\Omega, \psi)$, 其上有一个对应的1-形式, 即Hilbert不变积分因子:
+\begin{equation*}
+    \omega = L_p(t, u, \psi(t, u)) \cdot {\rm d}u - (\psi(t, u) \cdot L_p(t, u, \psi(t, u)) - L(t, u, \psi(t, u))) {\rm d}t.
+\end{equation*}
+我们已经知道, $(\Omega, \psi)$是一个Mayer场, 当且仅当$\omega$是闭的. 因此, 在一个Mayer场上我们可以由$\omega$定义出$\Omega$上的一个单值函数$g$:
+\begin{equation*}
+    \boxed{g(t, u) := g(t_0, u_0) + \int_{\gamma}\omega,}
+\end{equation*}
+其中$\gamma$是连接$(t_0, u_0)$与$(t, u)$的任意一条曲线. 我们称此单值函数$g$为\textbf{程函}.
+此外, 由程函定义可知, $g$满足如下方程组:
+\begin{equation*}
+    \boxed{\begin{cases} \
+        \nabla_ug(t, u) = L_p(t, u, \psi(t, u)), \\  
+        \partial_tg(t, u) = L(t, u, \psi(t, u)) - \psi(t, u) \cdot L_p(t, u, \psi(t, u)). 
+    \end{cases}}
+\end{equation*}
+称此方程组为\textbf{Carathéodory方程组}.
+
+\begin{example}
+    设$\gamma = (t, u(t)) \subseteq (\Omega, \psi)$是一条极值曲线. 直接计算得 
+    \begin{equation*}
+        g(t_2, u(t_2)) - g(t_1, u(t_1)) = \int_{\gamma}\omega = \int_JL(t, u(t), \dot u(t)) \,{\rm d}t.
+    \end{equation*}
+    由此表明, \textbf{程函在同一极值曲线上两点的差等于Lagrange函数沿这条曲线的积分}.
+    在光学中, Lagrange函数表示光在传播中瞬时走过的路程除以速度, 沿这条曲线的积分就等于光线从$(t_1, u(t_1))$传播到$(t_2, u(t_2))$所经历的时间.
+    由上述分析可知, 程函的等值面$\{g(t, u) = {\rm const}\}$可以用来表示从一点发出的一束光线的等时面, 即波阵面.
+\end{example}
+
+以下我们导出H-J方程. 给定Mayer场$(\Omega, \psi)$, 其对应的程函$g$满足Carathéodory方程组.
+将$\xi = L_p(t, u, \psi(t, u))$代入至Carathéodory方程组中, 即得  
+\begin{equation*}
+    \partial_tg(t, u) + H(t, u, \nabla_ug(t, u)) = 0,
+\end{equation*}
+其中$H$是$L$的Legendre变换, 即Hamilton函数. 这表明$g$满足H-J方程.
+
+\begin{remark}
+    注意到$H$是$L$的Legendre变换, 对于给定的Hamilton函数$H$和对应的H-S的一组解$(u(t), \xi(t))$, 令$p(t) = H_{\xi}(t, u(t), \xi(t))$, 则$(u(t), p(t))$便是E-L方程的解. 再利用等式
+    \begin{equation*}
+        L(t, u(t), p(t)) = \dot u(t) \cdot \xi(t) - H(t, u(t), \xi(t)),
+    \end{equation*} 
+    我们便可以写出Lagrange函数$L$. 因此 
+    \begin{equation*}
+        g(t, u) = g(t_0, u(t_0)) + \int_{t_0}^t L(t, u(t), p(t)) \,{\rm d}t
+    \end{equation*}
+    便是H-J方程的一个解. 上述分析表明, 我们可以从任取初值得到的H-S的所有解导出H-J的解.
+\end{remark}
+
+事实上, 我们也可以从H-J方程的解导出H-S的解.
+
+\begin{definition}
+    设$g = g(t, u; \lambda_1, \cdots, \lambda_N)$是H-J方程一族依赖于$N$个参数$(\lambda_1, \cdots, \lambda_N) \in \Lambda$的解, 其中$\Lambda \in \mathbb{R}^N$是一个区域.
+    如果$\det(g_{u_i\lambda_j}) \neq 0$, 那么称$g$为一个\textbf{完全积分}.
+\end{definition}
+
+\begin{theorem}[Jacobi]
+    设$C^2$函数$g = g(t, u; \lambda_1, \cdots, \lambda_N)$是H-J方程的一个完全积分. 若依赖于$2N$个参数$(\alpha, \beta) = (\alpha_1, \cdots, \alpha_N, \beta_1, \cdots, \beta_N)$的函数 
+    \begin{equation*}
+        \begin{cases} 
+            u = U(t, \alpha, \beta), \\  
+            p = P(t, \alpha, \beta)  
+        \end{cases}
+    \end{equation*}
+    满足方程
+    \begin{equation}\label{9}
+        \begin{cases} 
+            g_{\alpha_i}(t, U(t, \alpha, \beta), \alpha) = -\beta_i, \\  
+            P_i(t, \alpha, \beta) = g_{u_i}(t, U(t, \alpha, \beta), \alpha),  
+        \end{cases}  
+        \quad  i = 1, \cdots, N,
+    \end{equation}
+    那么$(U, P)$便是H-S的一族解.
+    \begin{proof}
+        先在H-J方程的两端对$\alpha_i$求偏导, 即得 
+        \begin{equation*}
+            g_{t, \alpha_i} + \sum_{k = 1}^NH_{\xi_k}(t, u, \nabla_ug)g_{u_k, \alpha_i} = 0, \quad i = 1, \cdots, N.
+        \end{equation*}
+        将等式$u = U(t, \alpha, \beta)$代入至上式, 并利用\eqref{9}的第二个等式, 便有 
+        \begin{equation}\label{10}
+            g_{t, \alpha_i}(t, U, \alpha) + \sum_{k = 1}^NH_{\xi_k}(t, U, P)g_{u_k\alpha_i}(t, U, \alpha) = 0.
+        \end{equation}
+        再对\eqref{9}的第一个方程等式两边对$t$求偏导, 我们有
+        \begin{equation}\label{11}
+            g_{t, \alpha_i}(t, U, \alpha) + \sum_{k = 1}^Ng_{\alpha_iu_k}(t, U, \alpha)\dot U_k(t, \alpha, \beta) = 0.
+        \end{equation} 
+        联立\eqref{10}和\eqref{11}, 并注意到$g$是完全积分, 从而有 
+        \begin{equation*}
+            \dot U_k(t, \alpha, \beta) =H_{\xi_k}(t, U(t, \alpha, \beta), P(t, \alpha, \beta)), \quad k = 1, \cdots, N.
+        \end{equation*}
+        这是H-S的一组方程. 另一方面, 对H-J方程等式两边对$u_i$求偏导, 并将等式$u = U(t, \alpha, \beta), P(t, \alpha, \beta) = \nabla_ug(t, U(t, \alpha, \beta), \alpha)$代入, 得 
+        \begin{equation*}
+            -H_{u_i}(t, U, P) = g_{t, u_i}(t, U, \alpha) + \sum_{k = 1}^Ng_{u_iu_k}(t, U, \alpha)\dot U_k(t, \alpha, \beta).
+        \end{equation*}
+        对\eqref{9}的第二个方程等式两边对$t$求偏导, 我们有 
+        \begin{equation*}
+            \dot P_i(t, \alpha, \beta) = g_{u_i, t}(t, U, \alpha) + \sum_{k = 1}^Ng_{u_iu_k}(t, U, \alpha)\dot U_k(t, \alpha, \beta).
+        \end{equation*}
+        从而我们得到 
+        \begin{equation*}
+            \dot P_k(t, \alpha, \beta) = -H_{u_k}(t, U, P), \quad k = 1, \cdots, N.
+        \end{equation*}
+        这便是H-S的另一组方程.
+    \end{proof}
+\end{theorem}
+
+由Jacobi定理可知, 我们可以用H-J方程的解写出H-S的解. 具体方法如下: 设$g$是一个完全积分, 先解$N$个函数方程 
+\begin{equation*}
+    g_{\alpha_i}(t, u, \alpha) = -\beta_i, \quad i = 1, \cdots, N,
+\end{equation*}
+由此得到 
+\begin{equation}\label{12}
+    u = U(t, \alpha, \beta). 
+\end{equation}
+因此
+\begin{equation}\label{13}
+    p = P(t, \alpha, \beta) = \nabla_ug(t, U(t, \alpha, \beta), \alpha).
+\end{equation}
+从而$(u, p)$就是H-S的解.
+
+\begin{remark}
+    注意到完全积分与通解的意义是不同的. 若考虑H-J方程的Cauchy问题, 由唯一性可知, 它的通解里应该含有一个任意函数$\varphi = \varphi(u)$, 而不仅仅是$2N$个独立参数.
+    但是, H-S初值问题的解可以由H-J方程的一个完全积分$g$所确定. 具体地, 我们考虑H-S方程的初值问题 
+    \begin{equation}\label{14}
+        \begin{cases} 
+            \dot u = H_{\xi}(t, u, \xi), \\ 
+            \dot \xi = -H_u(t, u, \xi), \\  
+            u(0) = u_0, \xi(0) = \xi_0,  
+        \end{cases}
+    \end{equation}
+    其中$u_0, \xi_0$是任意常数. 如果$g$是一个完全积分, 那么$\det(g_{u_i\alpha_j}) \neq 0$, 我们因此可以使用隐函数定理对方程 
+    \begin{equation*}
+        \xi_0 = \nabla_ug(0, u_0, \alpha), 
+    \end{equation*}
+    解出$\alpha_0 = \alpha(u_0, \xi_0)$. 再令 
+    \begin{equation*}
+        \beta_0 = -\nabla_{\alpha}g(0, u_0, \alpha_0), 
+    \end{equation*}
+    并将$(\alpha_0, \beta_0)$作为初值代入至\eqref{12}和\eqref{13}中, 我们便得到了初值问题\eqref{14}的解.
+\end{remark}
+
+\subsubsection{例}
+
+\begin{example}[光在介质中的传播]
+    设在介质中一点$(t, u) \in \mathbb{R} \times \mathbb{R}^N$的介质密度是$\rho = \rho(t, u)$.
+    以真空光速为单位, 若在此点的光速为$1/\rho(t, u)$, 则对应的Lagrange函数为 
+    \begin{equation*}
+        L(t, u, p) = \rho(t, u)\sqrt{1 + p^2}.
+    \end{equation*}
+    从而有 
+    \begin{equation*}
+        H(t, u, \xi) = -\sqrt{\rho(t, u)^2 - \xi^2}.
+    \end{equation*}
+    此时程函$g$满足H-J方程 
+    \begin{equation*}
+        \partial_tg = \sqrt{\rho^2 - |\nabla u|^2},
+    \end{equation*}
+    对应的方向场 
+    \begin{equation*}
+        \psi(t, u) = H_{\xi}(t, u, \nabla_ug) = \frac{\nabla_ug}{\sqrt{\rho^2 - |\nabla_ug|^2}} = \frac{\nabla_ug}{\partial_tg}.
+    \end{equation*}
+    即有 
+    \begin{equation*}
+        (\dot t, \dot u) = (1, \dot u) = (\partial_tg)^{-1}(\partial_tg, \nabla_ug).
+    \end{equation*}
+    由上述结果可知, 积分曲线$(t, u)$空间中沿波阵面$\{g(t, u) = {\rm const}\}$的法方向.
+    上述分析表明: 光线垂直于波阵面.
+\end{example}
+
+\begin{example}[简谐振动]
+    给定Lagrange函数 
+    \begin{equation*}
+        L= \frac{1}{2}(mp^2 - ku^2),
+    \end{equation*}
+    其中$m$与$k$都是正常数. 通过直接计算可知, 其对应的Hamilton函数 
+    \begin{equation*}
+        H(t, u, p) = \frac{1}{2}\left(\frac{p^2}{m} + ku^2\right), 
+    \end{equation*}
+    且对应的H-S 
+    \begin{equation}\label{15}
+        \begin{cases} 
+            \displaystyle\dot u = \frac{p}{m}, \\  
+            \dot p = -ku 
+        \end{cases}
+    \end{equation}
+    有解
+    \begin{equation*}
+        \begin{cases} 
+            \displaystyle u = C\sin\left(\sqrt{\frac{k}{m}}(t + t_0)\right), \\  
+            \displaystyle p = C\sqrt{mk}\cos\left(\sqrt{\frac{k}{m}}(t + t_0)\right), 
+        \end{cases}
+    \end{equation*}
+    其中$t_0, C$是任意常数. 我们现在利用Jacobi定理, 通过H-J方程把\eqref{15}的解写出来.
+    考虑一个特殊的$g(t, u, \alpha) = \varphi(u, \alpha) - \alpha t$, 其中$\alpha$是一个参数, $\varphi$是一个待定的函数.
+    将此代入至H-J方程中, 得
+    \begin{equation*}
+        \frac{1}{2}\left(\frac{\varphi_u^2}{m} + ku^2\right) = \alpha,
+    \end{equation*} 
+    即$\varphi_u = \sqrt{m(2\alpha - ku^2)}$. 解出来有 
+    \begin{equation*}
+        g(t, u, \alpha) = \int_0^u\sqrt{m(2\alpha - kv^2)} \,{\rm d}v - \alpha t.
+    \end{equation*}
+    此时$g_{\alpha u} = 2m \neq 0$. 现考虑方程 
+    \begin{equation*}
+        -\beta = g_{\alpha}(t, u, \alpha) = \sqrt{\frac{m}{k}}\arcsin\left(\sqrt{\frac{k}{2\alpha}}u\right) - t,
+    \end{equation*}
+    解得 
+    \begin{equation*}
+        u = \sqrt{\frac{2\alpha}{k}}\sin\left(\frac{k}{m}(t - \beta)\right). 
+    \end{equation*}
+    将上式代入至$g$中, 即得 
+    \begin{equation*}
+        p = g_u = \sqrt{2\alpha m}\cos\left(\frac{k}{m}(t - \beta)\right).
+    \end{equation*}
+    这便是\eqref{15}带有两个参数$\alpha, \beta$的解.
+\end{example}
