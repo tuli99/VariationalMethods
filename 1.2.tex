@@ -1,0 +1,285 @@
+\subsection{充分与必要条件: Legendre-Hadamard条件, Jacobi场}
+
+一阶导/梯度 $\leadsto$ 一阶变分 $\Rightarrow$ E-L方程;
+二阶导/Hessian阵 $\leadsto$ $\cdots$
+
+设$\Omega$为$\mathbb{R}^N$中的开集, $f \in C^2(\Omega)$在$x_0 \in \Omega$处取得极小值.
+由多元微积分的知识可知, 此时Hessian阵$(\partial_{ij}f)|_{x = x_0}$是半正定的; 反之, 若$(\partial_{ij}f)|_{x = x_0}$是正定的, 则$f$在$x_0$处取到极小值.
+
+\subsubsection{二阶变分, Legendre-Hadamard条件}
+
+设$L \in C^2(J \times \mathbb{R}^N \times \mathbb{R}^N)$, 
+\begin{equation*}
+    I(u) = \int_JL(t, u(t), \dot{u}(t)) \,{\rm d}t.
+\end{equation*}
+又设$u^* \in M$是对应E-L方程的解. 同1.1节的处理方法, 对任意的$\varphi \in C_0^1(J)$, 考虑单变量函数$g_{\varphi}(\varepsilon) = I(u^* + \varepsilon\varphi), 0 < |\varepsilon| < \varepsilon(\varphi)$.
+则$g_{\varphi}$以$x = 0$为极小值点, 从而有$\ddot g_{\varphi}(0) \geq 0$. 直接计算得 
+\begin{align*}
+    \ddot{g}(0) &= \sum\limits_{i, j = 1}^N\int_J(L_{u_iu_j}(t, u^*(t), \dot{u}^*(t))\varphi_i(t)\varphi_j(t) + \\
+    &L_{u_ip_j}(t, u^*(t), \dot{u}^*(t))\varphi_i(t)\dot{\varphi}_j(t) + L_{p_ip_j}(t, u^*(t), \dot{u}^*(t))\dot{\varphi}_i(t)\dot{\varphi}_j(t)) \,{\rm d}t.
+\end{align*}
+将上述等号右侧的表达式记为$\delta^2I(u^*, \varphi)$, 称为$I$在$u^*$处的\textbf{二阶变分}.
+若引入函数矩阵
+\begin{equation*}
+    \begin{cases} 
+        A_{u^*} = (L_{p_ip_j}(t, u^*(t), \dot{u}^*(t))), \\  
+        B_{u^*} = (L_{p_iu_j}(t, u^*(t), \dot{u}^*(t))), \\  
+        C_{u^*} = (L_{u_iu_j}(t, u^*(t), \dot{u}^*(t))).   
+    \end{cases}
+\end{equation*}
+则二阶变分的表达式可以简化为 
+\begin{equation*}
+    \int_J(\dot\varphi^tA_{u^*}\dot{\varphi} + 2\dot{\varphi}^tB_{u^*}\varphi + \varphi^tC_{u^*}\varphi) \,{\rm d}t.
+\end{equation*}
+
+由上述分析, 我们有必要条件
+\begin{equation*}
+    u^*\text{极小} \Rightarrow \delta^2I(u^*, \varphi) \geq 0, \forall\varphi \in C_0^1(J).
+\end{equation*}
+上述必要条件可以进一步简化. 事实上, 三个矩阵$A_{u^*}, B_{u^*}, C_{u^*}$在判断$u^*$成为极小点中的地位是不平等的, 具体体现在当$\Vert \varphi \Vert_C$变化不大时, $\Vert \varphi \Vert_{C^1}$可以有很大的变化;
+或者说, $\dot\varphi$比$\varphi$的影响更大.
+
+\begin{proposition}[必要条件1]
+    设$L \in C^2(J \times \mathbb{R}^N \times \mathbb{R}^N)$. 若$u^* \in M$是$I$的极小点, 则$A_{u^*}$是半正定的, 即
+    \begin{equation}\label{2}
+        \boxed{\xi^tA_{u^*}\xi = \sum\limits_{i, j = 1}^NL_{p_i, p_j}(\tau, u^*(\tau), \dot{u}^*(\tau))\xi_i\xi_j \geq 0, \qquad \forall \tau \in J, \xi \in \mathbb{R}^N.}
+    \end{equation}
+    称\eqref{2}为\textbf{Legendre-Hadamard条件}.
+    \begin{proof}
+        取$v \in C^1(\mathbb{R})\colon v|_{|s| \geq 1} = 0, \Vert \dot v \Vert_{L^2(\mathbb{R})}^2 = 1$.
+        对任意的$\tau \in {\rm Int}(J), \xi \in \mathbb{R}^N$以及充分小的$\mu > 0$, 令 
+        \begin{equation*}
+            \varphi(t) = \xi\mu v\left(\frac{t - \tau}{\mu}\right).
+        \end{equation*}
+        将上述构造的$\varphi$代入至二阶变分的表达式中, 即得 
+        \begin{equation*}
+            0 \leq \delta^2I(u^*, \varphi) = \mu(\xi^tA_{u^*}\xi) + o(\mu) \qquad (\mu \rightarrow 0^+). 
+        \end{equation*}
+        上式即表明$A_{u^*}$是半正定的.
+    \end{proof}
+\end{proposition}
+
+\subsubsection{Poincaré不等式}
+
+\begin{proposition}[充分条件1]\label{prop1.10}
+    若$u^* \in C_0^1(J)$满足E-L方程, 且存在$\lambda > 0$使得
+    \begin{equation*}
+        \delta^2I(u^*, \varphi) \geq \lambda\int_J(|\varphi|^2+|\dot\varphi|^2) \,{\rm d}t, \forall \varphi \in C_0^1(J),
+    \end{equation*}
+    则$u^*$是$I$的一个严格极小点.
+    \begin{proof}
+        对任意的$\varphi \in C_0^1(J)$, 令$g_{\varphi}(\varepsilon) = I(u^* + \varepsilon\varphi), 0 < |\varepsilon| < \varepsilon(\varphi)$.
+        注意到$u^*$满足E-L方程, 故有 
+        \begin{equation*}
+            g(\varepsilon) - g(0) = g(\varepsilon) - g(0) - s\dot g(0) = \frac{s^2}{2}\ddot g(\theta \varepsilon) = \frac{s^2}{2}(\ddot g(\theta \varepsilon) - \ddot g(0)) + \frac{s^2}{2}\ddot g(0), 
+        \end{equation*}
+        其中$\theta = \theta(\varphi) \in (0, 1)$. 再注意到对于$\Vert \varphi \Vert_{C^1} \leq 1$, 当$s \rightarrow 0$时有 
+        \begin{equation*}
+            |A_{u^* + \varepsilon\varphi} - A_{u^*}| + |B_{u^* + \varepsilon\varphi} - B_{u^*}| + |C_{u^* + \varepsilon\varphi} - C_{u^*}| = o(1).
+        \end{equation*}
+        因此当$|\varepsilon| > 0$充分小时, 存在$\eta < \lambda$使得 
+        \begin{equation*}
+            \ddot g(\theta \varepsilon) - \ddot g(0) \geq -\eta\int_J(|\varphi|^2 + |\dot\varphi|^2) \,{\rm d}t.
+        \end{equation*}
+        结合题设条件, 我们便有
+        \begin{equation*}
+            I(u^* + \varepsilon\varphi) - I(u^*) = g(\varepsilon) - g(0) \geq \frac{\varepsilon^2}{2}(\lambda - \eta)\int_J(|\varphi|^2 + |\dot\varphi|^2) \,{\rm d}t > 0,
+        \end{equation*} 
+        从而$u^*$是$I$的严格极小点.
+    \end{proof}
+\end{proposition}
+
+\begin{remark}
+    由上述命题, 如果矩阵
+    \begin{equation*}
+        \begin{pmatrix} 
+            A_{u^*} & B_{u^*} \\ 
+            B_{u^*} & C_{u^*} 
+        \end{pmatrix} 
+    \end{equation*} 
+    是正定的, 那么E-L方程的解$u^*$必是极小点.
+\end{remark}
+
+命题\ref{prop1.10}给出的充分条件还可以被进一步地简化.
+
+\begin{lemma}[Poincaré不等式]\label{lma1.12}
+    设$\varphi \in C_0^1[t_0, t_1]$, 则 
+    \begin{equation}\label{3}
+        \int_J|\varphi|^2 \,{\rm d}t \leq \frac{(t_1 - t_0)^2}{2}\int_J|\dot\varphi|^2 \,{\rm d}t.
+    \end{equation}
+    \begin{proof}
+        注意到
+        \begin{equation*}
+            \varphi(t) = \int_{t_0}^t\dot\varphi(s) \,{\rm d}s,
+        \end{equation*}
+        故由Cauchy-Schwarz不等式可知, 
+        \begin{equation*}
+            |\varphi(t)|^2 \leq \left(\int_{t_0}^t|\dot\varphi(s)|^2 \,{\rm d}s\right)^2 \leq (t - t_0)\int_J|\dot\varphi(s)|^2 \,{\rm d}s.
+        \end{equation*}
+        积分得 
+        \begin{equation*}
+            \int_J|\varphi(t)|^2 \,{\rm d}t \leq \frac{(t_1 - t_0)^2}{2}\int_J|\dot\varphi|^2 \,{\rm d}t.
+        \end{equation*}
+    \end{proof}
+\end{lemma}
+
+\begin{remark}
+    若$\varphi \in {\rm AC(J)}$, $\dot\varphi \in L^2(J)$且$\varphi(a) = 0$, 则Poincaré不等式\eqref{3}仍成立.
+\end{remark}
+
+由Poincaré不等式可知, 若存在$\lambda > 0$使得
+\begin{equation*}
+    \delta^2I(u^*, \varphi) \geq \lambda\int_J|\dot\varphi|^2 \,{\rm d}t, \qquad \forall \varphi \in C_0^1(J),
+\end{equation*}
+那么命题\ref{prop1.10}成立.
+
+\begin{proposition}[充分条件2]\label{prop1.14}
+    给定一个足够光滑的$L$, 设沿其E-L方程的解$u^*$满足\textbf{严格的Legendre-Hadamard条件}, 即$A_{u^*}$是正定的.
+    若存在$\mu > 0$使得 
+    \begin{equation*}
+        \delta^2I(u^*, \varphi) \geq \mu\int_J|\varphi|^2 \,{\rm d}t, \qquad \forall \varphi \in C_0^1(J),
+    \end{equation*}
+    则存在$\lambda > 0$使得
+    \begin{equation*}
+        \delta^2I(u^*, \varphi) \geq \lambda\int_J(|\varphi|^2+|\dot\varphi|^2) \,{\rm d}t, \qquad \forall \varphi \in C_0^1(J).
+    \end{equation*}
+    从而$u^*$是$I$的一个严格极小值点.
+    \begin{proof}
+        由于$A_{u^*}$是正定的, 故存在$\alpha > 0$使得 
+        \begin{equation*}
+            \dot\varphi^tA_{u^*}\dot\varphi \geq \alpha|\dot\varphi|^2, \qquad \forall \varphi \in C_0^1(J).
+        \end{equation*}
+        从而存在正常数$C_1, C_2$使得
+        \begin{align*} 
+            \alpha\int_J|\dot\varphi|^2 \,{\rm d}t &\leq \delta^2I(u^*,\varphi) + \int_J(2| \dot\varphi^tB_{u^*}\varphi| + |\varphi^t C_{u^*}\varphi|) \,{\rm d}t \\ 
+            &\leq \delta^2I(u^*,\varphi) + C_1\left(\left(\int_J|\dot\varphi|^2 \,{\rm d}t\right)^{1/2}\left(\int_J|\varphi|^2 \,{\rm d}t\right)^{1/2} + \int_J|\varphi|^2 \,{\rm d}t\right) \\ 
+            &\leq \delta^2I(u^*,\varphi) + \frac{\alpha}{2}\int_J|\dot\varphi|^2 \,{\rm d}t + C_2\int_J|\varphi|^2 \,{\rm d}t, 
+        \end{align*}
+        这里我们用到了加权的初等不等式$\sqrt{ab} \leq (ka + b/k)/2, a, b > 0, k > 0$.
+        由此即得 
+        \begin{equation*}
+            \int_J|\dot\varphi|^2 \,{\rm d}t \leq \frac{2}{\alpha}(1+C_2\mu^{-1})\delta^2I(u^*, \varphi), \qquad \forall \varphi \in C_0^1(J).
+        \end{equation*} 
+        这表明$u^*$是一个极小点.
+    \end{proof}
+\end{proposition}
+
+\subsubsection{Jacobi场, 共轭点}
+
+1.2.2节中列出的充分条件中仍含有任意函数$\varphi$, 还需要寻找更为精确的充分条件.
+以下我们建立充分条件与严格Legendre-Hadamard条件之间的联系.
+
+注意到二阶变分的具体表达式. 设$L \in C^3, u^*$是E-L方程的解. 令 
+\begin{equation*}
+    \boxed{\Phi_{u^*}(t, \xi, \eta) := \eta^tA_{u^*}\eta+2\xi^tB_{u^*}\eta+\xi^tC_{u^*}\xi, \qquad \forall(\xi, \eta) \in \mathbb{R}^N \times \mathbb{R}^N.}
+\end{equation*}
+我们称其为\textbf{附属的(accessory)Lagrange函数}. 此时$\delta^2I(u^*, \varphi)$可以看作是附属Lagrange函数相关的变分积分:
+\begin{equation*}
+    \delta^2I(u^*, \varphi) = Q_{u^*}(\varphi)=\int_J\Phi_{u^*}(t, \varphi(t), \dot\varphi(t)) \,{\rm d}t.
+\end{equation*}
+若设$u^*$是一个极小点, 则有$Q_{u^*}(\varphi) = \delta^2I(u^*, \varphi) \geq 0, \forall\varphi \in C_0^1(J)$.
+注意到$Q_{u^*}(0) = 0$, 故$0$是$Q_{u^*}$的极小点. 更一般地, 我们将$Q_{u^*}$的定义域扩充到${\rm Lip}_0(J)$上, 导出它的积分形式的E-L方程:
+\begin{equation*}
+    A_{u^*}\dot\varphi(t) + B_{u^*}\varphi(t) - \int_{t_0}^t(B_{u^*}\dot\varphi(t) + C_{u^*}\varphi(t)) \,{\rm d}t = {\rm const}. 
+\end{equation*}
+事实上, 若$L$沿$u^*$满足满足严格的Legendre-Hadamard条件, 那么上述方程的解$\varphi \in C^2(J)$.
+因此$\varphi$满足微分形式的E-L方程:
+\begin{equation*}
+    \boxed{J_{u^*}(\varphi)= \frac{{\rm d}}{{\rm d}t}(A_{u^*}\dot\varphi(t) + B_{u^*}\varphi(t)) - (B_{u^*}\dot\varphi(t) + C_{u^*}\varphi(t)) = 0, \quad t \in J.}
+\end{equation*}
+称此方程为\textbf{Jacobi方程}, 算子$J_{u^*}$为沿E-L方程的解$u^*$的\textbf{Jacobi算子}, Jacobi算子的任意一个$C^2$解为沿轨道$u^*$的一个\textbf{Jacobi场}.
+
+\begin{proposition}[Jacobi场的刻画]\label{prop1.15}
+    设$\varphi^*$是沿$u^*$的一个Jacobi场, 则$Q_{u^*}(\varphi^*) = 0$;
+    反之, 若$\varphi^* \in {\rm Lip}_0(J)$满足$Q_{u^*}(\varphi^*) = 0$, 而且$Q_{u^*}(\varphi^*) \geq 0, \forall \varphi \in C_0^1(J)$, 则$\varphi^*$是沿$u^*$的一个Jacobi场.
+    \begin{proof}
+        若$\varphi^*$是沿$u^*$的一个Jacobi场, 通过直接计算可得
+        \begin{align} 
+            Q_{u^*}(\varphi^*) &= \int_J((\dot\varphi^*)^t(A_{u^*}\dot{\varphi}^* +B_{u^*}\varphi^*) + (\varphi^*)^t(B_{u^*}\dot\varphi^* + C_{u^*}\varphi^*)) \,{\rm d}t \\ 
+            &= \int_J(\varphi^*)^t\left(-\frac{{\rm d}}{{\rm d}t}(A_{u^*}\dot\varphi^* + B_{u^*}\varphi^*) + (B_{u^*}\dot\varphi^* + C_{u^*}\varphi^*)\right) \,{\rm d}t \\  
+            &= -\int_J (\varphi^*)^t J_{u^*}(\varphi^*) \,{\rm d}t = 0. 
+        \end{align} 
+        反之, 利用光滑函数逼近，我们有
+        \begin{equation*}
+            Q_{u^*}(\varphi) = 0, \qquad \forall \varphi \in {\rm Lip}_0(J). 
+        \end{equation*}
+        于是$\varphi^*$是$u^*$的一个极小点.由前述分析可知, $\varphi^*$也满足微分形式的E-L方程, 即$J_{u^*}(\varphi^*) = 0$. 
+    \end{proof}
+\end{proposition}
+
+\begin{definition}
+    设$u^*$是$I$的E-L方程的一个解. 称$(a, u^*(a))$与$(b, u^*(b))$是轨道$(t, u^*(t))$上的一对\textbf{共轭点}, 如果存在一个沿$u^*(t)$的非零Jacobi场$\varphi \in C_0^1[a, b]$.
+    若在轨道$\{(t, u^*(t))\colon t \in (t_0, t_1]\}$上$(t_0, u^*(t_0))$没有共轭点，则称$u^*$没有共轭点.
+\end{definition}
+
+\begin{proposition}[必要条件2]
+    设$u^*$是$I$的E-L方程的一个解, 且$L$沿$u^*$满足严格的Legendre-Hadamard条件.
+    若$Q_{u^*}(\varphi) \geq 0, \forall \varphi \in C_0^1(J)$, 则不存在$a \in {\rm Int}(J)$使得$(a, u^*(a))$共轭于$(t_0, u^*(t_0))$.
+    \begin{proof}
+        若不然, 设存在$a \in {\rm Int}(J)$使得$(a, u^*(a))$是$(t_0, u^*(t_0))$的共轭点, 即存在$u^*$的非零Jacobi场$\xi \in C^2[t_0, a]$, 并满足$\xi(a) = \xi(t_0) = 0$.
+        现令 
+        \begin{equation*}
+            \widetilde{\xi}(t) =  
+            \begin{cases} 
+                \xi(t) \quad &t \in  [t_0, a], \\  
+                0 \quad &t \in (a, t_1], 
+            \end{cases} 
+        \end{equation*}
+        则$\widetilde{\xi} \in {\rm Lip}(J)$, 且满足$\widetilde{\xi}(t_0) = \widetilde{\xi}(t_1) = 0$, 而且 
+        \begin{equation*}
+            Q_{u^*}(\widetilde{\xi}) = \int_{t_0}^a\Phi_{u^*}(t, \xi(t), \dot\xi(t)) \,{\rm d}t = 0.
+        \end{equation*}
+        由命题\ref{prop1.15}可知, $\widetilde{\xi} \in C^2(J)$且满足Jacobi方程, 即$J_{u^*}(\widetilde{\xi}) = 0$.
+        由常微分方程初值问题的唯一性可知, $\widetilde{\xi} = 0$, 矛盾.
+    \end{proof}  
+\end{proposition}
+
+当$N = 1$时, 上述命题的逆也成立.
+
+\begin{proposition}[充分条件3, $N = 1$]
+    设$u^*$是E-L方程的一个解, $L$沿$u^*$满足严格的Legendre-Hadamard条件.
+    若在$J$上存在一个正的Jacobi场$\psi$, 则$u^*$是一个严格极小点。特别地，若$u^*$没有共轭点, 则在$J$上存在一个正的Jacobi场.
+    \begin{proof}
+        证明分三步进行.
+
+        \emph{Step 1.} 若$u^*$没有共轭点, 那么便存在一个正的Jacobi场. 事实上, 设$\lambda$是一个Jacobi场, 其中$\lambda(t_0) = 0, \dot\lambda(t_0) = 1$.
+        由假设条件可知, $\lambda(t) > 0, t \in (t_0, t_1]$. 再根据微分方程对初值的连续依赖性, 故存在一个Jacobi场$\psi$使得$\psi(t) > 0, t \in J$.
+
+        \emph{Step 2.} 对任意的$\varphi \in C_0^1(J)$, 有 
+        \begin{equation*}
+            Q_{u^*}(\varphi)=\int_JA_{u^*}\psi^2\dot{\left(\frac{\varphi}{\psi}\right)}^2 \,{\rm d}t. 
+        \end{equation*}
+        记$\alpha = \varphi/\psi$, 则$\varphi = \alpha\psi, \dot\varphi = \dot\alpha\psi + \alpha\dot\psi$.
+        从而有 
+        \begin{equation*}
+            A_{u^*}\dot\varphi^2+2B_{u^*}\dot\varphi\varphi+C_{u^*}\varphi^2=\alpha^2(A_{u^*}\dot\psi^2+2B_{u^*}\dot\psi\psi+C_{u^*}\psi^2)+2\dot\alpha\alpha(A_{u^*}\dot\psi+B_{u^*}\psi)+\dot\alpha^2A_{u^*}\psi^2. 
+        \end{equation*}
+        注意到$\psi$满足Jacobi方程, 故 
+        \begin{align*}
+            Q_{u^*}(\varphi) &= \int_J\left(\frac{{\rm d}(\psi\lambda^2)}{{\rm d}t}(A_{u^*}\dot\psi+B_{u^*}\psi) + \psi\lambda^2\frac{{\rm d}(A_{u^*}\dot\psi+B_{u^*}\psi) }{{\rm d}t} + A_{u^*}\dot\lambda^2\psi^2\right) \,{\rm d}t \\  
+            &= \left.(\psi\lambda^2(A_{u^*}\dot\psi+B_{u^*}\psi))\right|_{t_0}^{t_1} + \int_JA_{u^*}\dot\lambda^2\psi^2\,{\rm d}t \\  
+            &= \int_JA_{u^*}\dot\lambda^2\psi^2\,{\rm d}t.
+        \end{align*}
+
+        \emph{Step 3.} 记$\beta = \inf_J (A_{u^*}\psi^2) > 0$. 对任意的$\varphi \in C_0^1(J)$, 由Poincaré不等式可得 
+        \begin{align*}
+            Q_{u^*}(\varphi) = \int_JA_{u^*}\psi^2\dot{\left(\frac{\varphi}{\psi}\right)}^2\,{\rm d}t  \geq \beta\int_J\dot{\left(\frac{\varphi}{\psi}\right)}^2\,{\rm d}t &\geq \frac{2\beta}{|J|^2}\int_J\left(\frac{\varphi}{\psi}\right)^2 \,{\rm d}t 
+            \\ &\geq \frac{2\beta}{|J|^2}\inf_J\left(\frac{1}{\psi^2}\right)\int_J\varphi^2 \,{\rm d}t.
+        \end{align*}
+        结合命题\ref{prop1.14}的结论, 我们便证得了所需结论.
+    \end{proof}
+\end{proposition}
+
+\begin{example}
+    设$M = \{u \in C^1[0, 1]\colon u(0) = 1, u(1) = b\}$. 考虑以下泛函 
+    \begin{equation*}
+        I(u) = \int_0^1(t\dot u + \dot u^2) \,{\rm d}t.
+    \end{equation*}
+    \begin{proof}[解]\let\qed\relax
+        直接计算得$L_u = 0, L_p = 2p + t$, 故其E-L方程$2\ddot u + 1 = 0$有满足初值条件的解
+        \begin{equation*}
+            u^*(t) = -\frac{t^2}{4} + \left(b - a + \frac{1}{4}\right)t + a.
+        \end{equation*}
+        由于$L_{pp} = 2 > 0$, 并且对应的Jacobi方程$\ddot\varphi = 0$在$[0, 1]$上有一个正解, 所以$u^*$是一个严格极小点.
+    \end{proof}
+\end{example}
