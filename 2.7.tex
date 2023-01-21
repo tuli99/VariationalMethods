@@ -1,0 +1,300 @@
+\subsection{专题三: Ekeland变分原理}
+
+下述的Ekeland变分原理给出了选取一串近似极小点的方法. 此外, 若将其与近代变分学常用的紧性条件Palais-Smale条件结合起来, 则提供了一个求解更广意义下的极小点(即临界点)的方法. 
+
+\begin{theorem}[Ekeland]
+    设$(X, d)$是一个完备的度量空间. 又设$f\colon X \rightarrow (-\infty, +\infty]$, 且$f \not\equiv +\infty$.
+    若$f$是下方有界且下半连续的, 则对任意的$\varepsilon > 0$和$x_{\varepsilon} \in X$使得$f(x_{\varepsilon}) < \inf_X f + \varepsilon$, 存在$y_{\varepsilon} \in X$, 使得 
+    \begin{itemize}
+        \item $f(y_{\varepsilon}) \leq f(x_{\varepsilon})$; 
+        \item $d(y_{\varepsilon}, x_{\varepsilon}) \leq 1$;
+        \item $f(x) > f(y_{\varepsilon}) - \varepsilon d(y_{\varepsilon}, x), \forall x \in X \smallsetminus \{y_{\varepsilon}\}$.
+        即对于给定的$y_{\varepsilon}$, 函数$x \mapsto f(x) + \varepsilon d(y_{\varepsilon}, x)$以$y_{\varepsilon}$为严格极小点.
+    \end{itemize}
+    \begin{proof}
+        先选择$u_0 = x_{\varepsilon}$. 假设$u_i$已经选定, 令 
+        \begin{equation*}
+            S_n = \{x \in X\colon f(x) \leq f(u_n) - \varepsilon d(x, u_n)\}.
+        \end{equation*}
+        显然$S_n$是非空的. 今选取$u_{i + 1} \in S_n$满足 
+        \begin{equation}\label{46}
+            f(u_{i + 1}) - \inf_{S_n}f \leq \frac{1}{2}\left(f(u_i) - \inf_{S_n}f\right).
+        \end{equation}
+        由此我们便得到了$X$中的一组序列$\{u_i\}$. 此外, 由$\{u_i\}$的构造方式可知, 
+        \begin{equation*}
+            \varepsilon d(x, u_i) \leq f(u_i) - f(u_{i + 1}), \qquad \forall i = 0, 1, \cdots.
+        \end{equation*}
+        将上述不等式累加, 并利用三角不等式, 即得 
+        \begin{equation}\label{47}
+            \varepsilon d(u_i, u_j) \leq f(u_i) - f(u_j), \qquad \forall j \geq i.
+        \end{equation}
+        注意到$\{f(u_i)\}$是递减的, 故上式表明$\{u_i\}$是Cauchy列. 记其极限为$u^*$, 以下验证$u^*$满足定理中列出的三条性质.
+
+        首先, 由于$\{f(u_i)\}$是递减的, 从而有 
+        \begin{equation*}
+            f(u^*) \leq f(u_i) \leq f(u_0) = f(x_{\varepsilon}).
+        \end{equation*}
+        其次, 由\eqref{47}可得, 
+        \begin{align*}
+            \varepsilon d(x_{\varepsilon}, u^*) \leq f(x_{\varepsilon}) - f(u^*) \leq f(x_{\varepsilon}) - \inf_Xf < \varepsilon,
+        \end{align*}
+        即$d(x_{\varepsilon}, u^*) \leq 1$. 最后利用反证法证明$u^*$满足第三条性质. 设存在$x \neq u^*$使得 
+        \begin{equation}\label{48}
+            f(x) \leq f(u^*) - \varepsilon d(u^*, x).
+        \end{equation} 
+        首先注意到\eqref{47}给出不等式 
+        \begin{equation}\label{49}
+            f(u^*) \leq f(u_i) - \varepsilon d(u_i, u^*).
+        \end{equation}
+        联立\eqref{48}和\eqref{49}, 即有 
+        \begin{equation*}
+            f(x) \leq f(u_i) - \varepsilon d(u^*, x), \qquad \forall i.
+        \end{equation*}
+        这表明$x \in S_i, \forall i$. 在\eqref{46}不等式两侧取下极限, 并利用$f$的下半连续性, 我们有 
+        \begin{equation*}
+            f(u^*) \leq \varliminf\limits_{i \rightarrow \infty}\inf_{S_n}f \leq f(x)
+        \end{equation*}
+        这与\eqref{48}矛盾.
+    \end{proof}
+\end{theorem}
+
+\begin{corollary}
+    设$(X, d)$是一个完备的度量空间. 又设$f\colon X \rightarrow (-\infty, +\infty]$是下方有界和下半连续的, 且$f \not\equiv +\infty$.
+    那么对任意的$\varepsilon > 0$, 存在$y_{\varepsilon} \in S$, 使得对任意的$x \neq y$, 有$f(x) > f(y_{\varepsilon}) - \varepsilon d(x, y_{\varepsilon})$.
+\end{corollary}
+
+以下引入Palais-Smale条件. 首先回顾一些概念:
+
+\begin{definition}
+    设$f$是Banach空间$X$上的实值函数, $x_0 \in U \subseteq X$, 其中$U$是一个开集.
+    称$f$在$x_0$处是\textbf{Fr\'echet可微}的, 如果存在$\xi \in X^*$, 使得 
+    \begin{equation*}
+        |f(x) - f(x_0) - \langle \xi, x - x_0\rangle| = o(\Vert x - x_0\Vert) \qquad (x \rightarrow x_0).
+    \end{equation*}
+    称$\xi$为$f$在$x_0$处的\textbf{Fr\'echet导数}, 记为$f'(x_0)$.
+
+    若Fr\'echet导数$f'(x)$处处存在, 并且$x \mapsto f'(x)$是连续的, 那么称$f$是连续可微的, 记作$f \in C^1$.
+\end{definition}
+
+容易看出, G\^ateaux导数和Fr\'echet导数分别是欧氏空间中方向导数和全微分在Banach空间中的推广.
+此外, 若$f$有Fr\'echet导数$f'(x_0)$, 那么它必有G\^ateaux导数${\rm d}f(x_0, h)$, 且 
+\begin{equation*}
+    {\rm d}f(x_0, h) = \langle f'(x_0), h\rangle, \qquad \forall h \in X.
+\end{equation*}
+同时有
+\begin{equation*}
+    \Vert f'(x_0) \Vert = \sup_{0 \neq h \in X}\frac{|{\rm d}f(x_0, h)|}{\Vert h \Vert}
+\end{equation*}
+反之, 设$f$在$x_0$的一个邻域$U$内处处有G\^ateaux导数${\rm d}f(x, h)\ (x \in U)$, 并且有$\xi = \xi(x) \in X^*$满足 
+\begin{equation*}
+    \langle \xi(x), h\rangle = {\rm d}f(x, h), \qquad \forall x \in U, h \in X.
+\end{equation*}
+如果$x \mapsto \xi(x)$是连续的, 那么$f$在$x_0$处有Fr\'echet导数$f'(x_0)$.
+
+以下定义是对经典极小点概念的推广:
+
+\begin{definition}
+    称满足条件$f'(x_0) = 0$的点$x_0$为\textbf{临界点}, 并称相应的函数值$f(x_0)$为\textbf{临界值}.
+\end{definition}
+
+由此可以看出, 在变分问题中, 极小点便是临界点, 而一切临界点都是E-L方程的解.
+
+\begin{definition}
+    设$X$是一个Banach空间, $f \in C^1(X)$. 若对任一满足条件 
+    \begin{equation}\label{50}
+        f(x_i) \rightarrow c, \qquad \Vert f'(x_i)\Vert \rightarrow 0
+    \end{equation}
+    的序列$\{x_i\} \subseteq X$都有收敛的子列, 那么称$f$在$c$处满足\textbf{Palais-Smale条件}, 记作${\rm PS_c}$.
+    此外, 称满足\eqref{50}的序列为一个\textbf{Palais-Smale序列}(简称\textbf{PS序列}).
+\end{definition}
+
+\begin{corollary}
+    设$X$是一个Banach空间. 设$f \in C^1(X)$, 并且是下方有界的. 记$c = \inf_Xf$.
+    若$f$满足${\rm PS_c}$, 那么$f$能达到极小值.
+    \begin{proof}
+        根据Ekeland变分原理, 我们可以选取$X$中的一组序列$\{x_i\}$, 满足条件 
+        \begin{equation*}
+            \begin{cases}
+                \displaystyle f(x) > f(x_i) - \frac{1}{i}\Vert x - x_i\Vert \qquad (\forall x \neq x_i), \\ 
+                \displaystyle c \leq f(x_i) < c + \frac{1}{i}.
+            \end{cases}
+            \qquad \forall i.
+        \end{equation*}
+        第一个不等式表明 
+        \begin{equation*}
+            \Vert f'(x_i) \Vert \leq \frac{1}{i} \rightarrow 0 \qquad (i \rightarrow +\infty).
+        \end{equation*}
+        第二个不等式表明$f(x_i) \rightarrow c$. 按${\rm PS_c}$, $\{x_i\}$有收敛子列$\{x_{j_i}\}$.
+        记其极限为$x^*$. 由$f$的连续性, 便有$f(x^*) = c = \inf_Xf$.
+    \end{proof}
+\end{corollary}
+
+最后我们用Ekeland变分原理来推导一个最基本的临界点定理, 即山路定理.
+
+问题的提出: 在一个四面环山的盆地, 从山外地面上一点$p_1$出发想要进入盆地中的一点$p_0$.
+人们希望走的山路是这样一条连接$p_0$和$p_1$的道路, 其最高点不高于任何临近道路的最高点.
+这条山路上的最高点未必是极值点, 一个自然的问题是: 该最高点是否是临界点?
+
+具体地, 设$\Omega$是$\mathbb{R}^n$中的有界区域. 给定$p_0 \in \Omega, p_1 \in X \smallsetminus \overline{\Omega}$.
+设函数$f \in C^1(X)$满足 
+\begin{equation}\label{51}
+    \alpha = \inf_{\partial\Omega}f(x) > \max\{f(p_0), f(p_1)\}.
+\end{equation}
+令 
+\begin{equation}\label{52}
+    \Gamma = \{\gamma \in C[0, 1]\colon \gamma(i) = p_i, i = 0, 1\}
+\end{equation}
+以及 
+\begin{equation}\label{53}
+    c = \inf_{\gamma \in \Gamma}\sup_{t \in [0, 1]}f \circ \gamma(t).
+\end{equation}
+问$c$是否是$f$的临界值? 即是否存在$x \in X$, 使得$f'(x_0) = 0$以及$f(x_0) = c$?
+下述定理回答了这个问题:
+
+\begin{theorem}[山路定理]
+    设$X$是一个Banach空间, $f \in C^1(X)$. 又设$\Omega \subseteq X$是一个有界区域.
+    给定$p_0 \in \Omega, p_1 \in X \smallsetminus \overline{\Omega}$满足\eqref{51}, 又按\eqref{52}和\eqref{53}定义$c$.
+    若$f$满足${\rm PS_c}$, 那么$c \geq \alpha$是$f$的一个临界值.
+    \begin{proof}
+        在$\Gamma$上引入度量 
+        \begin{equation*}
+            d(\gamma_1, \gamma_2) = \max_{t \in [0, 1]}\Vert \gamma_1(t) - \gamma_2(t)\Vert.
+        \end{equation*}
+        容易验证$(\Gamma, d)$是一个完备的度量空间. 令 
+        \begin{equation*}
+            I(\gamma) = \max_{t \in [0, 1]}f \circ \gamma(t).
+        \end{equation*}
+        由假设条件可知, $I \geq \alpha$, 即$I$是下方有界的. 此外, 注意到 
+        \begin{align*}
+            |I(\gamma_1) - I(\gamma_2)| &\leq \max_{t \in [0, 1]}|f \circ \gamma_1(t) - f \circ \gamma_2(t)| \\ 
+            &\leq \max_{t \in [0, 1]}\Vert \dot f(\theta\gamma_1(t) + (1 - \theta)\gamma_2(t))\Vert \Vert \gamma_1(t) - \gamma_2(t)\Vert \\ 
+            &\leq Cd(\gamma_1, \gamma_2),
+        \end{align*}
+        故$I$是Lipschitz连续的, 自然也是下半连续的. 应用Ekeland变分原理于$I$, 我们可以选取$\Gamma$中的一组序列$\{\gamma_i\}$, 使得对任意的$i$, 有 
+        \begin{gather}
+            c \leq I(\gamma_i) < c + \frac{1}{i}, \label{54} \\ 
+            I(\gamma) > I(\gamma_i) - \frac{1}{i}d(\gamma, \gamma_i) \qquad (\gamma \neq \gamma_i) \label{55},
+        \end{gather}
+        现令 
+        \begin{equation*}
+            M(\gamma) = \{t \in [0, 1]\colon f \circ \gamma(t) = I(\gamma)\}.
+        \end{equation*}
+        容易验证, $M \subseteq (0, 1)$是非空紧集. 记
+        \begin{equation*}
+            \Gamma_0 = \{\gamma \in C[0, 1]\colon \gamma(i) = 0, i = 0, 1\}.
+        \end{equation*}
+        对任意的$h \in C[0, 1]$, 任取一列递减趋于零的序列$\{\lambda_j\}$以及序列$\{\xi_j\} \subseteq M(\gamma_i + \lambda_jh)$, 由\eqref{54}可得 
+        \begin{equation*}
+            \lambda_j^{-1}(f \circ (\gamma_i + \lambda_jh)(\xi_j) - f \circ \gamma_i(\xi_j)) \geq -\frac{1}{i}.
+        \end{equation*}
+        由于$\{\xi_j\}$, 故存在收敛子列. 设收敛子列的极限为$\eta_i$, 从而有 
+        \begin{equation}\label{56}
+            {\rm d}f(\gamma_i(\eta_i), h(\eta_i)) \geq -\frac{1}{i}.
+        \end{equation}
+        若能证明存在$\eta_i^* \in M(\gamma_i)$, 使得 
+        \begin{equation}\label{57}
+            {\rm d}f(\gamma(\eta_i^*), x) \geq -\frac{1}{i}, \qquad \forall x \in X, \Vert x \Vert = 1,
+        \end{equation}
+        令$x_i = \gamma_i(\eta_i^*)$, 从而有
+        \begin{gather*}
+            c \leq f(x_i) = f \circ \gamma_i(\eta_i^*) < c + \frac{1}{i}, \\ 
+            \Vert f'(x_i)\Vert = \sup_{\Vert x \Vert = 1}|{\rm d}f(x_i, x)| \leq \frac{1}{i}. 
+        \end{gather*}
+        注意到$f$满足${\rm PS}_c$, 故$\{x_i\}$有收敛子列. 若记子列的极限为$x^*$, 显然有$f'(x^*) = 0$, 且$f(x^*) = c$.
+        即$c$是$f$的一个临界值.
+
+        以下证明\eqref{57}. 若不存在$\eta_i^*$使得\eqref{57}成立, 则对任意的$\eta \in M(\gamma_i)$, 存在$y_{\eta} \in X, \Vert y_{\eta}\Vert = 1$, 使得 
+        \begin{equation*}
+            {\rm d}f(\gamma_i(\eta), y_{\eta}) < -\frac{1}{i}.
+        \end{equation*} 
+        根据$f$的连续性, 存在$\eta$的一个邻域$O_{\eta} \subseteq (0, 1)$, 使得 
+        \begin{equation*}
+            {\rm d}f(\gamma_i(\xi), y_{\eta}) < -\frac{1}{i}, \qquad \forall \xi \in O_{\eta}.
+        \end{equation*}
+        注意到$M(\gamma_i)$是紧的, 故开覆盖$\{O_{\eta}\} \supseteq M(\gamma_i)$存在有限子覆盖$\{O_{\eta_j}\}_{j = 1}^m$, 其对应着$v_{\eta_j} \in X$, 满足$\Vert y_{\eta_i}\Vert = 1$, 且 
+        \begin{equation*}
+            {\rm d}f(\gamma_i(\xi), y_{\eta_i}) < -\frac{1}{i}, \qquad \forall \xi \in O_{\eta_j}, j = 1, \cdots, m.
+        \end{equation*}
+        现取$\{O_{\eta_j}\}$对应的一组单位分解$\{\rho_j\}$, 并令
+        \begin{equation*}
+            y = y(\xi) = \sum_{j = 1}^m\rho_j(\xi)y_{\eta_j},
+        \end{equation*}
+        从而有 
+        \begin{equation*}
+            {\rm d}f(\gamma_i(\xi), y(\xi)) < -\frac{1}{i}, \qquad \forall \xi \in M(\gamma_i),
+        \end{equation*}
+        这与\eqref{56}矛盾.
+    \end{proof}
+\end{theorem}
+
+\begin{example}
+    在山路定理中, 若$f$不满足Palais-Smale条件, 则定理结论可能不成立. 以下反例来自Brezis和Nirenberg.
+    
+    在$\mathbb{R}^2$上考虑函数 
+    \begin{equation*}
+        f(x, y) = x^2 + (1 - x)^3y^2
+    \end{equation*}
+    令$\Omega = B_{1/2}(0)$, $c = \inf_{\partial\Omega}f > 0$. 显然$f(0, 0) = 0, f(4, 1) = -11$.
+    但直接验证可知, $f$只有一个临界点$(0, 0)$.
+\end{example}
+
+最后, 我们利用山路定理来求解变分问题.
+
+\begin{example}
+    设$a$是$\mathbb{R}$上周期为$T$的连续函数. 定义函数 
+    \begin{equation*}
+        V(t, x) = -\frac{1}{2}|x|^2 + \frac{a(t)}{p + 1}|x|^{p + 1}
+    \end{equation*}
+    假设$p > 1, a(t) \geq \alpha > 0$. 求满足方程 
+    \begin{equation}\label{58}
+        \ddot x + \partial_xV(t, x) = 0
+    \end{equation}
+    的非平凡$C^2$周期解.
+
+    在$H_{{\rm per}}^1(0, T)$上定义泛函 
+    \begin{equation*}
+        I(x) = \int_0^T\left(\frac{1}{2}(|\dot x|^2 + |x|^2) - \frac{a(t)}{p + 1}|x|^{p + 1}\right) \,{\rm d}t.
+    \end{equation*}
+    而\eqref{58}是$I$对应的E-L方程. 为使用山路定理, 取$p_0 = 0$, $p_1 = \lambda\xi\sin\frac{2\pi}{T}t$, 其中$\xi = (1, 1, \cdots, 1)$, $\lambda > 0$.
+    事实上, 直接计算得$I(p_0) = 0$, 且 
+    \begin{equation*}
+        I(p_1) = O(\lambda^2) - O(\lambda^{p + 1}),
+    \end{equation*}
+    从而我们可以选取充分大的$\lambda > 0$, 使得$I(p_1) < 0$. 定义 
+    \begin{equation*}
+        \Gamma = \{\gamma \in C[0, 1]\colon \gamma(i) = p_i, i = 0, 1\}
+    \end{equation*}
+    以及 
+    \begin{equation*}
+        c = \inf_{\gamma \in \Gamma}\sup_{t \in [0, 1]}I \circ \gamma(t).
+    \end{equation*}
+    以下验证$f$满足${\rm PS_c}$. 具体地, 设$\{x_i\}$是一个${\rm PS}$序列, 即满足条件 
+    \begin{equation*}
+        \begin{cases}
+            I(x_i) \rightarrow c, \\ 
+            \Vert I'(x_i)\Vert = \sup_{\Vert x \Vert = 1}|{\rm d}I(x_i, x)| \rightarrow 0.
+        \end{cases}
+    \end{equation*}
+    直接计算得 
+    \begin{equation*}
+        \begin{cases}
+            I(x_i) = \int_0^T\left(\frac{1}{2}(|\dot x_i|^2 + |x_i|^2) - a(t)\frac{|x_i|^{p + 1}}{p + 1}\right) \,{\rm d}t \rightarrow c, \\
+            {\rm d}I(x_i, x_i) = \int_0^T(|\dot x_i|^2 + |x_i|^2 - a(t)|x_i|^{p + 1}) \,{\rm d}t = o(\Vert x_i\Vert).
+        \end{cases}
+    \end{equation*}
+    从而有
+    \begin{equation*}
+        \left(\frac{1}{2} - \frac{1}{p + 1}\right)\int_0^T(|\dot x_i|^2 + |x_i|^2) \,{\rm d}t = C + o(\Vert x_i \Vert),
+    \end{equation*}
+    其中$C$是一个常数. 上式表明$\{x_i\}$是有界序列, 从而存在子列, 仍记为$\{x_i\}$, 使得$x_i \rightharpoonup x^*\ {\rm in}\ H_{{\rm per}}^1(0, T)$.
+    特别地, 结合${\rm PS}$序列的假设, 我们有 
+    \begin{equation*}
+        \int_0^Ta(t)|x_i|^{p - 1}x_i\varphi \,{\rm d}t \rightarrow \int_0^T(\dot x^*\dot\varphi + x^*\varphi) \,{\rm d}t = \int_0^T\left(\frac{{\rm d}^2}{{\rm d}t^2} + 1\right)x^*\varphi \,{\rm d}t.
+    \end{equation*}
+    此外, 直接利用分部积分公式可得
+    \begin{equation*}
+        \int_0^T\left(\left(\frac{{\rm d}^2}{{\rm d}t^2} + 1\right)x_i - a(t)|x_i|^{p - 1}x_i\right)\varphi \,{\rm d}t \rightarrow 0,
+    \end{equation*}
+    综上分析, 我们有$x_i \rightarrow x\ {\rm in}\ H_{{\rm per}}^1(0, T)$, 故$f$满足${\rm PS_c}$.
+    由山路定理, 方程\eqref{58}有非平凡周期解$u^*$. 再由正则性定理, 此解还是$C^2$的.
+\end{example}
