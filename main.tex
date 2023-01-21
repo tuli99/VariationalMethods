@@ -1,0 +1,104 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[UTF8]{ctex}
+
+\usepackage{cite}
+
+\usepackage{geometry}
+\usepackage{amsmath, amsthm, amssymb, bm, graphicx, mathrsfs}
+\usepackage{graphicx}
+\pagestyle{plain}
+
+\usepackage{newtxtext}
+\usepackage{mathptmx}
+\DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
+\DeclareSymbolFont{largesymbols}{OMX}{cmex}{m}{n}
+
+\usepackage[unicode, colorlinks]{hyperref}
+\hypersetup{linkcolor = blue}
+
+\geometry{right=2.5cm,left=2.5cm,top=2.5cm,bottom=2.5cm}
+\usepackage{titlesec}
+
+\newtheorem{theorem}{定理}[section]
+\newtheorem{definition}[theorem]{定义} 
+\newtheorem{proposition}[theorem]{命题}
+\newtheorem{lemma}[theorem]{引理}
+\newtheorem{example}[theorem]{例}
+\newtheorem{corollary}[theorem]{推论}
+\newtheorem{remark}[theorem]{注}
+
+\newcommand{\e}{{\rm e}}
+\newcommand{\ii}{{\rm i}}
+
+\title{变分学总结}
+\author{tron}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\section{经典理论}
+
+简单地说, 变分学是研究泛函极值(以及更一般的临界值的一个数学分支). 设$\Omega \subseteq \mathbb{R}^n$是一个有界开集.
+给定函数$L \in C^1(\overline{\Omega} \times \mathbb{R}^N \times \mathbb{R}^{nN})$ (通常称$L$为Lagrange函数, 即Lagrangian), 变分学主要研究如下形式的泛函:
+\begin{equation}\label{1}
+    I(u) = \int_{\Omega}L(x, u(x), \dot u(x)) \,{\rm d}x,
+\end{equation}
+其中$u \in M$, $M$是一个函数集合, 例如$C^1(\overline{\Omega})$等, 同时$M$由一些边值条件所规定. 有时$I$的积分中还可以含有高阶导数项，此时$M$也应做相应的改变.
+
+变分问题的重要组成部分: \textbf{约束集合} + \textbf{目标泛函}.
+
+\begin{example}[最速降线]
+    在平面上给定两点$A = (x_1, y_1)$和$B = (x_2, y_2)$, 其中$x_1 < y_1, x_2 < y_2$.
+    一个质点沿着一条连接这两点的``光滑''曲线仅受重力下滑. 设初速度为零, 问沿怎样的一条曲线滑行时间最短?
+\end{example}
+
+\begin{itemize}
+    \item 约束集合. 为了问题的简单, 我们假设这条曲线有着显式表达式$y = u(x)$, 其中$u \in C^1[x_1, x_2]$.
+    注意到这条曲线的起点和终点都是固定的, 由此我们设定约束函数集合为
+    \begin{equation*}
+        M = \{u \in C^1[x_1, x_2]\colon u(x_i) = y_i, i = 1, 2\}.
+    \end{equation*}
+    \item 目标泛函. 我们要在$M$中选取合适的函数$u^*$, 使得总时间$T = T(u)$达到极小.
+    直接列出动力学方程:
+    \begin{equation*}
+        \begin{cases} 
+            \displaystyle{\frac{1}{2}}mv^2 = mg(y_1 - u(x)), \\  
+            v = \displaystyle{\frac{{\rm d}s}{{\rm d}t}}. 
+        \end{cases}
+    \end{equation*}
+    联立得 
+    \begin{equation*}
+        T = T(u) = \int \,{\rm d}t = \frac{1}{\sqrt{2g}}\int_{x_0}^{x_1}\sqrt{\frac{1 + |\dot{u}(x)|^2}{2g(y_1 - u(x))}} \,{\rm d}x.
+    \end{equation*}
+\end{itemize}
+至此, 我们便将最速降线问题转化成了一个变分学问题: 
+\begin{align*}
+    &\text{minimize}\ T(u) \\ 
+    &\text{s.t.}\ u \in M.
+\end{align*}
+
+在以下几节中, 若无特别说明, 均假设$n = 1$.
+
+\input{1.1.tex}
+\input{1.2.tex}
+\input{1.3.tex}
+\input{1.4.tex}
+\input{1.5.tex}
+\input{1.6.tex}
+\input{1.7.tex}
+
+\section{直接方法}
+
+\input{2.1.tex}
+\input{2.2.tex}
+\input{2.3.tex}
+\input{2.4.tex}
+\input{2.5.tex}
+\input{2.6.tex}
+\input{2.7.tex}
+\input{2.8.tex}
+
+\end{document}
