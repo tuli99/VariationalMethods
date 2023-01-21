@@ -1,0 +1,286 @@
+\subsection{约束极值问题}
+
+\subsubsection{等式约束}
+
+\begin{example}[等周问题]
+    在平面上给定封闭曲线的弧长, 问什么样的曲线围成的面积最大? 为了问题的简单, 我们假设这条封闭曲线有参数表示
+    \begin{equation*}
+        r = r(t) = (x(t), y(t)),
+    \end{equation*}
+    其中$t \in [0, 2\pi]$. 此曲线围成的面积 
+    \begin{equation*}
+        S = S(r)= \frac{1}{2}\int x \,{\rm d}y - y \,{\rm d}x = \frac{1}{2}\int_0^{2\pi}(x\dot y - y\dot x) \,{\rm d}t, 
+    \end{equation*}
+    其长度为 
+    \begin{equation*}
+        L = \int_0^{2\pi}\sqrt{\dot x^2 + \dot y^2} \,{\rm d}t.
+    \end{equation*}
+    如果给定长度为$l$, 那么我们的问题就是在约束$L = l$之下, 求曲线$(x(t), y(t))$使得面积$S$达到极大值.
+\end{example}
+
+函数的条件极值问题: \textbf{Lagrange乘子法}. 设$\Omega \subseteq \mathbb{R}^n$是一个开集, 函数$f, g \in C^1(\overline{\Omega})$.
+又设$g^{-1}(0) \neq \varnothing$且$\dot g(x) \neq 0$. 如果存在$x_0 \in \Omega$使得$f$在约束条件$g(x) = 0$下达到极小值, 那么便存在一个Lagrange乘子$\lambda \in \mathbb{R}$, 使得 
+\begin{equation*}
+    \nabla f(x_0) + \lambda\nabla g(x_0) = 0.
+\end{equation*}
+对于泛函的情形, 我们也有类似的Lagrange乘子法可用.
+
+\begin{proposition}\label{prop1.60}
+    给定$L, G \in C^2(\overline{\Omega} \times \mathbb{R}^N \times \mathbb{R}^{nN})$和$ \Phi \in C^1(\partial\Omega)$, 定义$M$上的泛函 
+    \begin{equation*}
+        I(u) = \int_{\Omega}L(x, u(x), \nabla u(x)) \,{\rm d}x 
+    \end{equation*}
+    和 
+    \begin{equation*}
+        N(u) = \int_{\Omega}G(x, u(x), \nabla u(x)) \,{\rm d}x. 
+    \end{equation*}
+    设$N^{-1}(0) \cap M \neq \varnothing$. 若$u^* \in M$是$I$在约束$N(u) = 0$下的极小点, 且存在$\varphi^* \in C_0^1(\Omega)$使得$\delta N(u^*, \varphi^*) \neq 0$, 则存在$\lambda \in \mathbb{R}$(此时$\lambda$也被称作\textbf{Lagrange乘子})使得
+    \begin{equation*}
+        \delta I(u^*, \varphi) + \lambda\delta(u^*, \varphi) = 0, \quad \forall \varphi \in C_0^1(\Omega).
+    \end{equation*}
+    等价地, 若记$Q = L + \lambda G$为调整后的Lagrange函数, 则$u^*$满足$Q$对应的E-L方程:
+    \begin{equation*}
+        \boxed{{\rm div}\ Q_p(x, u^*(x), \nabla u^*(x)) = Q_u(x, u^*(x), \nabla u^*(x)).}
+    \end{equation*}
+    \begin{proof}
+        对任意的$\varphi \in C_0^1(\Omega)$, 考虑通过$u^*$, 并由$\varphi$和$\varphi^*$张成的平面:
+        \begin{equation*}
+            \pi = \{u^* + \varepsilon\varphi + \tau\varphi^*\colon (\varepsilon, \tau) \in \mathbb{R}^2\}
+        \end{equation*}
+        以及函数 
+        \begin{align*}
+            \Phi(\varepsilon, \tau) &= I(u^* + \varepsilon\varphi + \tau\varphi^*), \\   
+            \Psi(\varepsilon, \tau) &= N(u^* + \varepsilon\varphi + \tau\varphi^*). 
+        \end{align*}
+        注意到$\Psi(0, 0) = N(u^*) = 0, \partial_{\tau}\Psi(0, 0) = \delta N(u^*, \varphi^*) \neq 0$, 故由隐函数定理可知, 当$r > 0$充分小时, 方程$\Psi(\varepsilon, \tau) = 0$在$B_r(0, 0)$上有唯一$C^1$解: $\tau = \tau(\varepsilon)$.
+        由此表明$N^{-1}(0) \cap \pi \neq \varnothing$. 现令 
+        \begin{equation*}
+            g(\varepsilon) = \Phi(\varepsilon, \tau(\varepsilon)) = I(u^* + \varepsilon\varphi + \tau(\varepsilon)\varphi^*).
+        \end{equation*}
+        由题设条件可知, $u^*$是$I$在$N^{-1}(0) \cap M$上的极小点. 对应地, $0$是$g$的极小点, 从而有 
+        \begin{align*}
+            0 = \dot g(0) &= \partial_{\varepsilon}\Phi(0, 0) + \partial_{\tau}\Phi(0, 0)\dot\tau(0) \\ 
+            &= \delta I(u^*, \varphi) + \delta I(u^*, \varphi^*)\left(-\frac{\delta N(u^*, \varphi)}{\delta N(u^*, \varphi^*)}\right) \\  
+            &= \delta I(u^*, \varphi) + \lambda\delta N(u^*, \varphi), 
+        \end{align*}
+        其中 
+        \begin{equation*}
+            \lambda = -\frac{\delta I(u^*, \varphi_0)}{\delta N(u^*, \varphi_0)}
+        \end{equation*}
+        是一个常数. 这便得到了所需结论.
+    \end{proof}
+\end{proposition}
+
+同理, 我们也可以考虑多个约束的泛函极值问题.
+
+\begin{example}[等周问题-续]
+    此时调整后的Lagrange函数为 
+    \begin{equation*}
+        Q = \frac{1}{2}(x\dot y - y\dot x) + \lambda \sqrt{\dot x^2 + \dot y^2}, 
+    \end{equation*}
+    其中$\lambda \in \mathbb{R}$. 对应的E-L方程为 
+    \begin{equation*}
+        \begin{cases} 
+            \displaystyle\dot x = \lambda\frac{{\rm d}}{{\rm d}t}\frac{\dot y}{\sqrt{\dot x^2 + \dot y^2}}, \\  
+            \displaystyle\dot y = \lambda\frac{{\rm d}}{{\rm d}t}\frac{\dot x}{\sqrt{\dot x^2 + \dot y^2}}. 
+        \end{cases}
+    \end{equation*}
+    由此解出 
+    \begin{equation*}
+        \begin{cases} 
+            \displaystyle x - c_1 = -\lambda\frac{\dot y}{\sqrt{\dot x^2 + \dot y^2}}, \\ 
+            \displaystyle y - c_2 = \lambda\frac{\dot x}{\sqrt{\dot x^2 + \dot y^2}}, 
+        \end{cases}
+    \end{equation*}
+    其中$c_1, c_2$是常数. 显然, 这是圆的方程:
+    \begin{equation*}
+        (x - c_1)^2 + (y - c_2)^2 = \lambda^2,
+    \end{equation*}
+    其半径$r = \lambda = l/2\pi$, 圆心为$(c_1, c_2)$.
+\end{example}
+
+上述我们考虑的是\textbf{积分形式的约束}, 以下我们考虑\textbf{等式约束}. 具体地, 给定函数$F \in C^1(\overline{\Omega} \times \mathbb{R}^N \times \mathbb{R}^{nN})$, 我们要在约束 
+\begin{equation*}
+    F(x, u(x), \nabla u(x)) = 0, \quad \forall x \in \Omega
+\end{equation*}
+下, 求泛函 
+\begin{equation*}
+    I(u) = \int_{\Omega} L(x, u(x), \nabla u(x)) \,{\rm d}x, \quad x \in M 
+\end{equation*}
+的极值. 事实上, 对于\textbf{完整(holonomic)约束}, 即$F$只依赖于$u$的情形, 我们也有类似的Lagrange乘子法可用.
+
+\begin{proposition}\label{prop1.62}
+    设$\Omega$是$\mathbb{R}^n$中的有界区域. 设$L \in C^2(\overline{\Omega} \times \mathbb{R}^N \times \mathbb{R}^{nN}), F \in C^2(\mathbb{R}^N)$.
+    又设$u^* \in M$是在约束$F(u(x)) = 0$下的极小点, 并且$u^*$在有限个逐片$C^1$的$(n - 1)$维超曲面之外是$C^2$的.
+    若对于任意的$x \in \overline{\Omega}, \nabla F(u^*(x)) \neq 0$, 那么存在$\lambda \in C(\overline{\Omega})$, 使得$u^*$满足对应于调整后的Lagrange函数$Q = L + \lambda F$的E-L方程:
+    \begin{equation}\label{20}
+        \boxed{L_{u_m} + \lambda M_{u_m} = \sum_{i = 1}^n\partial_{x_i}L_{p_i^m}, \quad 1 \leq m \leq N.}
+    \end{equation}
+    \begin{proof}
+        同命题\ref{prop1.60}的证明思路类似, 我们先利用隐函数定理, 将有约束问题转化为无约束问题, 从而构造出局部定义的连续函数$\lambda$, 最后再将它们粘连起来, 成为一个整体定义的连续函数.
+
+        任意固定$x_0 \in \Omega$, 我们选取充分小的$ r > 0$使得$\nabla_x F(u^*(x)) \neq 0, \forall x \in B_r(x_0) \subseteq \Omega$.
+        注意到 
+        \begin{equation*}
+            \nabla_xF(u^*(x)) = \nabla_uF(u^*(x)) \cdot \nabla u^*(x),
+        \end{equation*}
+        因此$\nabla F(u^*) \neq 0, \forall u \in u^*(B_r(x_0))$. 不失一般性, 设$F_{u^N}(u^*) \neq 0, \forall u \in u^*(B_r(x_0))$.
+        利用隐函数定理, 我们可以局部地解出$u^N\colon u^N = U(\widetilde{u})$, 其中$\widetilde{u} = (u^1, \cdots, u^{N - 1}), U \in C^2$.
+        现令 
+        \begin{equation*}
+            \Lambda(x, \widetilde{u}, \widetilde{p}) = L(x, \widetilde{u}, U(\widetilde{u}), \widetilde{p}, p^N),
+        \end{equation*}
+        其中
+        \begin{align*}
+            \widetilde{p} &= (p_i^m)_{1 \leq i \leq n, 1 \leq m \leq N - 1}, \\ 
+            p^N &= (p_i^N)_{1 \leq i \leq n} = \left(\sum_{m = 1}^{N -1}U_{u^m}p_i^m\right)_{1 \leq i \leq n}.
+        \end{align*}
+        由题设条件可知, 若$u^*$是在约束$F(u^*) = 0$下$I$的极小点, 则$\widetilde{u^*}$一定是
+        \begin{equation*}
+            J(\widetilde{u}) = \int_{B_r(x_0)}\Lambda(x, \widetilde{u}(x), \nabla\widetilde{u}(x)) \,{\rm d}x
+        \end{equation*}
+        的极小点. 后者对应的E-L方程为
+        \begin{equation}\label{21}
+            L_{u^m} + L_{u^N}U_{u^m} + \sum_{i = 1}^nL_{p_i^N}\partial_{u^m}p_i^N = \sum_{i = 1}^n\partial_{x_i}(L_{p_i^m} + L_{p_i^N}U_{u^m}), \quad \forall m = 1, \cdots, N - 1.
+        \end{equation} 
+        直接计算可得 
+        \begin{equation*}
+            \partial_{u^m}p_i^N = \sum_{\ell = 1}^{N - 1}\partial_{u^m}U_{u^{\ell}}p_i^\ell =\partial_{x_i}U_{u^m},
+        \end{equation*}
+        从而有  
+        \begin{equation*}
+            \sum_{i = 1}^n\partial_{x_i}(L_{p_i^m} + L_{p_i^N}U_{u^m}) = \sum_{i = 1}^n(\partial_{x_i}L_{p_i^m} + U_{u^m}\partial_{x_i}L_{p_i^N} +L_{p_i^N}\partial_{u^m}p_i^N).
+        \end{equation*}
+        因此\eqref{21}式化为 
+        \begin{equation}\label{22}
+            L_{u^m} + U_{u^m}\left(L_{u^N} - \sum_{i = 1}^n\partial_{x_i}L_{p_i^N}\right) = \sum_{i = 1}^n\partial_{x_i}L_{p_i^m}.
+        \end{equation}
+        注意到 
+        \begin{equation*}
+            U_{u^m} = -\frac{F_{u^m}}{F_{u^N}}, 
+        \end{equation*}
+        因此, 若在$B_r(x_0)$上定义 
+        \begin{equation*}
+            \lambda_{B_r(x_0)} = \frac{1}{F_{u^N}}({\rm div}\ L_{p^N} - L_{u^N}),
+        \end{equation*}
+        则\eqref{22}可写为 
+        \begin{equation*}
+            L_{u^m} + \lambda_{B_r(x_0)} F_{u^m} = {\rm div}\ L_{p^m}, \quad m = 1, \cdots, N - 1.            
+        \end{equation*}
+        这便是(在$B_r(x_0)$上)局部的E-L方程.
+
+        最后, 由上述的构造可知, $\Omega = \bigcup_{x \in \Omega}B_r(x)$, 且每个球$B_r(x)$对应的函数$\lambda_{B_r(x)}$都是连续的.
+        进一步地, 当两个这样的小球, 设为$B_{r_1}(x_1)$和$B_{r_2}(x_2)$, 相交非空时, 显然有
+        \begin{equation*}
+            \lambda_{B_{r_1}(x_1)} = \lambda_{B_{r_2}(x_2)}. 
+        \end{equation*}
+        因此, 由粘接引理可知, 存在$\lambda \in C(\Omega)$, 使得$\lambda|_{B_r(x)} = \lambda_{B_r(x)}, \forall x \in \Omega$, 且满足\eqref{20}式.
+        注意到$u^*$在边界处的值是已知的, 故由\eqref{20}的具体表达式可知, 我们可以将$\lambda$延拓到$\overline{\Omega}$上, 使之成为$\overline{\Omega}$上的连续函数.
+        显然延拓后的$\lambda$即为所求。
+    \end{proof}
+\end{proposition}
+
+与积分形式的约束类似, 我们也可以考虑不止一个约束函数的情形. 与积分约束的情形相比, 这里的Lagrange乘子$\lambda$不是常数, 而是定义在$\overline{\Omega}$上的连续函数.
+
+\begin{example}[球面上的测地线]
+    我们以条件约束的观点来讨论球面上的测地线问题. 具体地, 设曲线有参数表示$u= u(t) = (x(t), y(t), z(t)), a \leq t \leq b$, 约束为 
+    \begin{equation*}
+        f(x, y, z) = x^2 + y^2 + z^2 = 1,
+    \end{equation*}
+    我们要在此约束下求解泛函 
+    \begin{equation*}
+        I(u) = \int_a^b \sqrt{\dot x^2 + \dot y^2 + \dot z^2} \,{\rm d}t
+    \end{equation*}
+    的极值. 令$u = (x, y, z), p = (\xi, \eta, \zeta)$. 引入Lagrange乘子$\lambda = \lambda(t)$, 从而得到调整后的Lagrange函数 
+    \begin{equation*}
+        Q = \sqrt{\xi^2 + \eta^2 + \zeta^2} + \lambda(x^2 + y^2 + z^2 - 1) = |p| + \lambda(|u|^2 - 1).
+    \end{equation*}
+    注意到约束$f$的表达式只依赖于$u$, 故由命题\eqref{prop1.62}可知, $\lambda$满足$Q$所对应的E-L方程:
+    \begin{equation*}
+        \frac{{\rm d}}{{\rm d}t}\frac{\dot u}{|\dot u|} = 2\lambda u,
+    \end{equation*}
+    其中$|u| = 1$. 进一步地, 我们有
+    \begin{equation*}
+        \frac{{\rm d}}{{\rm d}t}\left(\frac{\dot u}{|\dot u|} \times u\right) = \left(\frac{{\rm d}}{{\rm d}t}\frac{\dot u}{|\dot u|}\right) \times u + \frac{\dot u}{|\dot u|} \times \dot u = 0,
+    \end{equation*}
+    即$v= \frac{\dot u}{|\dot u|} \times u$是常向量. 由此可知, $u$必须位于垂直于常向量$v$且过原点的平面上.
+    因此$u$必是大圆的一部分.
+\end{example}
+
+\begin{example}[到球面的调和映射]
+    设$\mathbb{B}$是$\mathbb{R}^3$中的单位球, $\mathbb{S} = \partial\mathbb{B}$是单位球面, $u =(u_1, u_2, u_3)\colon \mathbb{B} \rightarrow \mathbb{S}$.
+    若$u^*$是下列约束问题
+    \begin{equation*}
+        \min\{I(u)\colon M(u) = 0\},
+    \end{equation*}
+    的解, 其中  
+    \begin{align*}
+        I(u) &= \int_{\Omega}|\nabla u|^2 \,{\rm d}x = \sum_{m = 1}^3\sum_{i = 1}^3\int_{\Omega}|\partial_{x_i}u_m|^2 \,{\rm d}x, \\  
+        M(u) &= |u|^2 - 1 = u_1^2 + u_2^2 + u_3^2 - 1,
+    \end{align*}
+    那么我们称$u^*$为从$\mathbb{B}$到$\mathbb{S}$的\textbf{调和映射}. 以下我们导出$u^*$满足的方程.
+    首先写出调整后的Lagrange函数对应的E-L方程:
+    \begin{equation}\label{23}
+        -\Delta u = \lambda u.
+    \end{equation} 
+    其中$\lambda \in C(\mathbb{B}), \Delta u = (\Delta u_1, \Delta u_2, \Delta u_3)$.
+    在等式$u \cdot u = 1$两边求导, 我们有
+    \begin{equation*}
+        u \cdot \partial_m u = 0,
+    \end{equation*}
+    其中$\partial_mu = (\partial_{x_m}u_1, \partial_{x_m}u_2, \partial_{x_m}u_3)$.
+    再次求导, 并将得到的等式相加, 即得
+    \begin{equation}\label{24}
+        u \cdot \Delta u +|\nabla u|^2 =0.
+    \end{equation}
+    联立\eqref{23}和\eqref{24}, 得 
+    \begin{equation*}
+        \lambda = -u \cdot \Delta u = |\nabla u|^2.
+    \end{equation*}
+    由此我们导出了调和映射所满足的方程:
+    \begin{equation*}
+        -\Delta u = u|\nabla u|^2.
+    \end{equation*}
+\end{example}
+
+\subsubsection{不等式约束}
+
+设$\Omega$是$\mathbb{R}^n$上的有界区域, $M$为定义在$\overline{\Omega}$上的$C^1$函数的集合.
+给定$M$的一个凸子集$C$和Lagrange函数$L$, 我们考虑如下约束问题:
+\begin{equation*}
+    \min\left\{I(u) = \int_{\Omega}L(x, u(x), \nabla (u(x))) \,{\rm d}x \colon u \in C\right\}. 
+\end{equation*}
+若$u^* \in M$是一个极小点, 那么对于任意的$v \in C$, 由于$C$是凸集, 则$tv + (1 - t)u \in C, \forall t \in [0, 1]$, 从而有 
+\begin{equation*}
+    I(tv + (1 - t)u) \geq I(u), \quad \forall t \in [0, 1]. 
+\end{equation*}
+由此可以推出 
+\begin{equation*}
+    \delta I(u, v - u) = \lim_{t \rightarrow 0^+}\frac{I(u + t(v - u)) - I(u)}{t} \geq 0,
+\end{equation*}
+即对任意的$v \in C$, 我们有 
+\begin{equation*}
+    \boxed{\int_{\Omega}(L_u(x, u(x), \nabla u(x))(v(x) - u(x)) + L_p(x, u(x), \nabla u(x)) \cdot (\nabla v(x) - \nabla u(x))) \,{\rm d}x \geq 0.}
+\end{equation*}
+称上述不等式为\textbf{变分不等式}.
+
+\begin{example}[障碍问题]
+    设$\Omega \subseteq \mathbb{R}^2$是一个有界区域. 给定函数$\varphi \in C^1(\partial\Omega), \psi \in C^1(\overline{\Omega}), f \in C(\overline{\Omega})$.
+    在$\Omega$上我们考虑一张薄膜$u$, 它的边界固定: $u|_{\partial\Omega} = \varphi$, 并受外力$f$的作用, 但不能越过``障碍'', 即$u(x) \leq \psi(x), \forall x \in \overline{\Omega}$.
+    具体地, 我们要寻求薄膜的平衡位置 
+    \begin{equation*}
+        u \in M = \{u \in PWC^1(\overline{\Omega})\colon u|_{\partial\Omega} = \varphi\}
+    \end{equation*}
+    在不等式约束 
+    \begin{equation*}
+        u(x) \leq \psi(x), \quad \forall x \in \overline{\Omega}, u \in M
+    \end{equation*}
+    下, 使薄膜的能量 
+    \begin{equation*}
+        I(u) = \int_{\Omega}\left(\frac{1}{2}|\nabla u(x)|^2 - f(x)u(x)\right) \,{\rm d}x
+    \end{equation*}
+    达到极小值. 注意到$C = \{u \in PWC^1(\overline{\Omega})\colon u|_{\partial\Omega} = \varphi, u(x) \leq \psi(x), \forall x \in \overline{\Omega}\}$是一个凸集, 故该变分问题对应的变分不等式为
+    \begin{equation*}
+        \int_{\Omega}(\nabla u\nabla(v - u) - f(v - u)) \,{\rm d}x \geq 0, \quad \forall v \in C.
+    \end{equation*} 
+\end{example}
