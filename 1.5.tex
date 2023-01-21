@@ -1,0 +1,352 @@
+\subsection{含多重积分的变分问题}
+
+在这一节中, 我们将前几节中所讨论的结果推广到高维的情形. 先引入如下记号:
+\begin{align*}
+    x &= (x_i)_{1 \leq i \leq n} = (x_1, \cdots, x_n) \in \mathbb{R}^n, \\  
+    u &= (u^m)_{1 \leq m \leq N} = (u_1, \cdots, u_N) \in \mathbb{R}^N, \\  
+    p &= (p_i^m)_{1 \leq i \leq n, 1 \leq m \leq N} \in \mathbb{R}^{nN}, \\  
+    \nabla u &= (\partial_iu^m)_{1 \leq i \leq n, 1 \leq m \leq N} \in \mathbb{R}^{nN}.
+\end{align*}
+给定$\mathbb{R}^n$中带有$C^1$边界的有界区域$\Omega$, Lagrange函数$L = L(x, u, p) \in C^2(\overline{\Omega} \times \mathbb{R}^N \times \mathbb{R}^{nN})$以及边界上的函数$\Phi \in C^1(\partial\Omega)$.
+考虑泛函
+\begin{equation*}
+    I(u) = \int_{\Omega} L(x, u(x), \nabla u(x)) \,{\rm d}x
+\end{equation*}
+在边值条件$u \in M = \{v \in C^1(\overline{\Omega})\colon v|_{\partial\Omega} = \Phi\}$下的极小值.
+
+\subsubsection{Euler-Lagrange方程}
+
+类似于单重积分的情形($n = 1$), 称$u^* \in M$是$I$在$M$上的\textbf{极小点}, 如果 
+\begin{equation*}
+    I(u) \geq I(u^*), \qquad \forall u \in U \cap M,
+\end{equation*}
+其中$U$是$u^*$在$M$中的一个邻域. 取$C^1$拓扑时, 称$u^*$为\textbf{弱极小点}; 取$C$拓扑时, 称$u^*$为\textbf{强极小点}.
+
+\begin{lemma}[du Bois-Reymond, 变分学基本引理]
+    设$u \in L^1_{{\rm loc}}(\Omega)$, 且对任意的$\varphi \in C_c^{\infty}(\Omega)$有 
+    \begin{equation*}
+        \int_{\Omega}u(x)\varphi(x) \,{\rm d}x = 0,
+    \end{equation*}
+    则$u(x) = 0$, a.e. $x \in \Omega$.
+    \begin{proof}
+        设$\{\eta_n\}$是一族光滑化子. 令$g_n = g \ast \eta_n$, 其中$g \in L^{\infty}(\mathbb{R}^n)$且${\rm supp} \ g \subseteq \Omega$.
+        显然$g \in L^1(\mathbb{R}^n)$, 且当$n$充分大时, 有$g_n \in C_c^{\infty}(\Omega)$, 从而
+        \begin{equation*}
+            \int_{\Omega}u(x)g_n(x) \,{\rm d}x = 0.
+        \end{equation*}
+        此外, 由恒等逼近的理论可知, $\Vert g_n - g \Vert_{L^1} \rightarrow 0, n \rightarrow \infty$.
+        因此存在子列, 不妨记为$\{g_n\}$, 使得$g_n \rightarrow g$, a.e. 注意到 
+        \begin{equation*}
+            \Vert g_n\Vert_{L^{\infty}} = \Vert g \ast \eta_n \Vert_{L^{\infty}} \leq \Vert \eta_n \Vert_{L^1}\Vert g \Vert_{L^{\infty}} = \Vert g \Vert_{L^{\infty}},
+        \end{equation*}
+        故由控制收敛定理可得 
+        \begin{equation}\label{16}
+            \int_{\Omega}u(x)g(x) \,{\rm d}x = 0.
+        \end{equation}
+        今在\eqref{16}中取 
+        \begin{equation*}
+            g(x) =  
+            \begin{cases} 
+                {\rm sgn}\ u(x) \quad &x \in K, \\   
+                0 \quad &x \in \mathbb{R}^n \smallsetminus K,  
+            \end{cases}
+        \end{equation*}
+        其中$K$是$\Omega$内的紧集. 由此我们可以得到$u(x) = 0$, a.e. $x \in K$.
+        注意到$K$是任意的, 故$u = 0$, a.e.
+    \end{proof}
+\end{lemma}
+
+以下利用高维形式的变分法基本引理来推导出E-L方程. 设$L \in C^2, u^* \in C^2$.
+对任意的$\varphi \in C_0^1(\Omega)$, 考虑一元函数$g(\varepsilon) = I(u^* + \varepsilon\varphi)$.
+由于$u^*$是极小点, 则一阶变分$\delta I(u^*, \varphi) = \dot g(0) = 0$, 即 
+\begin{align*}
+    0 &= \sum_{m = 1}^N\int_{\Omega}\left(L_{u^m}(\tau)\varphi^m(x) + \sum_{i = 1}^nL_{p^m_i}(\tau)\partial_i\varphi^m(x)\right)\,{\rm d}x \\  
+    &= \sum_{m = 1}^N\int_{\Omega}\left(L_{u^m}(\tau) - \sum_{i = 1}^n\partial_iL_{p^m_i}(\tau)\right)\varphi^m(x) \,{\rm d}x,
+\end{align*}
+其中$\tau = (x, u^*(x), \nabla u^*(x))$. 再利用变分法基本引理, 我们便得到
+\begin{equation*}
+    \boxed{L_{u^m}(\tau) - \sum_{i = 1}^n\partial_iL_{p^m_i}(\tau) =0, \qquad 1 \leq m \leq N,}
+\end{equation*}
+即\textbf{Euler-Lagrange方程}. 上式还可以等价地写为 
+\begin{equation*}
+    \boxed{L_{u^m}(\tau) - {\rm div}\ L_{p^m}(\tau) = 0, \qquad 1 \leq m \leq N.}
+\end{equation*}
+或直接简记为$L_u(\tau) - {\rm div}\ L_p(\tau) = 0$. 由此可以看出，当$n = 1$时, 上述E-L方程与我们第一节所导出的E-L方程是相同的.
+若$u^*$的光滑性较差, 上述E-L方程应在广义导数的意义下理解.
+
+类似地, 称算子$E_L\colon u \mapsto v = (v_1, \cdots, v_n)$, 其中 
+\begin{equation*}
+    \boxed{v_m  = L_{u^m}(\tau) - \sum_{i = 1}^n\partial_iL_{p^m_i}(\tau), \qquad m = 1, \cdots, N}
+\end{equation*}
+为关于$L$的\textbf{Euler-Lagrange算子}.
+
+\begin{example}
+    设$N = 1, L(p) = |p|^2/2 = (p_1^2 + \cdots + p_n^2)/2$. 对于泛函 
+    \begin{equation*}
+        I(u) = \int_{\Omega}L(p) \,{\rm d}x = \frac{1}{2}\int_{\Omega}|\nabla u|^2 \,{\rm d}x,
+    \end{equation*}
+    其对应的E-L方程为$\nabla \cdot \nabla u = 0$, 即 
+    \begin{equation*}
+        \Delta u(x) = 0, \qquad \forall x \in \Omega.
+    \end{equation*}
+    这便是Laplace方程.
+\end{example}
+
+\begin{example}
+    用$\mathbb{R} \times \mathbb{R}^3$表示时空连续统, 时空中任意一点的坐标是$(t, x) = (t, x_1, x_2, x_3)$, 其中$t$表示时间, $x = (x_1, x_2, x_3)$表示空间位置.
+    如果我们用$u = u(t, x)$表示在时空区域$\Omega \subseteq \mathbb{R} \times \mathbb{R}^3$内弹性波的位移, 那么弹性波的动能是 
+    \begin{equation*}
+        T(u) = \frac{1}{2}\int_{\Omega}|\partial_tu(t, x)|^2 \,{\rm d}t\,{\rm d}x, 
+    \end{equation*}
+    势能 
+    \begin{equation*}
+        U(u) =  \frac{1}{2}\int_{\Omega}|\nabla_xu(t, x)|^2 \,{\rm d}t\,{\rm d}x,
+    \end{equation*}
+    由此对应的Lagrange函数 
+    \begin{equation*}
+        I(u) = T(u) - U(u) = \frac{1}{2}\int_{\Omega}(|\partial_tu(t, x)|^2 - |\nabla_xu(t, x)|^2) \,{\rm d}t\,{\rm d}x. 
+    \end{equation*}
+    通过直接计算可知, $I$对应的E-L方程为 
+    \begin{equation*}
+        \square u := \partial_t^2u - \Delta u = 0.
+    \end{equation*}
+    这便是经典的波动方程. 类似地, 如果还有内力或外力存在, 那么在势能中可以再添加一些其他项. 例如:
+    \begin{equation*}
+        U(u) =  \frac{1}{2}\int_{\Omega}(|\nabla_xu(t, x)|^2 + m^2|u(t, x)|^2) \,{\rm d}t\,{\rm d}x,
+    \end{equation*} 
+    其中$m > 0$是一个常数. 此时对应的E-L方程为
+    \begin{equation*}
+        \square u - m^2u = 0.
+    \end{equation*} 
+    这是Klein-Gordon方程. 又如
+    \begin{equation*}
+        U(u) =  \int_{\Omega}\left(\frac{1}{2}|\nabla_xu(t, x)|^2 +\frac{1}{4} |u(t, x)|^2\right) \,{\rm d}t\,{\rm d}x.
+    \end{equation*} 
+    此时对应的E-L方程为 
+    \begin{equation*}
+        \square u + u^3 = 0.
+    \end{equation*}
+    这是一个非线性波动方程.
+\end{example}
+
+\begin{example}[极小曲面]
+    设$\Omega \subseteq \mathbb{R}^n$. 给定函数$u \in C^1(\overline{\Omega})$, 其对应的超曲面$\{(x, u(x))\colon x \in \overline{\Omega}\}$的面积是
+    \begin{equation*}
+        A(u) = \int_{\Omega}\sqrt{1 + |\nabla u(x)|^2} \,{\rm d}x.
+    \end{equation*}
+    在给定边值$u|_{\partial\Omega} = \Phi$的条件下, 我们要寻求$u$使得面积$A = A(u)$达到极小. 将$A$看作是关于$U$的泛函, $A$对应的E-L方程为 
+    \begin{equation*}
+        {\rm div}\ \frac{\nabla u(x)}{\sqrt{1 + |\nabla u(x)|^2}} = 0, \qquad \forall x \in \Omega.
+    \end{equation*}
+    这便是极小曲面所满足的方程. 注意到平均曲率有表达式
+    \begin{equation*}
+        H = \frac{1}{n}{\rm div}\ \frac{\nabla u(x)}{\sqrt{1 + |\nabla u(x)|^2}},
+    \end{equation*}
+    由此可知, 平均曲率等于零的方程就是极小曲面的方程. 我们有时候也将此作为极小曲面的定义, 即平均曲率为零的曲面.
+\end{example}
+
+\subsubsection{必要条件: Legendre-Hadamard条件}
+
+二阶变分$\delta^2I(u^*, \varphi) = \ddot g(0)$. 直接计算得 
+\begin{align*}
+    \delta^2I(u^*, \varphi) &= \sum_{m, n = 1}^N\int_{\Omega} F(x) \,{\rm d}x,
+\end{align*}
+其中 
+\begin{equation*}
+    F(x) = L_{u^mu^\ell}(\tau)\varphi^m(x)\varphi^\ell(x) + 2\sum_{i = 1}^nL_{u^mp^\ell_i}(\tau)\varphi^m(x)\partial_i\varphi^{\ell}(x) + \sum_{i, j = 1}^nL_{p^m_ip^{\ell}_j}(\tau)\partial_i\varphi^m(x)\partial_j\varphi^\ell(x),
+\end{equation*}
+而$\tau = (x, u^*(x), \nabla u^*(x))$. 为了书写的简便, 引入记号 
+\begin{align*}
+    A_{u^*} &= (a_{ij}^{m\ell}) = (L_{p^m_ip^{\ell}_j}(\tau)), \\ 
+    B_{u^*} &= (b_j^{m\ell}) = (L_{u^mp^\ell_j}(\tau)), \\ 
+    C_{u^*} &= (c^{m\ell}) = (L_{u^mu^\ell}(\tau)),
+\end{align*}
+并记
+\begin{equation*}
+    Q_{u^*}(\varphi) = \delta^2I(u^*, \varphi) = \int_{\Omega}(A_{u^*}(\nabla\varphi, \nabla\varphi) + 2B_{u^*}(\nabla\varphi, \varphi) + C_{u^*}(\varphi, \varphi)) \,{\rm d}x.
+\end{equation*}
+显然, 若$u^*$是一个(弱)极小点, 则对任意的$\varphi \in C_0^1(\Omega)$有$Q_{u^*}(\varphi) \geq 0$.
+
+\begin{proposition}
+    设$\Omega \subseteq \mathbb{R}^n$是一个有界区域, Lagrange函数$L \in C^2(\overline{\Omega} \times \mathbb{R}^N \times \mathbb{R}^{nN})$.
+    若$u^*$是对应的E-L方程的解, 则\textbf{Legendre-Hadamard条件}
+    \begin{equation}\label{17}
+        \boxed{\sum_{m, \ell = 1}^N\sum_{i, j = 1}^nL_{p_i^mp_j^\ell}(\tau)\xi^m\xi^\ell\eta_i\eta_j \geq 0, \quad \forall (x, \xi, \eta) \in \Omega \times \mathbb{R}^N \times \mathbb{R}^n.} 
+    \end{equation}
+    成立.
+    \begin{proof}
+        对任意的$x_0 \in \Omega$, 取向量值函数$v \in C_c^{\infty}(B_1(0))$. 当$\mu > 0$充分小时, 令 
+        \begin{equation*}
+            \varphi(x) = \mu v\left(\frac{x - x_0}{\mu}\right). 
+        \end{equation*}
+        将其代入至二阶变分的具体表达式中, 即得 
+        \begin{align*}
+            0 \leq \mu^n&\int_{B_1(0)}(A_{u^*}(x_0 + \mu y)(\nabla v(y), \nabla v(y)) \\&
+            + 2\mu B_{u^*}(x_0 + \mu y)(\nabla v(y), v(y)) + \mu^2C_{u^*}(x_0 + \mu y)(v(y), v(y))) \,{\rm d}y.
+        \end{align*}
+        令$\mu \rightarrow 0$, 即得
+        \begin{equation}\label{18}
+            \sum_{m, \ell = 1}^N\sum_{i, j = 1}^nA_{u^*}(x_0)\int_{B_1(0)}\partial_iv^m(y)\partial_jv^n(y) \,{\rm d}y \geq 0.
+        \end{equation}
+        现取函数$\rho \in C_c^{\infty}(B_1(0))$满足$\Vert \rho \Vert_{L^2(B_1(0))} = 1$.
+        对任意的$t > 0, \xi \in \mathbb{R}^N, \eta \in \mathbb{R}^n$, 分别将 
+        \begin{equation*}
+            v_1(y) = \xi\cos(t\eta \cdot y)\rho(y), 
+        \end{equation*}
+        和
+        \begin{equation*}
+            v_2(y) = \xi\sin(t\eta \cdot y)\rho(y)
+        \end{equation*}
+        代入至\eqref{18}中再相加, 即得 
+        \begin{equation*}
+            \sum_{m, \ell = 1}^N\sum_{i, j = 1}^nA_{u^*}(x_0)\xi^m\xi^\ell\eta_i\eta_j + O(t^{-1}) \geq 0 \qquad (t \rightarrow +\infty), 
+        \end{equation*}
+        从而有 
+        \begin{equation*}
+            \sum_{m, \ell = 1}^N\sum_{i, j = 1}^nA_{u^*}(x_0)\xi^m\xi^\ell\eta_i\eta_j \geq 0.
+        \end{equation*}
+        这便是Legendre-Hadamard条件\eqref{17}.
+    \end{proof}
+\end{proposition}
+
+\begin{remark}
+    若使用秩1矩阵的符号
+\begin{equation*}
+    \pi = (\pi_i^m) = (\xi^m\eta_i), 
+\end{equation*}
+那么\eqref{17}可以等价写为 
+\begin{equation*}
+    \sum_{m, \ell = 1}^N\sum_{i, j = 1}^nL_{p_i^mp_j^\ell}(\tau)\pi_i^m\pi_j^\ell \geq 0, \qquad \forall \pi, {\rm rank}(\pi) = 1.
+\end{equation*}
+\end{remark}
+
+类似地, 若存在$\lambda > 0$使得 
+\begin{equation*}
+    \boxed{\sum_{m, \ell = 1}^N\sum_{i, j = 1}^nL_{p_i^mp_j^\ell}(\tau)\xi^m\xi^\ell\eta_i\eta_j \geq \lambda|\xi|^2|\eta|^2, \quad \forall (x, \xi, \eta) \in \Omega \times \mathbb{R}^N \times \mathbb{R}^n.}
+\end{equation*}
+那么我们称其为\textbf{严格Legendre-Hadamard条件}. 利用秩1矩阵的符号, 上式可以等价写为 
+\begin{equation*}
+    \sum_{m, \ell = 1}^N\sum_{i, j = 1}^nL_{p_i^mp_j^\ell}(\tau)\pi_i^m\pi_j^\ell \geq \lambda\Vert \pi\Vert^2, \qquad \forall \pi, {\rm rank}(\pi) = 1. 
+\end{equation*}
+这里$\Vert \pi\Vert$代表$\pi$的Frobenius范数:
+\begin{equation*}
+    \Vert \pi \Vert = \left(\sum_{m, \ell = 1}^N\sum_{i, j = 1}^n(\pi_i^m)^2\right)^{1/2}.
+\end{equation*}
+
+\subsubsection{充分条件}
+
+先将Jacobi场的概念推广到高维情形: 设$L \in C^3$, $u^*$是一个极小点. 将$Q_{u^*}(\varphi)$看作是关于$\varphi$的变分积分, 写出其对应的E-L方程:
+
+\begin{equation*}
+    \boxed{J_{u^*}(\varphi) = \sum_{\ell = 1}^N\left(\sum_{i = 1}^n\partial_i\left(\sum_{j = 1}^na_{ij}^{m\ell}\partial_j\varphi^\ell + b_i^{m\ell}\varphi^\ell\right) - \left(\sum_{j = 1}^nb_j^{m\ell}\partial_j\varphi^m + c^{m\ell}\varphi^\ell\right)\right) = 0,}
+\end{equation*}
+其中$j = 1, \cdots, N$. 这是一个齐次二阶偏微分方程组. 称此方程为\textbf{Jacobi方程}, 并称$J_{u^*}$为沿$u^*$的\textbf{Jacobi算子}.
+Jacobi方程的任一$C^2$解为沿$u^*$的\textbf{Jacobi场}.
+
+以下探究$u^*$成为强极小点的充分条件:
+
+\begin{proposition}[充分条件1]
+    设$u^* \in M$满足E-L方程, 并且存在$\lambda > 0$使得 
+    \begin{equation}\label{19}
+        Q_{u^*}(\varphi) \geq \lambda\int_{\Omega}(|\varphi|^2 + |\nabla\varphi|^2) \,{\rm d}x, \quad \forall \varphi \in C_0^1(\Omega),
+    \end{equation}
+    则$u^*$是$I$的一个严格极小点.
+    \begin{proof}
+        与$n = 1$的情形一样.
+    \end{proof}
+\end{proposition}
+
+对于1维的情形, 引入了共轭点的概念, 利用严格Legendre-Hadamard条件和Poincaré不等式来对条件\eqref{19}进行简化.
+对于高维的情形, 由于共轭点的概念无法推广到高维, 故我们需要采取其它的手段. 以下我们旨在给出命题\ref{prop1.14}在高维情形的推广.
+
+\begin{lemma}[G\r arding不等式]
+    设$(a_{ij}^{m\ell}(x))$是$\overline{\Omega} \subseteq \mathbb{R}^n$上的一致连续函数, 且存在$\sigma > 0$使得 
+    \begin{equation*}
+        \sum_{m, \ell = 1}^N\sum_{i, j = 1}^na_{ij}^{m\ell}(x)\xi^m\xi^\ell\eta_i\eta_j \geq \sigma|\xi|^2|\eta|^2, \quad \forall (x, \xi, \eta) \in \Omega \times \mathbb{R}^N \times \mathbb{R}^n.
+    \end{equation*}
+    则存在$\beta, C_0 > 0$使得 
+    \begin{equation*}
+        \int_{\Omega}\sum_{m, \ell = 1}^N\sum_{i, j = 1}^na_{ij}^{m\ell}(x)\partial_i\varphi^m\partial_j\varphi^\ell \,{\rm d}x \geq \beta\int_{\Omega}|\nabla\varphi(x)|^2 - M\int_{\Omega}|\varphi(x)|^2 \,{\rm d}x, \quad \forall \varphi \in C_0^1(\Omega).
+    \end{equation*}
+    \begin{proof}
+        我们分为三种情况进行证明. 
+
+        当$N = 1$时, 结论是显然的.
+
+        当$N > 1$且$(a_{ij}(x))$恒为常数使, 我们让$\varphi$在$\Omega$外定义为零, 使其在全空间上由定义, 从而我们可以考虑$\varphi$的Fourier变换:
+        \begin{equation*}
+            \widehat{\varphi}(\xi) = \int_{\mathbb{R}^n}\varphi(x)\mathrm{e}^{-2\pi\mathrm{i}x \cdot \xi} \,{\rm d}x. 
+        \end{equation*}
+        注意到等式$(\partial_i\varphi)^{\wedge}(\xi) = (2\pi\mathrm{i}\xi_i)\widehat{\varphi}(\xi), \forall i$, 从而由题设条件和Plancherel定理可得, 
+        \begin{align*}
+            \sum_{m, \ell = 1}^N\sum_{i, j = 1}^n\int_{\Omega}a_{ij}^{m\ell}\partial_i\varphi^m\partial_j\varphi^\ell \,{\rm d}x &\geq \sum_{m, \ell = 1}^N\sum_{i, j = 1}^n\int_{\Omega}a_{ij}^{m\ell}\widehat{\partial_i\varphi^m}\overline{\widehat{\partial_j\varphi^\ell}} \,{\rm d}\xi \\ 
+            &= 4\pi^2 \sum_{m, \ell = 1}^N\sum_{i, j = 1}^n\int_{\Omega}a_{ij}^{m\ell}\xi_i\xi_j\partial_i\widehat{\varphi}^m\partial_j\widehat{\varphi}^\ell \,{\rm d}\xi \\ 
+            &\geq 4\pi^2\sigma\int_{\mathbb{R}^n}|\xi\widehat{\varphi}(\xi)|^2 \,{\rm d}\xi \\  
+            &= \sigma\int_{\mathbb{R}^n}|\widehat{\nabla\varphi}(\xi)|^2 \,{\rm d}\xi = \sigma\int_{\mathbb{R}^n}|\nabla\varphi(x)|^2 \,{\rm d}x. 
+        \end{align*}
+
+        最后我们考虑变系数的情形. 由$(a_{ij}(x))$的一致连续性可知, 对任意的$\varepsilon > 0$, 存在$\delta > 0$, 使得当开集$U \subseteq \overline{\Omega}$的直径${\rm diam}\ U < \delta$时, 有
+        \begin{equation*}
+            \sup_{x, y \in U}|a_{ij}^{m\ell}(x) - a_{ij}^{m\ell}(y)| < \varepsilon.
+        \end{equation*}
+        对任意的$x \in \overline{\Omega}$取球$B_{\delta/2}(x)$. 显然有$\bigcup_{x \in \overline{\Omega}}B_{\delta/2}(x) \supseteq \overline{\Omega}$.
+        再由$\overline{\Omega}$的紧性可知, 存在$x_1, \cdots x_k$使得$\bigcup_{\alpha = 1}^kB_{\delta/2}(x_{\alpha}) \supseteq \overline{\Omega}$.
+        令$B_{\alpha} = B_{\delta/2}(x_{\alpha}) \cap \Omega$, 从而有$\Omega = \bigcup_{\alpha = 1}^kB_{\alpha}$, 其中${\rm diam}\ B_{\alpha} < \delta, \forall \alpha$.
+        我们现在取$\{B_{\alpha}\}_{\alpha = 1}^k$对应的一个单位分解, 即函数族$\{w_{\alpha}\}_{\alpha = 1}^k$满足如下条件:
+        \begin{itemize}
+            \item $w_{\alpha} \in C_c^{\infty}(B_{\alpha}), 0 \leq w_{\alpha} \leq 1, \forall \alpha$;
+            \item $\sum_{\alpha = 1}^kw_{\alpha}^2 = 1$.
+        \end{itemize}
+        从而有 
+        \begin{align*}
+            \sum_{m, \ell = 1}^N\sum_{i, j = 1}^n\int_{\Omega}a_{ij}^{m\ell}(x)\partial_i\varphi^m\partial_j\varphi^\ell \,{\rm d}x &= \sum_{m, \ell = 1}^N\sum_{i, j = 1}^n\sum_{\alpha = 1}^k\int_{\Omega}a_{ij}^{m\ell}(x)w_{\alpha}^2(x)\partial_i\varphi^m\partial_j\varphi^\ell \,{\rm d}x \\ 
+            &= S_1 + S_2,
+        \end{align*}
+        其中 
+        \begin{align*}
+            S_1 &=  \sum_{m, \ell = 1}^N\sum_{i, j = 1}^n\sum_{\alpha = 1}^k\int_{\Omega}a_{ij}^{m\ell}(x_{\alpha})w_{\alpha}^2(x)\partial_i\varphi^m\partial_j\varphi^\ell \,{\rm d}x, \\ 
+            S_2 &=  \sum_{m, \ell = 1}^N\sum_{i, j = 1}^n\sum_{\alpha = 1}^k\int_{\Omega}(a_{ij}^{m\ell}(x) - a_{ij}^{m\ell}(x_{\alpha}))w_{\alpha}^2(x)\partial_i\varphi^m\partial_j\varphi^\ell \,{\rm d}x.
+        \end{align*}
+        一方面, 
+        \begin{equation*}
+            S_2 = o(1)\int_{\Omega}(|\varphi|^2 + |\nabla\varphi|^2) \,{\rm d}x \quad (\varepsilon \rightarrow 0).
+        \end{equation*}
+        另一方面, 由前述常系数的情形的分析, 有 
+        \begin{align*}
+            S_1 &= \sum_{m, \ell = 1}^N\sum_{i, j = 1}^n\sum_{\alpha = 1}^k\int_{\Omega}a_{ij}^{m\ell}(x_{\alpha})\partial_i(\varphi^mw_{\alpha})\partial_j(\varphi^\ell w_{\alpha}) \,{\rm d}x - S_3 \\ 
+            &\geq \sigma\int_{\Omega}\sum_{\alpha = 1}^k|\nabla(w_{\alpha}\varphi)|^2 \,{\rm d}x + O(\Vert \nabla \varphi\Vert_{L^2}\Vert \varphi \Vert_{L^2} + \Vert \varphi \Vert_{L^2}^2) \\  
+            &\geq \sigma'\int_{\Omega}|\nabla\varphi|^2 \,{\rm d}x - M\int_{\Omega}|\varphi|^2 \,{\rm d}x.
+        \end{align*}
+        综上所述, 我们有 
+        \begin{equation*}
+            \sum_{m, \ell = 1}^N\sum_{i, j = 1}^n\int_{\Omega}a_{ij}^{m\ell}(x)\partial_i\varphi^m\partial_j\varphi^\ell \,{\rm d}x \geq (\sigma'+ o(1))\int_{\Omega}|\nabla\varphi(x)|^2 - M\int_{\Omega}|\varphi(x)|^2  \qquad (\varepsilon \rightarrow 0).
+        \end{equation*}
+        这便完成了引理的证明.
+    \end{proof}
+\end{lemma}
+
+\begin{proposition}[充分条件2]
+    设$L \in C^2$满足严格Legendre-Hadamard条件. 若$u^*$是E-L方程的一个解, 且存在$\mu > 0$使得 
+    \begin{equation*}
+        Q_{u^*}(\varphi) \geq \mu\int_{\Omega}|\varphi|^2 \,{\rm d}x, \quad \forall \varphi \in C_0^1(\Omega),
+    \end{equation*}
+    则存在$\lambda > 0$使得 
+    \begin{equation*}
+        Q_{u^*}(\varphi) \geq \lambda\int_{\Omega}(|\varphi|^2 + |\nabla\varphi|^2) \,{\rm d}x, \quad \forall\varphi \in C_0^1(\Omega).
+    \end{equation*}
+    从而$u^*$是$I$的一个极小点.
+    \begin{proof}
+        利用G\r arding不等式, 参照命题\ref{prop1.14}的证明过程即可.
+    \end{proof}
+\end{proposition}
+
+最后我们再从特征值的角度给出极小值点的刻画. 设$u^* \in C^1(\overline{\Omega})$是E-L方程的解. 称 
+\begin{equation*}
+    \boxed{\lambda_1 = \inf\left\{Q_{u^*}(\varphi)\colon \varphi \in C_0^1(\Omega), \int_{\Omega}|\varphi|^2 \,{\rm d}x = 1\right\}}
+\end{equation*}
+为Jacobi算子的\textbf{第一特征值}.
+
+\begin{proposition}
+    设$L \in C^2$满足严格Legendre-Hadamard条件, 又设$u^* \in M$是$I$的一个弱极小点, 则$\lambda_1 \geq 0$;
+    反之, 若$\lambda_1 > 0$, 则$u^*$是$I$的一个严格弱极小点.
+\end{proposition}
