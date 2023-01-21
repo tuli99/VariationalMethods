@@ -1,0 +1,63 @@
+\subsection{专题一: 正交投影}
+
+对于某类对应于线性微分方程的特殊变分问题, 其极小点的存在性可以由Hilbert空间的某些性质所保证, 而不需要使用弱拓扑的工具.
+
+\begin{example}
+    考虑Poisson方程
+    \begin{equation*}
+        \begin{cases}
+            -\Delta u = f, \quad &\text{in}\ \Omega, \\ 
+            u = 0, \quad &\text{on}\ \partial\Omega,
+        \end{cases}
+    \end{equation*}
+    其中$\Omega \subseteq \mathbb{R}^n$为有界区域, $f \in L^2(\Omega)$.
+    在等式$-\Delta u = f$两边与$\varphi \in H_0^1(\Omega)$相乘后在积分, 并利用Green公式和边值条件, 即得 
+    \begin{equation*}
+        (\varphi, u)_{H_0^1} = \int_{\Omega}\nabla u \cdot \nabla\varphi \,{\rm d}x = \int_{\Omega}f\varphi \,{\rm d}x.
+    \end{equation*}
+    由Cauchy-Schwarz不等式和Poincar\'e不等式, 有 
+    \begin{equation*}
+        \left|\int_{\Omega}f\varphi \,{\rm d}x\right| \leq \Vert f \Vert_{L^2}\Vert \varphi\Vert_{L^2} \leq C\Vert f \Vert_{L^2}\nabla\varphi\Vert_{L^2},
+    \end{equation*}
+    其中$C$是一个常数. 这表明$\varphi \mapsto \int_{\Omega}f\varphi \,{\rm d}x$可以看作是$H_0^1(\Omega)$上的有界线性泛函.
+    按Riesz表示定理, 存在$u^* \in H_0^1(\Omega)$, 使得 
+    \begin{equation*}
+        \int_{\Omega}f\varphi \,{\rm d}x = (\varphi, u^*)_{H_0^1}.
+    \end{equation*}
+    从而对任意的$\varphi \in H_0^1(\Omega)$, 有$(\varphi, u)_{H_0^1} = (\varphi, u^*)_{H_0^1}$.
+    故$u = u^* \in H_0^1(\Omega)$便是Poisson方程的解.
+\end{example}
+
+在上述的推导过程中, Riesz表示定理起到了决定性的作用, 而Riesz定理的证明依赖于下述正交投影定理:
+
+\begin{theorem}[正交投影]
+    设$M$为Hilbert空间$H$的闭子空间, 则对任意的$x \in H$, 存在$y \in M$, 使得$(x - y) \bot M$.
+\end{theorem}
+
+值得注意的是, Hilbert空间$H$中正交投影的存在性可以化归为一个变分问题:
+\begin{align*}
+    &{\rm min}\ \Vert x - z \Vert, \\ 
+    &{\rm s.t.}\ z \in M.
+\end{align*}
+这里$x \in H$. 事实上, 若存在$z^* \in M$使得$\Vert x - z^* \Vert = \min_{z \in M}\Vert x - z \Vert$, 对任意的$y \in H$, 考虑定义在$B_r(0)$上的函数 
+\begin{align*}
+    g(t) = \Vert x - (ty + (1 - t)z^*) \Vert^2 = \Vert y - z^* \Vert^2t^2 - 2(x - z^*, y - z^*)t + \Vert x - z^*\Vert^2.
+\end{align*}
+这是一个关于$t$的二次函数, 它在$t = 0$处达到极小值. 从而有 
+\begin{equation*}
+    \dot g(0) = -2(x - z^*, y - z^*) = 0,
+\end{equation*}
+即$(x - z^*) \bot M$.
+
+极小点$z^* \in H$的存在性也可以用初等方法证明. 具体地, 令$m = \inf_{z \in M}\Vert x - z \Vert$, 取极小化序列$\{z_j\} \subseteq M$, 使得 
+\begin{equation*}
+    \Vert z_j - x \Vert < m + \frac{1}{j}, \qquad \forall j.
+\end{equation*}
+对任意的$\varepsilon > 0$, 当$j, k$充分大时, 平行四边形法则给出 
+\begin{align*}
+    \Vert z_j - z_k\Vert^2 = 2(\Vert z_j - x\Vert^2 + \Vert z_j - x \Vert^2) - 4\left\Vert \frac{z_j + z_k}{2} - x \right\Vert^2 \leq 4(m + \varepsilon)^2 - 4m^2,
+\end{align*}
+由此表明$\{z_j\}$是Cauchy列, 从而存在$z^* \in H$, 使得$z_j \rightarrow z^*$.
+又因为$M$是闭的, 故$z^* \in M$, 且有$\Vert z^* - x \Vert = m$.
+
+综上所述, 利用Hilbert空间的完备性和几何性质, 我们验证了Dirichlet原理, 而不引入弱拓扑的概念.
