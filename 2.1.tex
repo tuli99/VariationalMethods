@@ -1,0 +1,284 @@
+\subsection{引言}
+
+传统方法 $\leadsto$ E-L方程, etc. 但仍有许多缺陷:
+\begin{itemize}
+    \item E-L方程为ODE/PDE, 大多数情况下无法写出其解析解;
+    \item 前述理论大多都是基于E-L方程的解存在, 且满足一定正则性的前提下的; 如$C^1, C^2, PWC^1$.
+\end{itemize}
+
+直接方法: 直接从定义出发, 找极小化序列, 并验证极小点的存在性.
+
+\subsubsection{Dirichlet原理}
+
+\begin{example}
+    考虑Laplace方程
+    \begin{equation}\label{33}
+        \begin{cases}
+            \Delta u = 0 \quad &{\rm in} \ \Omega, \\ 
+            u|_{\partial\Omega} = \varphi \quad &{\rm on}\ \partial\Omega.
+        \end{cases}
+    \end{equation}
+    其可以看作Dirichlet积分
+    \begin{equation}\label{34}
+        D(u) = \int_{\Omega}|\nabla u|^2 \,{\rm d}x
+    \end{equation}
+    在$M = \{u \in C^2(\overline{\Omega})\colon u|_{\partial\Omega} = \varphi\}$上的E-L方程.
+\end{example}
+
+证明Laplace方程边值问题\eqref{33}有解 $\leadsto$ Dirichlet积分\eqref{34}在$M$上存在极小值.
+为说明极小点的存在性, Riemann使用了如下的\textbf{Dirichlet原理}:
+
+\begin{itemize}
+    \item 因为$D$有下界, 所以必有下确界. 现取一列函数$\{u_n\} \subseteq M$使得$D(u_n) \rightarrow \inf_{u \in M}D(u)$.
+    因为$\{u_n\}$是有界的, 所以有收敛子列$u_{n_k} \rightarrow u^*$. 这个$u^*$就是要找的极小点: $D(u^*) = \inf_{u \in M}D(u)$.
+\end{itemize}
+
+1870年, Weierstrass举出了以下反例:
+
+\begin{example}
+    考虑下列极值问题:
+    \begin{equation*}
+        I(u) = \int_{-1}^1x^2\dot u^2 \,{\rm d}x, \qquad M = \{u \in C^1[-1, 1]\colon u(-1) = -1, u(1) = 1\}.
+    \end{equation*}
+    显然有$I \geq 0$. 另一方面, 对$\varepsilon > 0$取 
+    \begin{equation*}
+        u_{\varepsilon}(x) = \frac{\arctan \displaystyle\frac{x}{\varepsilon}}{\arctan \displaystyle\frac{1}{\varepsilon}}.
+    \end{equation*}
+    我们有 
+    \begin{equation*}
+        I(u_{\varepsilon}) = \frac{\varepsilon^2}{\arctan^2\displaystyle\frac{1}{\varepsilon}}\int_{-1}^1\frac{x^2}{(x^2 + \varepsilon^2)^2} \,{\rm d}x \rightarrow 0 \qquad (\varepsilon \rightarrow 0).
+    \end{equation*}
+    由此表明$\inf_MI = 0$. 但若存在$u^* \in M$使得$I(u^*) = 0$, 则由$I$的具体表达式可知, $\dot u = 0$, 从而有$u^* = {\rm const}$, 这与边值条件矛盾!
+\end{example}
+
+事实上, 有界集不一定是列紧集, 且若极小化序列存在收敛子列, 其极限点也未必是极小点.
+
+\begin{itemize}
+    \item 问题的提出: 给定一个拓扑空间$X$, 设函数$f\colon X \rightarrow \mathbb{R}$下方有界, 从而有下确界$m = \inf_{x \in X}f(x)$.
+    取极小化序列$\{x_j\} \subseteq X$使得$f(x_j) \rightarrow m$. 在什么条件下$\{x_j\}$存在收敛子列收敛到极小值点?    
+\end{itemize}
+
+\textbf{Analysis}: 考虑下方水平集 
+\begin{equation*}
+    f_t = \{x \in X\colon f(x) \leq t\},
+\end{equation*}
+其中$t \in \mathbb{R}$. 若存在$t > m$使得$f_t$是列紧的, 那么由于当$N$充分大时有$\{x_j\colon j \geq N\} \subseteq f_t$, 故有子列$x_{k_j} \rightarrow x^* \in f_t \subseteq X$. 
+进一步地, 若$f$在$x = x^*$处还满足条件 
+\begin{equation}\label{35}
+    f(x^*) \leq \varliminf\limits_{k \rightarrow \infty}f(x_{j_k}),
+\end{equation}
+则有$f(x^*) = m = \inf_Mf$. 特别地, 若$f$是\textbf{序列下半连续的}, 即条件$x_n \rightarrow x$蕴含$f(x) \leq \varliminf f(x_n)$, 则不等式\eqref{35}成立.
+
+\begin{itemize}
+    \item 下半连续性. 一般定义: 称$f$是下半连续的, 若对任意的$t \in \mathbb{R}$, 下方水平集$f_t$是闭的.
+    特别地, 对于度量空间, 下半连续 $\Leftrightarrow$ 序列下半连续.
+    \item 列紧性. 对于有限维赋范线性空间的情形, 闭 + 有界 $\Rightarrow$ 列紧. 因此, 对于下半连续函数$f$, 只要添加\textbf{强制性条件}:
+    \begin{equation*}
+        f(x) \rightarrow +\infty \qquad (\Vert x \Vert \rightarrow +\infty),
+    \end{equation*}
+    则可保证$f_t$是有界的. 对于无限维的情形, 有界闭集不一定是列紧的, 如单位球面$\mathbb{S} = \{\Vert x \Vert = 1\}$.
+    \item 选取合适的空间. $C^1$不是合适的空间. 一方面, 从$D(u_n)$有界不一定能推出$\{u_n\}$有界; 另一方面, 即使点列是$C^1$有界的, 也未必存在$C^1$收敛的点列.
+\end{itemize}
+
+\subsubsection{泛函分析初步: 弱拓扑}
+
+\begin{definition}\label{def2.3}
+    设$X$是赋范线性空间. 称序列$\{x_n\}$在$X$中\textbf{弱收敛}到$x$(记作$x_n \rightharpoonup x$), 如果对任意的$f \in X^*$, 有$\langle f, x_n - x\rangle \rightarrow 0$, 其中$X^*$为$X$的对偶空间.
+    称序列$\{f_n\}$在$X^*$中\textbf{弱\textsuperscript{*}收敛}到$f$(记作$f_n \rightharpoonup^* f$), 如果对任意的$x \in X$, 有$\langle f_n - f, x\rangle \rightarrow 0$.
+\end{definition}
+
+我们可以通过如下方式来定义弱拓扑和弱\textsuperscript{*}拓扑: 
+
+\begin{itemize}
+    \item 对任意的$f \in X^*$, 定义映射$\varphi_f\colon X \rightarrow \mathbb{R}\colon x \mapsto \langle f, x\rangle$.
+    那么$X$上的弱拓扑即为使得映射族$\{\varphi_f\}_{f \in X^*}$均连续的最粗糙的拓扑; 类似地, 对任意的$x \in X$, 考虑映射$\phi_x\colon X^* \rightarrow \mathbb{R}\colon f \mapsto \langle f, x\rangle$.
+    则$X^*$上的弱\textsuperscript{*}拓扑即为使得映射族$\{\phi_x\}_{x \in X}$均连续的最粗糙的拓扑.
+    \item 容易验证, 在上述定义下, $X$(或$X^*$)上的弱收敛(或弱\textsuperscript{*}收敛)的具体表现形式即为定义\ref{def2.3}中所定义的的那样.
+    \item 取$x_0 \in X$, 若设$U$为$x_0$的在弱拓扑意义下的邻域, 则存在$f_1, \cdots, f_k \in X^*$以及$\varepsilon > 0$, 使得 
+    \begin{equation*}
+        U = \{x \in X\colon |\langle f_j, x - x_0\rangle| < \varepsilon, \forall j = 1, \cdots, k\}.
+    \end{equation*}
+    类似地, 若设$V$为$f_0 \in X^*$在弱\textsuperscript{*}拓扑意义下的邻域, 则存在$x_1, \cdots, x_l \in X$以及$\delta > 0$, 使得 
+    \begin{equation*}
+        V = \{f \in X^*\colon |\langle f - f_0, x_m\rangle| < \delta, \forall m = 1, \cdots, l\}.
+    \end{equation*}
+\end{itemize}
+
+\begin{remark}
+    在$X^*$中既有弱收敛, 又有弱\textsuperscript{*}收敛的概念. 注意到连续嵌入$X \hookrightarrow  X^{**}$, 所以弱收敛蕴含着弱\textsuperscript{*}收敛.
+    特别地, 若$X$是自反的, 则$X^*$中的弱收敛和弱\textsuperscript{*}收敛没有区别.
+\end{remark}
+
+\begin{example}\label{ex2.5}
+    设$D = [0, 1]^N$是$\mathbb{R}^N$中的立方体. 设$\varphi \in L^p(D), 1 \leq p \leq \infty$.
+    将$\varphi$作周期延拓, 并令$\varphi_n(x) = \varphi(nx), \forall n \in \mathbb{Z}_{\geq 0}$, 以及 
+    \begin{equation*}
+        \bar{\varphi} = \int_D\varphi(x) \,{\rm d}x,
+    \end{equation*}
+    则
+    \begin{equation*}
+        \varphi \rightharpoonup \bar{\varphi} \ \text{in}\ L^p(D) \qquad (1 \leq p < \infty),
+    \end{equation*}
+    以及 
+    \begin{equation*}
+        \varphi \rightharpoonup^* \bar{\varphi}\ \text{in}\ L^{\infty}(D).
+    \end{equation*}
+\end{example}
+
+有界不一定蕴含列紧性, 但若设原空间是自反的, 则有界性蕴含弱列紧性. 
+
+\begin{theorem}[Banach-Alaoglu]\label{Alaoglu}
+    设$X$是Banach空间, 则$X^*$中的闭单位球
+    \begin{equation*}
+        \mathbb{B}_{X^*} = \{f \in X^*\colon \Vert f \Vert \leq 1\}
+    \end{equation*}
+    是弱\textsuperscript{*}紧的.
+\end{theorem}
+
+\begin{proposition}
+    设$X$是Banach空间. 则$X^*$是可分的, 当且仅当$\mathbb{B}_X$在弱拓扑下是可度量化的.
+    对偶地, $X$是可分的, 当且仅当$\mathbb{B}_{X^*}$在弱\textsuperscript{*}拓扑下是可度量化的.
+\end{proposition}
+
+由上述结果可知, 若设$X$是可分的Banach空间, 此时由于$\mathbb{B}_{X^*} \subseteq X^*$是可度量化的, 故$\mathbb{B}_{X^*}$是列紧的, 即$\mathbb{B}_{X^*}$中的任意点列均有弱\textsuperscript{*}收敛子列.
+特别地, 若$X$还是自反的, 注意到$X$可以看作是$X^*$的对偶空间, 故$X$中的闭单位球$\mathbb{B}_X$也是列紧的. 
+因此, \textbf{若$X$是自反且可分的Banach空间, 则它的任意有界序列必有一弱收敛子序列}.
+
+事实上, 上述论断中对$X$的可分性假设可以去掉. 我们先利用Banach-Alaoglu证明以下结论:
+
+\begin{theorem}\label{Kakutani}
+    设$X$是自反的Banach空间, 那么$\mathbb{B}_X$是弱紧的. 
+    \begin{proof}
+        设$J$为$X$到$X^{**}$的典范映射. 由于$X$是自反的, 故$\mathbb{B}_{X^{**}} = J(\mathbb{B}_X)$.
+        再根据定理\ref{Alaoglu}可知, $\mathbb{B}_{X^{**}}$是弱\textsuperscript{*}紧的, 因此我们只需证明$J^{-1}$是从$X^{**}$(赋予弱\textsuperscript{*}拓扑)到$X$(赋予弱拓扑)的连续映射.
+        事实上, 注意到对任意的$f \in X^*$和$\xi \in X^{**}$, 有 
+        \begin{equation*}
+            \langle f, J^{-1}\xi\rangle = \langle \xi, f\rangle,
+        \end{equation*}
+        由此即可说明$J^{-1}$是连续的. 这便证得了所需结论.
+    \end{proof}
+\end{theorem}
+
+综上所述, 我们便有如下结果:
+
+\begin{corollary}\label{coro2.9}
+    自反Banach空间$X$中的任意有界序列必有一弱收敛的子序列.
+    \begin{proof}
+        设$\{x_n\}$为$X$中任意有界序列. 令
+        \begin{equation*}
+            M_0 = {\rm span} \{x_n\} = \left\{y \in X\colon y = \sum_Ja_ix_i, a_i \in \mathbb{R}, \# J < \infty.\right\}
+        \end{equation*}
+        由题设条件可知, $M = \overline{M_0}$是自反的. 进一步地, 若记$M'$为$\{x_n\}$在$\mathbb{Q}$上张成的线性子空间, 则显然$M'$在$M_0$稠密, 由此表明$M$还是可分的.
+        故$M^*$也是可分, 且自反的. 若记$\mathbb{B}_M$为$M$中的闭单位球, 由上述分析可知, $\mathbb{B}_M$是可度量化的.
+        此外, 由定理\ref{Kakutani}可知, $\mathbb{B}_M$还是弱紧的, 故$\mathbb{B}_M$是弱列紧的.
+        由此足以说明$\{x_n\}$存在弱收敛子序列.
+    \end{proof}
+\end{corollary}
+
+特别地, 任一Hilbert空间和$L^p \ (1 < p < \infty)$空间均是自反的; 在这些空间上, 由推论\ref{coro2.9}可知, 有界性蕴含着弱列紧性.
+
+\subsubsection{Dirichlet原理-续}
+
+以下是直接方法的基本定理: 
+
+\begin{theorem}\label{th2.10}
+    设$X$是自反的Banach空间, $E \subseteq X$是弱序列闭的非空子集.
+    若$f \colon E \rightarrow \mathbb{R}$是弱序列下半连续, 并且是强制的, 则$f$在$E$上达到极小值.
+    \begin{proof}
+        取极小化序列$\{x_n\}\colon f(x_n) \rightarrow \inf_Ef$. 由于$f$是强制的, 则$\{x_n\}$是有界的.
+        根据推论\ref{coro2.9}, $\{x_n\}$有弱\textsuperscript{*}收敛子列: $x_{k_n} \rightharpoonup^* x^*$. 再由题设条件可知, $x^* \in E$.
+        注意到$f$是弱序列下半连续的, 从而有 
+        \begin{equation*}
+            f(x^*) \leq \varliminf\limits_{n \rightarrow \infty}f(x_{k_n}) \leq \inf_Ef.
+        \end{equation*}
+        由此表明$f(x^*) = \inf_Ef$.
+    \end{proof}
+\end{theorem}
+
+若要运用上述定理解决变分问题, 我们需要注意如下几点:
+
+\begin{itemize}
+    \item 选取合适的函数空间. 我们通常选取自反的Banach空间, 或更一般地, 可分Banach空间的对偶空间.
+    \item 对应的泛函对于此函数空间上的拓扑是弱序列下半连续, 且是强制的.
+\end{itemize}
+
+以下我们使用定理\ref{th2.10}来验证Dirichlet原理.
+
+首先是选取合适的空间. 注意到$C^1(\overline{\Omega})$不是自反的, 且Dirichlet积分$D(u)$按$C^1$拓扑也不是强制的, 故我们需要选取其它的空间.
+注意到$D(u)$的具体表达式, 我们在$C^1(\overline{\Omega})$上引入如下范数 
+\begin{equation*}
+    \Vert u \Vert_{H^1} := \left(\int_{\Omega}(|\nabla u|^2 + |u|^2) \,{\rm d}x\right)^{1/2}.
+\end{equation*}
+$C^1(\overline{\Omega})$在此范数下不是完备的. 我们将其完备化空间记为$H^1(\Omega)$.
+可以验证, 这是一个Hilbert空间, 其上的内积定义为 
+\begin{equation*}
+    (u, v)_{H^1} := \int_{\Omega}(\nabla u \cdot \nabla v + uv) \,{\rm d}x. 
+\end{equation*}
+对应地, 我们把$C_0^1(\Omega)$在$H^1(\Omega)$中的闭包记为$H_0^1(\Omega)$. 注意到$D(u)$不是$H^1(\Omega)$上的范数, 然而, 下述引理表明, 当$\Omega$是一个有界区域时, $D(u)$可以看作是$H_0^1(\Omega)$上的范数:
+
+\begin{lemma}[Poincaré不等式]
+    设$\Omega \subseteq \mathbb{R}^n$是一个有界区域, 则对任意的$u \in C_0^1(\Omega)$, 存在常数$C = C(\Omega) > 0$, 使得 
+    \begin{equation*}
+        \Vert u \Vert_{L^2} \leq C\Vert \nabla u \Vert_{L^2}.
+    \end{equation*}
+    \begin{proof}
+        取$\mathbb{R}^n$中的立方体$D = \times_{i = 1}^n[a_i, b_i] (a_i, b_i \in \mathbb{R})$, 使得$D \supseteq \Omega$. 对任意的$\varphi \in C_0^1(\Omega)$, 令 
+        \begin{equation*}
+            \widetilde{\varphi}(x) = \varphi(x)\chi_{\Omega}(x), \qquad x \in D.
+        \end{equation*}
+        记$x = (x_1, \widetilde{x})$. 由引理\ref{lma1.12}可知, 存在只依赖于$\Omega$的常数$C_1$, 使得
+        \begin{equation*}
+            \int_J |\widetilde{\varphi}(x_1, \widetilde{x})| \,{\rm d}x_1 \leq C_1\int_J|\partial_{x_1}\widetilde{\varphi}(x_1, \widetilde{x})|^2 \,{\rm d}x_1,
+        \end{equation*}
+        其中$J$是$D$沿$x_1$方向的投影. 在上述不等式两侧依次对$x_2, x_3, \cdots, x_n$积分, 并重复使用引理\ref{lma1.12}, 注意到$\widetilde{\varphi}$的具体表达式, 即证得所需结论.
+    \end{proof}
+\end{lemma}
+
+以下我们在$H^1(\Omega)$上验证Dirichlet原理的正确性.
+对给定的$\varphi = C^1(\overline{\Omega})$, 在$M = \varphi + H_0^1(\Omega)$上, 其Dirichlet积分有表达式 
+\begin{equation*}
+    D(u) = D(\varphi) + D(v) + 2\int_{\Omega}\nabla u_0 \cdot \nabla \varphi \,{\rm d}x.
+\end{equation*}
+其中$u = \varphi + v \in M$.
+\begin{itemize}
+    \item $D(u)$是强制的. 由上述表达式可以看出, 只需说明当$D(v) \rightarrow +\infty$时, 有$D(u) \rightarrow +\infty$.
+    事实上, 由Schwarz不等式和加权的初等不等式可得 
+    \begin{equation*}
+        \left|\int_{\Omega}\nabla v \cdot \nabla \varphi \,{\rm d}x\right| \leq \sqrt{D(v)D(\varphi)} \leq D(v) + \frac{1}{4}D(\varphi),
+    \end{equation*}
+    从而有 
+    \begin{equation*}
+        D(u) \geq \frac{1}{2}D(v) - D(\varphi).
+    \end{equation*}
+    由此即表明$D$是强制的.
+    \item $D(u)$是弱序列下半连续的. 在$H^1(\Omega)$中取序列$\{u_n\}$, 其中$u_n = \varphi + v_n, v_n \in H_0^1(\Omega)$. 
+    显然, 
+    \begin{equation*}
+        u_n \rightharpoonup u \ \text{in}\ H^1 \Leftrightarrow v_n \rightharpoonup v \ \text{in}\ H_0^1,
+    \end{equation*}
+    这里$u = \varphi + v$. 注意到
+    \begin{equation*}
+        \psi \mapsto \int_{\Omega}\nabla \psi \cdot \nabla \varphi \,{\rm d}x
+    \end{equation*}
+    可以看作是$H_0^1(\Omega)$的连续线性泛函, 由弱收敛的定义以及Riesz表示定理可知, 
+    \begin{equation*}
+        \int_{\Omega}\nabla v_n \cdot \nabla \varphi \,{\rm d}x \rightarrow \int_{\Omega}\nabla v \cdot \nabla \varphi \,{\rm d}x.
+    \end{equation*}
+    同理有 
+    \begin{equation*}
+        \int_{\Omega}\nabla v_n \cdot \nabla v \,{\rm d}x \rightarrow \int_{\Omega}\nabla v \cdot \nabla v \,{\rm d}x = D(v).
+    \end{equation*}
+    此时Schwarz不等式给出 
+    \begin{equation*}
+        D(v) = \lim\limits_{n \rightarrow \infty}\int_{\Omega}\nabla v_n \cdot \nabla v \,{\rm d}x \leq \varliminf\limits_{n \rightarrow \infty}D(v)^{1/2}D(v_n)^{1/2}, 
+    \end{equation*}
+    即$D(v) \leq \varliminf D(v_n)$. 由此足以说明$D(u)$的弱序列下半连续性.
+\end{itemize}
+
+综上所述, 我们利用定理\ref{th2.10}证明了Dirichlet积分可以在$H^1(\Omega)$上达到极小值, 即验证了Dirichlet原理.
+
+最后指出, 一个微分方程的解并不能总是用直接方法求得. 以下反例属于Hadamard: 令 
+\begin{equation*}
+    u(r, \theta) = \sum_{m = 1}^{\infty}\frac{r^{m!}\sin m!\theta}{m^2}, \qquad (r, \theta) \in [0, 1] \times [0, 2\pi].
+\end{equation*}
+可以验证, $u$是单位圆内的调和函数, 但由于$\Vert \nabla u\Vert_{L^2} = \infty$, 其对应的Dirichlet积分$D(u) = \infty$.
