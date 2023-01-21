@@ -1,0 +1,185 @@
+\subsection{必要条件: Euler-Lagrange方程}
+
+\textbf{函数极值的必要条件}. 设$\Omega$为$\mathbb{R}^N$中的开集, 函数$f \in C^1(\Omega)$在$x^* \in \Omega$处达到极小.
+于是对任意的$h \in \mathbb{R}^n \smallsetminus \{0\}$, 存在充分小的$\varepsilon(h) > 0$, 使得当$0 < |\varepsilon| < \varepsilon(h)$时, $x^* + \varepsilon h \in \Omega$, 且$f(x^* + \varepsilon h) \geq f(x^*)$.
+令$g_h(\varepsilon) = f(x^* + \varepsilon h)$, 由上述分析可知, $\varepsilon = 0$是单变量函数$g_h$的极小点, 故
+\begin{equation*}
+    0 = \dot g_h(0) = \nabla f(x^*) \cdot h.
+\end{equation*}
+再由$h$的任意性, 即得$\nabla f(x^*) = 0$.
+
+\subsubsection{Euler-Lagrange方程}
+
+对于泛函的情形我们也可以进行类似的处理. 首先做一些设定:
+
+给定区间$J = [t_0, t_1] \subseteq \mathbb{R}$和开区域$\Omega \subseteq \mathbb{R}^N$, 取$L = L(x, u, p) \in C^1(J \times \Omega \times \mathbb{R}^N)$.
+考虑约束集合 
+\begin{equation*}
+    M = \{u \in C^1(J)\colon u(t_i) = P_i, i = 1, 2\}
+\end{equation*}
+以及目标泛函 
+\begin{equation*}
+    I(u) =\int_JL(t, u(t), \dot{u}(t)) \,{\rm d}t.
+\end{equation*}
+称$u^*$是$I$的\textbf{极小点}, 若存在$u^*$的邻域$U$, 使得对任意的$u \in U \cap M$, 有$I(u) \geq I(u^*)$.
+\begin{itemize}
+    \item 函数的情形引入非零向量$h$ $\leadsto$ 泛函的情形引入测试函数$\varphi$.
+    注意到对于函数自身正则性以及边值的约束, 一般取$\varphi \in C_0^1$.
+    \item 邻域的刻画: 函数的情形引入充分小的$\varepsilon$ $\leadsto$ 泛函的情形是否能引入充分小的$\varepsilon = \varepsilon(\varphi)$来刻画?
+    事实上, 注意到$u(J)$是紧的, 故$\varepsilon(\varphi)$的存在性可由$\mathbb{R}^n$的T4分离公理保证.
+\end{itemize}
+
+\begin{lemma}[du Bois-Reymond, 变分法基本引理]
+    若$\psi \in C[t_0, t_1]$, 且
+    \begin{equation*}
+        \int_{t_0}^{t_1} \psi(t)\dot{\lambda}(t) \,{\rm d}t = 0, \quad \forall \lambda \in C_0^1[t_0, t_1],
+    \end{equation*}
+    则$\psi = {\rm const}$.
+    \begin{proof}
+        令
+        \begin{equation*}
+            c = \frac{1}{t_1 - t_0}\int_{t_0}^{t_1}\psi(t) \,{\rm d}t, \lambda(t) = \int_{t_0}^t(\psi(s) - c) \,{\rm d}s.
+        \end{equation*}
+        注意到此时$\lambda \in C_0^1[t_0, t_1]$, 故利用题设条件可得 
+        \begin{equation*}
+            \int_{t_0}^{t_1}(\psi(t) - c)^2 \,{\rm d}t = \int_{t_0}^{t_1}\dot{\lambda}(t)(\psi(t) - c) \,{\rm d}t = -c\int_{t_0}^{t_1}(\psi(t) - c) \,{\rm d}t = 0.
+        \end{equation*}
+        从而有$\psi = c$.
+    \end{proof}
+\end{lemma}
+
+\begin{remark}
+    上述du Bois-Reymond引理还有一些简单的推广形式. 如将$\psi \in C(J)$换成$\psi \in L^{\infty}(J)$或$\psi \in L^1(J)$, 相应地把$\lambda \in C_0^1(J)$换成$\lambda \in {\rm AC_0}(J)$或$\lambda \in C_c^{\infty}(J)$.
+\end{remark}
+
+\begin{proposition}
+    设$u^* \in M$是泛函$I$在$M$上的一个极小点, 则它满足下列\textbf{积分形式的Euler-Lagrange方程}(简称\textbf{E-L方程}):
+    \begin{equation*}
+        \boxed{-\int_{t_0}^tL_{u_i}(s, u^*(s) , u^*(s)) \,{\rm d}s + L_{p_i}(t, u^*(t) , u^*(t)) = {\rm const}, \qquad \forall t \in J, 1 \leq i \leq n.}
+    \end{equation*}
+    \begin{proof}
+        由前述分析可知, 对任意的$\varphi \in C_0^1[t_0, t_1]$, 存在充分小的$\varepsilon(\varphi) > 0$, 使得当$0 < |\varepsilon| < \varepsilon(\varphi)$时, 有$I(u^* + \varepsilon\varphi) \geq I(u^*)$.
+        令$g_{\varphi}(\varepsilon) = I(u^* + \varepsilon\varphi)$. 题设条件表明$\dot g_{\varphi}(0) = 0$ (称$\dot g_{\varphi}(0)$为$I$对$\varphi$的\textbf{一阶变分}, 记作$\delta I(u^*, \varphi)$).
+        利用分部积分公式, 进一步计算得
+        \begin{align*}
+            0 = g_{\varphi}'(0) &= \sum\limits_{i = 1}^N\int_J(L_{u_i}(t, u^*(t) , \dot u^*(t))\varphi_i(t) + L_{p_i}(t, u^*(t) , \dot u^*(t))\dot{\varphi_i}(t)) \,{\rm d}t \\  
+            &= \sum\limits_{i = 1}^N\int_J\left(-\int_{t_0}^tL_{u_i}(s, u^*(s) , \dot u^*(s)) \,{\rm d}s + L_{p_i}(t, u^*(t) , \dot u^*(t))\right)\dot{\varphi_i}(t) \,{\rm d}t.
+        \end{align*}
+        由于上述结果对任意的$\varphi \in C_0^1[t_0, t_1]$均成立, 故利用du Bois-Reymond引理, 我们便得到了所证结论.
+    \end{proof}
+\end{proposition}
+
+特别地, 若假设$L$和$u^*$具有更高的正则性, 如$L \in C^2$以及$u^* \in C^2$, 则$u^*$满足如下\textbf{微分形式的E-L方程}:
+\begin{equation*}
+    \boxed{L_{u_i}(t, u^*(t), \dot{u}^*(t)) - \frac{{\rm d}}{{\rm d}t}L_{p_i}(t, u^*(t), \dot{u}^*(t)) = 0.}
+\end{equation*}
+若$L \in C^1$且$u^* \in C^1$, 上述等式在广义导数意义下成立.
+
+\begin{remark}
+    事实上, E-L方程可适用于更广的函数类. 例如, 考虑Lipschitz函数类${\rm Lip}(J)$.
+    注意到包含关系${\rm Lip}(J) \subseteq {\rm AC(J)}$, 故其导数几乎处处存在, 此时目标泛函中的积分按照Lebesgue积分意义理解.
+    利用控制收敛定理和du Bois-Reymond引理, 我们仍可以导出积分形式的E-L方程. 
+    
+    特别地, 逐段$C^1$的函数是Lipschitz连续的, 因此积分形式的E-L方程对于逐段$C^1$的连续函数也成立.
+\end{remark}
+
+\begin{example}[质点运动方程]
+    设$\mathbb{R}^3$中某质量为$m$的质点受外力$F$的作用, 其位置坐标为$x = (x_1, x_2, x_3)$, 则其动能$T = m|\dot x|^2/2$.
+    若更设$F$有位势, 即存在函数$V$满足$-\nabla V = F$, 我们称
+    \begin{equation*}
+        L := T - V = \frac{1}{2}m|\dot x|^2 - V(x)
+    \end{equation*}  
+    为Lagrange函数\footnote{这是分析力学中的专有名词.}. 适当确定定义域$M$, 考虑泛函
+    \begin{equation*}
+        I(x) = \int_{t_1}^{t_2} L(x(t), \dot x(t)) \,{\rm d}t.
+    \end{equation*}
+    通过直接计算可知, $I$对应的E-L方程为$F = m\ddot x$, 即Newton第二定律所确定的运动轨道.
+\end{example}
+
+\subsubsection{变分导数}
+
+从函数极值的角度来看, 若$x^*$是$f$的极小值点, 则我们只需要考虑$x^*$的一个小邻域内$f$的行为.
+类似的, 尽管E-L方程的推导是在整个区间上进行的, 但对于任意的$\tau \in {\rm Int}\ J$, 在这一点的E-L方程只依赖于这点附近$L$的行为.
+粗糙地说, 如果$u^*$在某点的某一邻域内达到``最优'', 那么$u^*$便满足整个区间上在这一点的E-L方程.
+
+从以下极限过程看这种\textbf{局部性}: 引入\textbf{Euler-Lagrange算子}$E_L$:
+\begin{equation*}
+    \boxed{E_L(u)(t) := L_{u_i}(t, u^*(t), \dot{u}^*(t)) - \frac{{\rm d}}{{\rm d}t}L_{p_i}(t, u^*(t), \dot{u}^*(t)).}
+\end{equation*}
+以$N = 1$为例. 设$L \in C^2$, $u \in C^2$. 取$c \in (t_0, t_1)$, $\varphi \in C_0^1[t_0, t_1]$, 其中${\rm supp}\ \varphi \subseteq B_h(c)$.
+直接计算得 
+\begin{align*}
+    \frac{I(u + \varphi) - I(u)}{\Delta\sigma} &=- \frac{\displaystyle\int_{c - h}^{c + h}\left(\int_{t_0}^tE_L(u + \theta\varphi)(s) \,{\rm d}s\right)\dot{\varphi}(t) \,{\rm d}t}{\Delta\sigma} \\ 
+    &= \frac{\displaystyle\int_{c - h}^{c + h}E_L(u + \theta\varphi)(t)\varphi(t) \,{\rm d}t}{\Delta\sigma},
+\end{align*}
+其中$\theta \in (0, 1)$, $\Delta\sigma = \int_{B_h(c)}\varphi \,{\rm d}t$.
+由简单的估计可知, 当$h \rightarrow 0$且$\sup_{\overline{B_h(c)}}|\dot\varphi| \rightarrow 0$时, 上式趋近于$E_L(u)$.
+因此, 我们称E-L算子对函数$u$作用后在$t$点的值为$I$在$t$的\textbf{变分导数}.
+
+\subsubsection{例}
+
+如下考虑E-L方程的具体求解($N = 1$):
+
+\begin{itemize}
+    \item $L$不含$u$, 即$L = L(t, p)$. 此时E-L方程简化为 
+    \begin{equation*}
+        \frac{{\rm d}}{{\rm d}t}L_p(t, \dot{u}(t)) = 0.
+    \end{equation*}
+    若能从上述方程中解出$\dot u$, 那么也就可以通过积分得到$u$.
+    \item $L$不含$p$, 即$L = L(t, u)$. 此时E-L方程化为函数方程$L_u(t, u) = 0$, 其解是一条或多条曲线.
+    \item (自守系统) $L$不含$t$, 即$L = L(u, p)$. 在这种情况下, 引入\textbf{Hamilton量}$H(u, p) = pL_p(u, p) - L(u, p)$.
+    通过直接计算, 我们有如下结果:
+\end{itemize}
+
+\begin{proposition}
+    设$L \in C^2$且与$t$无关. 又设$u^* \in C^2$是对应E-L方程的解, 则
+    \begin{equation*}
+        H(u^*(t), \dot u^*(t)) \equiv {\rm const}, \qquad \forall\ t.
+    \end{equation*}
+\end{proposition}
+
+利用上述命题, 我们可以在一些特殊情况下求解出$u^*$.
+
+\begin{example}[最速降线-续]
+    此时
+    \begin{equation*}
+        L(u, p) = \frac{1}{2g}\frac{\sqrt{1 + p^2}}{\sqrt{y_1 - u}}
+    \end{equation*}
+    与$t$无关. 利用上述命题, 我们有$(pL_p - L)|_{(u, \dot{u})} = {\rm const}$, 即存在常数$c$使得 
+    \begin{equation*}
+        -\frac{\sqrt{1 + \dot{u}^2}}{\sqrt{y_1 - u}} + \frac{\dot{u}^2}{\sqrt{(1 + \dot{u}^2)(y_1 - u)}} = c.
+    \end{equation*}
+    化简得 
+    \begin{equation*}
+        c^2(1 + \dot{u}^2)(y_1 - u) = 1.
+    \end{equation*}
+    令$k$为一待定常数, 引入参变量$\theta$, 令 
+    \begin{equation*}
+        \begin{cases} 
+            x = x(\theta), \\  
+            u = u(\theta) = y_1 - k(1 - \cos\theta), \end{cases}
+    \end{equation*}
+    则有 
+    \begin{equation*}
+        c^2\left(1 + k^2\frac{\sin^2\theta}{\dot{x}(\theta)}\right)k(1 - \cos\theta) = 1.
+    \end{equation*}
+    联想到半角公式, 故取$k = 1/2c^2$, 则可以解出 
+    \begin{equation*}
+        \dot{x}(\theta) = k(1 - \cos\theta).
+    \end{equation*} 
+    从而有
+    \begin{equation*}
+        \begin{cases} 
+            x(\theta) = x_1 + k(\theta - \sin\theta), \\ 
+            u(\theta) = y_1 - k(1 - \cos\theta), 
+        \end{cases} \qquad \theta \in [0, \Theta],
+    \end{equation*}
+    其中$k$与$\Theta$通过
+    \begin{equation*}
+        \begin{cases} 
+            x(\Theta) = x_2, \\  
+            y(\Theta) = y_2 
+        \end{cases}
+    \end{equation*}
+    确定.
+\end{example}
