@@ -1,0 +1,366 @@
+\subsection{强极小与极值场}
+
+$C^1$拓扑 $\leadsto$ 考虑的因素更多, ``弱极小点''. $C = C^0$拓扑 $\leadsto$ 考虑的因素更少, ``强极小点''.
+
+\begin{definition}
+    设$J = [t_0, t_1], L \in C^1(J \times \mathbb{R}^N \times \mathbb{R}^N)$. 称$u \in C^1(J)$为 
+    \begin{equation*}
+        I = \int_JL(t, u(t), \dot u(t)) \,{\rm d}t
+    \end{equation*}
+    的\textbf{强(弱)极小点}, 如果存在$\varepsilon > 0$使得对一切满足
+    \begin{equation*}
+        \Vert \varphi \Vert_C < \varepsilon \qquad (\Vert \varphi \Vert_{C^1} < \varepsilon) 
+    \end{equation*}
+    的$\varphi \in C_0^1(J)$都有$I(u + \varphi) \geq I(u)$. 函数类$C^1$可以换成${\rm Lip}$, 并且用${\rm Lip}$模代替$C^1$模.
+\end{definition}
+
+前两节所讨论的极小点是弱极小点. ${\rm Lip}$意义下的弱极小点也是$C^1$意义下的弱极小点; 强极小点是弱极小点, 但反之不然.
+
+\begin{example}
+    设$M = {\rm Lip}_0[0, 1]$, 
+    \begin{equation*}
+        I(u)=\int_0^1(\dot u^2+\dot u^3) \,{\rm d}t.
+    \end{equation*}
+    注意到$I(0) = 0$, 且当$\Vert u \Vert_{{\rm Lip}} < 1/2$时, 有 
+    \begin{equation*}
+        I(u) - I(0) = \int_0^1\dot u^2(1 + \dot u) \,{\rm d}t \geq \frac{1}{2}\int_0^1\dot u^2 \,{\rm d}t \geq 0. 
+    \end{equation*}
+    故$u = 0$是弱极小点, 但不是强极小点. 事实上, 对充分小的$h > 0$, 令 
+    \begin{equation*}
+        u_h(x) =  
+        \begin{cases} 
+            \displaystyle-\frac{x}{h} \quad &x \in [0, h^2], \\  
+            \displaystyle\frac{h(x - 1)}{1 - h^2} \quad &x \in [h^2, 1]. 
+        \end{cases}
+    \end{equation*}
+    一方面, $\Vert u_h \Vert_C \leq h$; 另一方面, 直接计算得 
+    \begin{equation} 
+        (\dot u_h^2 + \dot u_h^3)(x) =  
+        \begin{cases} 
+            \displaystyle \frac{1}{h^2} - \frac{1}{h^3} \leq -\frac{1}{2h^3} \quad &x \in [0, h^2), \\  
+            \displaystyle \left(\frac{h}{1 - h^2}\right)^2 + \left(\frac{h}{1 - h^2}\right)^3 \leq 2 \quad &x \in (h^2, 1]. 
+        \end{cases} 
+    \end{equation}
+    因此
+    \begin{equation*}
+        I(u_h) - I(0) \leq 2 - \frac{1}{2h} \rightarrow -\infty \quad (h \rightarrow 0^+).
+    \end{equation*}
+    从而$u = 0$不是强极小点.
+\end{example}
+
+\subsubsection{必要条件: Weierstrass过度函数}
+
+设$u^* \in C^1(J)$是E-L方程的解. 以下探究$u^*$成为强极小点的必要条件.
+为此我们把$I(u^*)$与$I$在$u^*$的$C$拓扑临近的函数上的值作比较, 即构造适当的$\varphi \in C_0^1(J)$.
+
+\begin{proposition}[必要条件]
+    若$u^* \in C^1(J)$是$I$的一个强极小点, 则
+    \begin{equation*}
+        \mathfrak{E}_L(t, u(t), \dot u(t), \dot u(t) + \xi) \geq 0, \qquad \forall \xi \in \mathbb{R}^N, \tau \in J.
+    \end{equation*}
+    这里
+    \begin{equation*}
+        \boxed{\mathfrak{E}_L = \mathfrak{E}_L(t, u, p, q) := L(t, u, p) - L(t, u, q) - (q - p) \cdot L_p(t, u, p),}
+    \end{equation*}
+    并称之为\textbf{Weierstrass过度函数}.
+    \begin{proof}
+        对任意的$\xi \in \mathbb{R}^N, \tau \in {\rm Int}(J)$, 当$\lambda > 0$充分小时, 可使得$[\tau - \lambda^2, \tau+\lambda] \subseteq (t_0, t_1)$.
+        令
+        \begin{equation} 
+            \psi_{\lambda}(x) =  
+            \begin{cases} 
+                0 \quad &s\in (\infty, -\lambda^2] \cup [\lambda, \infty), \\  
+                s + \lambda^2 \quad &s \in [-\lambda^2, 0], \\  
+                -\lambda s + \lambda^2 \quad &s \in [0, \lambda] 
+        \end{cases} 
+    \end{equation}
+    和$\varphi_{\lambda}(t) = \xi\psi_{\lambda}(t - \tau)$. 注意到$\Vert \varphi_{\lambda}\Vert = O(\lambda^2)$. 若$u^*$是强极小点, 当$\lambda > 0$充分小时有$I(u + \varphi_{\lambda}) - I(u) \geq 0$.
+    \begin{align*} 
+        0 &\leq \int_J(L(t, u(t) + \varphi_{\lambda}(t), \dot u(t) + \dot\varphi_{\lambda}(t)) - L(t, u(t), \dot u(t))) \,{\rm d}t \\  
+        &= \int_J(L(t, u(t) + \varphi_{\lambda}(t), \dot u(t) + \dot\varphi_{\lambda}(t)) \\
+        - &L(t, u(t), \dot u(t)) - \varphi_{\lambda} (t) \cdot L_u(t, u(t), \dot u(t)) - \dot\varphi_{\lambda}(t) \cdot L_p(t, u(t), \dot u(t))) \,{\rm d}t \\ 
+        &= \int_J F(t) \,{\rm d}t. 
+    \end{align*}
+    注意到$F$的具体表达式, 我们将上述积分拆成两个部分:
+    \begin{equation*}
+        \int_JF(t) \,{\rm d}t = \left(\int_{\tau - \lambda^2}^{\tau} + \int_{\tau}^{\tau + \lambda}\right)F(t) \,{\rm d}t.
+    \end{equation*}
+    一方面, 当$t \in [\tau, \tau + \lambda]$时, 注意到$\Vert \varphi_{\lambda}|_{[\tau, \tau + \lambda]}\Vert_C = O(\lambda)$以及$\Vert \dot\varphi_{\lambda}|_{[\tau, \tau + \lambda]}\Vert_C = O(\lambda), \lambda \rightarrow 0$.
+    故由Taylor展开即得$F|_{[\tau, \tau + \lambda]} = O(\lambda^2) = o(1)$, 从而有 
+    \begin{equation*}
+        \lim\limits_{\lambda \rightarrow 0}\frac{1}{\lambda^2}\int_{\tau}^{\tau + \lambda} F(t) \,{\rm d}t = 0.
+    \end{equation*}
+    另一方面, 我们有 
+    \begin{equation*}
+        \lim\limits_{\lambda \rightarrow 0}\frac{1}{\lambda^2}\int_{\tau - \lambda^2}^{\tau} F(t) \,{\rm d}t = L(\tau, u(\tau), \dot u(\tau) + \xi) - L(\tau, u(\tau), \dot u(\tau)) - \xi\cdot L_p(\tau, u(\tau), \dot u(\tau)),
+    \end{equation*}
+    因此
+    \begin{equation*}
+        L(\tau, u(\tau), \dot u(\tau) + \xi) - L(\tau, u(\tau), \dot u(\tau)) - \xi \cdot L_p(\tau, u(\tau), \dot u(\tau)) \geq 0. 
+    \end{equation*}
+    上述不等式左侧的表达式等于$\mathfrak{E}_L(t, u(t), \dot u(t), \dot u(t) + \xi)$. 
+    \end{proof}
+\end{proposition}
+
+\subsubsection{充分条件: 极值场}
+
+基本思想: 对于一个给定的$C^1$函数$u$, 我们将其``嵌入''至一组``极值曲线''中, 这组``极值曲线''具有``统一的方向''.
+注意到对所有的$\varphi \in C_0^1(J)$, $u$与$u + \varphi$具有相同的起点和终点, 如果能证明积分与道路的无关性, 我们可以将差值$I(u + \varphi) - I(u)$的表达式进一步地简化, 从而得到较为简洁的充分条件.
+
+设$u^*$是E-L方程的解. 称$u^*$对应的图像$\{(t, u^*(t)) \colon t \in J\}$为一条\textbf{极值曲线}.
+现设$u^*$可以延拓到更大的区间$J_1 = (a, b) \supseteq J$上, 又设$\{(t, u(t, \alpha))\colon t \in J_1, \alpha \in B_{\varepsilon_1}(0), \varepsilon_1 > 0\}$是$I$的一族足够光滑的极值曲线.
+
+\begin{definition}
+    设$\Omega$是$\{(t, u(t, \alpha))\colon t \in J_1, \alpha \in B_{\varepsilon}(0)\} \ (0 < \varepsilon < \varepsilon_1)$的一个单连通的开邻域, $\psi = \psi(t, u) \in C^1(\Omega)$是向量场.
+    如果 
+    \begin{itemize}
+        \item 对任意的$u = u(t, \alpha)$, $u$满足方程$\partial_tu = \psi(t, u)$;
+        \item $\det (\partial_{\alpha_i}u_j(t, \alpha)) \neq 0$;
+        \item 对任意的$(t_1, u_1) \in \Omega$, 存在唯一的$\alpha_1 \in B_{\varepsilon_1}(0)$使得$u(t_1, \alpha_1) = u_1$;
+        \item $u(t, 0) = u^*(t)$,
+    \end{itemize}
+    那么称$\Omega$为一个\textbf{极值场(或临界场)}, 并称$\psi$为其\textbf{方向场(或流)}.
+\end{definition}
+
+\begin{example}
+    设$L_1 = p^2/2$, 则
+    \begin{equation*}
+        \Omega_1 = \{(t, mt + \lambda)\colon (t, \lambda) \in \mathbb{R} \times \mathbb{R}\}, \psi_1(t, u) = m
+    \end{equation*}
+    分别是$L_1$的一个极值场和方向场. 再考虑$L_2 = (p^2 - u^2)/2$. 对任意的开区间$O$, 令 
+    \begin{equation*}
+        \Omega_2 = \{(t, \sin(t + \lambda))\colon (t, \lambda) \in O \times (-1, 1)\}.
+    \end{equation*}
+    虽然极值曲线充满了整个$\Omega_2$, 但$\Omega_2$中每一点都有两个极值曲线通过, 所以$\Omega_2$不是极值场.
+\end{example}
+
+\textbf{Analysis:} 设极值曲线$\gamma^* = \{(t, u^*(t))\colon t \in J\} \subseteq \Omega$满足方程$\dot u = \psi(t, u)$, 其中$\psi$是极值场$\Omega$上的一个方向场.
+我们选取与$\gamma^*$邻近的, 端点相同的$C^1$曲线$\gamma = \{(t, u(t))\colon t \in J\}$作比较.
+将在区间上的积分转化为转化为路径积分, 如果积分与路径无关, 那么就有
+\begin{align*} 
+    I(u^*) &= \int_JL(t, u^*, \dot u^*) \,{\rm d}t \\ 
+    &= \int_{\gamma^*}(L(t, u^*, \psi(t, u^*)) - \psi(t, u^*)\cdot L_p(t, u^*, \psi(t, u^*)) \,{\rm d}t + L_p(t, u^*, \psi(t, u^*))) \,{\rm d}u \\  
+    &= \int_{\gamma}(L(t, u, \psi(t, u)) - \psi(t, u)\cdot L_p(t, u, \psi(t, u)) \,{\rm d}t + L_p(t, u, \psi(t, u))) \,{\rm d}u \\  
+    &= \int_J(L(t, u, \psi(t, u)) + (\dot u - \psi(t, u))\cdot L_p(t, u, \psi(t, u))) \,{\rm d}t, 
+\end{align*}
+于是 
+\begin{align*}
+    I(u) - I(u^*) &= \int_J(L(t, u, \dot u) - L(t, u, \psi(t, u)) - (\dot u - \psi(t, u))\cdot L_p(t, u, \psi(t, u))) \,{\rm d}t \\  
+    &= \int_J\mathfrak{E}_L(t, u, \psi(t, u), \dot u) \,{\rm d}t.
+\end{align*} 
+因此, 若对任意的$(t, u, p) \in \Omega \times  \mathbb{R}^N$有$\mathfrak{E}_L(t, u, \psi(t, u), p) \geq 0$, 那么$u^*$是一个强极小点.
+
+在上述分析中用到了两个事实:
+
+\begin{enumerate}
+    \item \textbf{$u^*$对应的极值曲线$\gamma^*$可以嵌入到一个极值场中}. 具体地, 所谓``嵌入''是指, 存在开区间$J_1 \supseteq J$以及$u = u(t, \alpha) \in C^1(J_1 \times B_{\varepsilon})$, 使得对任意的$\alpha \in B_{\varepsilon}, u(t, \alpha)$是一条极值曲线, 其中$u^*(t) = u(t, 0)|_J$,
+    而且$\{(t, u(t, \alpha))\colon t \in J_1, \alpha \in B_{\varepsilon}(0)\}$是一个极值场.
+    \item \textbf{积分与路径无关}.
+\end{enumerate}
+
+以下我们验证这两个事实, 首先是第一个.
+
+\begin{proposition}\label{prop1.25}
+    设$L \in C^3(J \times \mathbb{R}^N \times \mathbb{R}^N), u^* \in C^2(J)$是其E-L方程的一个解. 又设$L$沿$u^*$满足严格Legendre-Hadamard条件.
+    如果沿对应于$u^*$的极值曲线$\gamma^*$没有共轭点, 那么$\gamma^*$可以嵌入到一族极值曲线中, 并且由这族曲线确定的单连通区域$\Omega$是一个极值场.
+    \begin{proof}
+        先验证$N = 1$的情形. 首先, 由题设条件可知, $u^*$可以延拓到更大的区间$J_1 = (a, b) \supseteq J$上.
+        相对于$\alpha \in \mathbb{R}$, 当$|\alpha| < \varepsilon_0$充分小时, 考虑初值问题 
+        \begin{equation*}
+            \begin{cases} 
+                E_L(\varphi(\cdot, \alpha)) = 0, \\  
+                \varphi(a, \alpha) = u^*(a), \\  
+                \varphi_t(a, \alpha) = \dot u^*(a) + \alpha. 
+            \end{cases}
+        \end{equation*}
+        由此我们得到一族解$\{\varphi(t, \alpha)\}$, 其中$t \in J_1, |\alpha| < \varepsilon_0$.
+        再根据初值问题的唯一性, $\varphi(t, 0) = u^*(t)$.
+
+        现定义
+        \begin{equation*}
+            \Omega_{\varepsilon} = \{(t, \varphi(t, \alpha))\colon t \in J_1, |\alpha| < \varepsilon\}, 
+        \end{equation*}
+        其中$\varepsilon < \varepsilon_1$. 通过直接计算可知, 
+        \begin{equation*}
+            \xi(t) = \left.\partial_{\alpha}\varphi(t, \alpha)\right|_{\alpha = 0}
+        \end{equation*}
+        是一个沿$u^*$的Jacobi场, 同时$\xi(a) = 0, \dot\xi(a) = 1$. 注意到$u^*$没有共轭点, 故我们可以选取合适的$a$和$b$, 使得$\xi(t) > 0, t \in (a, b) \supseteq J_1$.
+        根据微分方程对于初值的连续依赖性, 故存在$0 < \varepsilon_1 < \varepsilon_0$, 使得 
+        \begin{equation*}
+            0 < \partial_{\alpha}\varphi(t, \alpha) \neq 0, \qquad \forall |\alpha| < \varepsilon, t \in J_1.
+        \end{equation*}
+        利用上述关系, 我们还可以引用隐函数定理, 故存在$0 < \varepsilon_2 < \varepsilon_1$, 使得对任意的$(t, u) \in \Omega_{\varepsilon_2}$, 方程$u = \varphi(t, \alpha)$存在唯一的$C^1$解$\alpha = w(t, u) \in B_{\varepsilon_2}(0)$.
+        今令$\Omega = \Omega_{\varepsilon_2}$, 显然$\gamma^* \in \Omega$且$\Omega$是单连通的.
+        最后我们只需寻找$\Omega$对应的方向场$\psi$. 事实上, 令 
+        \begin{equation*}
+            \psi(t, u) = \partial_t\varphi(t, w(t, u)),
+        \end{equation*}
+        则$\psi$在$\Omega$内处处有定义, 并且当$u = \varphi(t, \alpha)$时, 有 
+        \begin{equation*}
+            \dot u = \partial_t\varphi(t, \alpha) = \partial_t\varphi(t, w(t, u)) = \psi(t, u).
+        \end{equation*}
+        由此表明$\psi$是$\Omega$的一个方向场. 这便完成了$N = 1$的情形的证明.
+
+        $N > 1$的情形是类似的. 对模长充分小的$\alpha \in \mathbb{R}^N$, 考虑满足初值条件 
+        \begin{equation*}
+            \partial_{\alpha_i}\varphi_j(a, \alpha) = 0, \quad \partial_{\alpha_i}\partial_t\varphi_j(a, \alpha) = \delta_{ij}, \qquad 1 \leq i, j \leq N
+        \end{equation*}
+        E-L方程的解. 再令$w_i(t) = \partial_{\alpha_i}\varphi(t, \alpha)|_{\alpha = 0}, i = 1, \cdots, N$.
+        可以验证$w_i$是一个Jacobi场. 注意到$w_i(a) = 0, \partial_tw_i(a) = e_i , i = 1, \cdots, N$, 且$u^*$没有共轭点, 故总可以找到一个充分小的$\varepsilon^* > 0$, 使得$\det(\partial_{\alpha_i}\varphi_j(t, \alpha)) \neq 0, \forall (t, \alpha) \in J_1 \times B_{\varepsilon^*}(0)$.
+        其余部分的证明是相同的.
+    \end{proof}
+\end{proposition}
+
+现在考虑第二个事实. 定义 
+\begin{equation*}
+    \begin{cases} 
+        R_i(t, u) = L_{p_i}(t, u, \psi(t, u)), \\  
+        H(t, u) = \psi(t, u) \cdot L_p(t, u, \psi(t, u)) - L(t, u, \psi(t, u)) 
+    \end{cases}
+\end{equation*}
+以及1-形式 
+\begin{equation*}
+    \boxed{\omega = \sum\limits_{i = 1}^NR_i \,{\rm d}u_i - H \,{\rm d}t}.
+\end{equation*}
+称$\omega$为\textbf{Hilbert积分不变量}. 显然, $\omega$是闭形式 $\Rightarrow$ 积分与路径无关.
+以下引入更多概念来刻画这一条件.
+
+\begin{definition}
+    称极值场$\Omega$是\textbf{Mayer场}, 如果它满足如下相容性条件:
+    \begin{equation*}
+        \boxed{\partial_{u_i}L_{p_j}(t, u(t), \psi(t, u(t))) = \partial_{u_j}L_{p_i}(t, u(t), \psi(t, u(t))), \qquad \forall 1 \leq i, j \leq N.} 
+    \end{equation*}
+\end{definition}
+
+\begin{proposition}[Mayer场的等价刻画]
+    若$L \in C^2(J \times \mathbb{R}^N \times \mathbb{R}^N)$, 那么$(\Omega, \psi)$是一个Mayer场, 当且仅当${\rm d}\omega = 0$, 即$\partial_tR_i = -\partial_{u_i}H,1 \leq i \leq N$.
+    \begin{proof}
+        记$\widetilde{L} = \widetilde{L}(t) = L(t, u(t), \psi(t, u(t)))$. 类似地记$\widetilde{L_{u_i}}, \widetilde{L_{p_i}}$.
+        利用条件$\dot u(t) = \psi(t, u(t))$和E-L方程$\widetilde{L_u} = \partial_t\widetilde{L_p}$, 可以得到$D_{\psi}\widetilde{L_p} = \widetilde{L_u}$, 其中 
+        \begin{equation*}
+            D_{\psi} = \partial_t + \sum\limits_{i = 1}^N\psi_i\partial_{u_i} + \sum\limits_{i = 1}^N\left(\partial_t\psi_i + \sum\limits_{k = 1}^N\psi_k\partial_{u_k}\psi_i\right)\partial_{p_i}. 
+        \end{equation*}
+        再通过直接计算可得
+        \begin{equation*} 
+            \begin{aligned} 
+                \partial_tR_i &= \left(\partial_t + \sum_{j = 1}^N\partial_t\psi_j\partial_{p_j}\right)\widetilde{L_{p_i}}, \\ 
+                \partial_{u_i}H &= \sum_{j = 1}^N\psi_j\partial_{u_i}\widetilde{L_{p_j}} - \widetilde{L_{u_i}}, 
+            \end{aligned}  
+            \qquad \forall 1 \leq i \leq N. 
+        \end{equation*}
+        可以验证, 相容性条件成立 $\Leftrightarrow$ $\partial_tR_i + \partial_{u_i}H = 0 =  D_{\psi}\widetilde{L_{p_i}} - \widetilde{L_{u_i}}$.
+    \end{proof}
+\end{proposition}
+
+综上所述, \textbf{若$u^*$对应的极值曲线$\gamma^*$能够嵌入到一个Mayer场中}, 则上述两个事实均成立.
+
+\begin{remark}
+    由上述分析可知, 对于给定的Mayer场$(\Omega, \psi)$, 若设$\gamma$是连接$(t_0, u^*(t_0))$与$(t, u^*(t))$的任意一条曲线$(t_0 \leq t \leq t_1)$, 则线积分 
+    \begin{equation*}
+        \boxed{S(t, u) = \int_{\gamma}L_p \,{\rm d}u + (L - \psi \cdot L_p) \,{\rm d}t}
+    \end{equation*}
+    与$\gamma$无关. 称此积分为\textbf{Hilbert不变积分}.
+\end{remark}
+
+\begin{proposition}
+    设$I$的E-L方程的解$u^*$对应的极值曲线$\gamma^*$能嵌入到一族曲线中去, 且这族曲线可以定义一个Mayer场$(\Omega, \psi)$.
+    若
+    \begin{equation*}
+        \mathfrak{E}(t, u, \psi(t, u), p) \geq 0, \qquad \forall (t, u, p) \in \Omega \times \mathbb{R}^N,
+    \end{equation*}
+    则$u^*$是$I$的一个强极小点.
+\end{proposition}
+
+注意到\textbf{当$N = 1$时, 任何极值场都是Mayer场}, 故我们对上述充分条件有着更精准的刻画:
+
+\begin{proposition}[充分条件, $N = 1$]\label{prop1.30}
+    设$L \in C^3$, 并设其E-L方程的解$u^*$没有共轭点. 设$(\Omega, \psi)$为关于$u^*$的极值场.
+    若$L$沿$u^*$满足严格Legendre-Hadamard条件, 则$u^*$是$I$的强极小点.
+    \begin{proof}
+        注意到对任意的$(t, u, p) \in \Omega \times \mathbb{R}$, 我们有 
+        \begin{align*}
+            \mathfrak{E}(t, u, \psi(t, u), p) &= L(t, u, p) - L(t, u, \psi(t, u)) - (p - \psi(t, u))L_p(t, u, \psi(t, u)) \\   
+            &= L_{pp}(t, u, v) \geq 0, 
+        \end{align*}
+        其中$v$介于$p$和$\psi(t, u)$之间. 由此足以说明$u^*$是$I$的一个强极小点.
+    \end{proof}
+\end{proposition}
+
+事实上, 对于高维的情形, 类似于命题\ref{prop1.30}的结论也是成立的.
+
+\textbf{Analysis:} 给定Lagrange函数$L$和一族极值曲线$\{(t, \varphi(t, \alpha))\} \subseteq \Omega$, 其中$\Omega$是对应的极值场.
+记$\overline{L}(t, \alpha) = L(t, \varphi(t, \alpha), \dot\varphi(t, \alpha))$, 其中$\dot\varphi(t, \alpha) = \partial_t\varphi(t, \alpha)$.
+类似地记$\overline{L_{u_i}}, \overline{L_{p_i}}$. 直接计算得 
+\begin{equation*}
+    {\rm d}\omega = \sum_{i, \ell = 1}^N(\overline{L_{u_i}} - \partial_t\overline{L_{p_i}})\partial_{\alpha_\ell} {\rm d}\alpha_{\ell} \wedge {\rm d}t + \sum_{m, i, \ell = 1}^N\partial_{\alpha_m}\overline{L_{p_i}}\partial_{\alpha_{\ell}}\varphi_i {\rm d}\alpha_m \wedge {\rm d}\alpha_{\ell}.
+\end{equation*}
+现引入\textbf{Lagrange括号}
+\begin{equation*}
+    \boxed{[\alpha_\ell, \alpha_m] := \sum_{i = 1}^N(\partial_{\alpha_\ell}\overline{L_{p_i}}\partial_{\alpha_m}\varphi_i - \partial_{\alpha_m}\overline{L_{p_i}}\partial_{\alpha_\ell}\varphi_i).}
+\end{equation*}
+从而有
+\begin{equation*}
+    {\rm d}\omega = \sum_{i, \ell = 1}^NE_L(\varphi)_i\partial_{\alpha_\ell}\varphi_i {\rm d}\alpha_{\ell} \wedge {\rm d}t + \sum_{1 \leq \ell < m \leq N}[\alpha_\ell, \alpha_m] {\rm d}\alpha_{\ell} \wedge {\rm d}\alpha_m.
+\end{equation*}
+结合对Mayer场的等价刻画, 我们有
+
+\begin{lemma}
+    设$L \in C^3(\Omega \times \mathbb{R}^N \times \mathbb{R}^N)$. 又设$(\Omega, \psi)$是由一族极值曲线$\{\varphi(t, \alpha)\}$决定的极值场.
+    则$(\Omega, \psi)$是一个Mayer场, 必须且只需 
+    \begin{equation*}
+        E_L(\varphi(\cdot, \alpha)) = 0, \quad \forall \alpha \in \mathbb{R}^N \quad \text{和} \quad [\alpha_{\ell}, \alpha_m] = 0, \quad \forall 1 \leq \ell, m \leq N.
+    \end{equation*}
+\end{lemma}
+
+此外, 对于Lagrange括号, 有如下结果:
+
+\begin{lemma}\label{lma1.32}
+    设$L \in C^3(J \times \mathbb{R}^N \times \mathbb{R}^N)$, 且$(\Omega, \psi)$是一个极值场, 则 
+    \begin{equation*}
+        \partial_t[\alpha_\ell, \alpha_m] = 0, \qquad \forall 1 \leq \ell, m \leq N.
+    \end{equation*}
+    \begin{proof}
+        利用E-L方程, 我们有 
+        \begin{equation*}
+            \partial_t[\alpha_\ell, \alpha_m] = \sum_{i = 1}^N\left(\partial_{\alpha_{\ell}}\overline{L_{u_i}}\partial_{\alpha_m}\varphi_i + \partial_{\alpha_{\ell}}\overline{L_{p_i}}\partial_{\alpha_m}\dot\varphi_i - \partial_{\alpha_m}\overline{L_{u_i}}\partial_{\alpha_{\ell}}\varphi_i - \partial_{\alpha_m}\overline{L_{p_i}}\partial_{\alpha_{\ell}}\dot\varphi_i\right).
+        \end{equation*}
+        将上式中的$\partial_{\alpha_{\ell}}\overline{L_{u_i}}, \partial_{\alpha_m}\overline{L_{u_i}}, \partial_{\alpha_{\ell}}\overline{L_{p_i}}, \partial_{\alpha_m}\overline{L_{p_i}}$展开, 即证得所需结论.
+    \end{proof}
+\end{lemma}
+
+\begin{proposition}[充分条件, $N > 1$]
+    设$L \in C^3(J \times \mathbb{R}^N \times \mathbb{R}^N)$. 如果其对应的E-L方程的解$u^*$没有共轭点, $L$沿$u^*$满足严格Legendre-Hadamard条件, 且 
+    \begin{equation*}
+        \mathfrak{E}(t, u, \psi(t, u), p) \geq 0, \quad \forall (t, u, p) \in \Omega \times \mathbb{R}^N. 
+    \end{equation*}
+    那么$u^*$是$I$的强极小点.
+    \begin{proof}
+        在命题\ref{prop1.25}的证明过程中我们构造了一个极值场$(\Omega, \psi)$, 若能证明此极值场是Mayer场, 那么命题的结论成立.
+        事实上, 注意到初值条件$\partial_{\alpha_i}\varphi_j(a, \alpha) = 0, \forall i, j$, 则有$[\alpha_{\ell}, \alpha_m](a, \alpha) = 0, \forall \ell, m$.
+        再根据引理\ref{lma1.32}, 则有$[\alpha_{\ell}, \alpha_m] = 0$. 这表明$(\Omega, \psi)$是一个Mayer场.
+    \end{proof}
+\end{proposition}
+
+\begin{example}
+    设 
+    \begin{equation*}
+        I(u) = \int_1^2(\dot u + t^2\dot u^2) \,{\rm d}t, \quad u \in M, 
+    \end{equation*}
+    其中$M = \{u \in C^1[1, 2]\colon u(1) = 1, u(2) = 2\}$. 验证 
+    \begin{equation*}
+        u^*(t) = -\frac{2}{t} + 3
+    \end{equation*}
+    是$I$的强极小点.
+    \begin{proof}[解]
+        直接计算得$L_u = L_{uu} = L_{pu} = 0, L_p = 1 + 2t^2p, L_{pp} = 2t^2$. 故其对应的E-L方程为
+        \begin{equation*}
+            \frac{\mathrm{d}}{\mathrm{d}t}(1 + 2t^2p) = 0.
+        \end{equation*}
+        显然$u^*$是满足E-L方程和边值条件的解, 且对应的Jacobi方程$t^2\dot\varphi(t) = \mathrm{const}$存在正解.
+        现令 
+        \begin{equation*}
+            \Omega = \left\{\left(t, -\frac{2}{t} + \alpha\right)\colon (t, \alpha) \in (0, +\infty) \times \mathbb{R}\right\}, \quad \psi(t) = \frac{2}{t^2}. 
+        \end{equation*}
+        可以验证, $(\Omega, \psi)$是一个极值场, 且包含了$u^*$所对应的极值曲线. 注意到$L_{pp}(t, u, p) > 0, \forall(t, u, p) \in \Omega \times \mathbb{R}$, 因此由命题\ref{prop1.30}可知, $u^*$是$I$的一个强极小点.
+    \end{proof}
+\end{example}
