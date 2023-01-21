@@ -1,0 +1,307 @@
+\subsection{弱下半连续性}
+
+回顾下半连续性的定义: 称函数$f\colon X \rightarrow \mathbb{R}$是\textbf{弱下半连续}的, 如果对任意的$t \in \mathbb{R}$, 下方水平集
+\begin{equation*}
+    f_t = \{x \in X\colon f(x) \leq t\}
+\end{equation*}
+是闭的. 以下我们主要探究如何判断弱序列下半连续性.
+
+\subsubsection{凸性与弱下半连续性}
+
+注意到对于Banach空间中的凸子集而言, (强)闭等价于弱闭. 以下命题是对前述结论的推广:
+
+\begin{proposition}\label{prop2.28}
+    设$C$是Banach空间$X$中的凸子集, 则$C$是闭的, 当且仅当$C$是弱序列闭的.
+    \begin{proof}
+        只需证明弱序列闭 $\Rightarrow$ 闭. 现设$C$是弱序列闭的. 取$x \in X \smallsetminus C$.
+        若$C$不是闭集, 则对任意的$r > 0$, $B_r(x) \cap C \neq \varnothing$. 
+        现对任意的$n \in \mathbb{Z}_{>0}$, 取$x_n \in B_{1/n}(x) \cap C$, 则显然有$x_n \rightarrow x$, 从而有$x_n \rightharpoonup x$.
+        再根据$C$的弱序列闭性, 故有$x \in C$, 矛盾. 
+    \end{proof}
+\end{proposition}
+
+我们再来回顾凸函数的概念. 称函数$f\colon X \rightarrow \mathbb{R}$是凸的, 如果对于任意的$x, y \in X$和$t \in [0, 1]$, 有 
+\begin{equation*}
+    f(tx + (1 - t)y) \leq tf(x) + (1 - t)f(y).
+\end{equation*}
+可以证明, $f$是凸函数 $\Rightarrow$ $f_t$是凸集. 结合命题\ref{prop2.28}的结论和凸函数的定义, 我们便有如下结果:
+
+\begin{proposition}
+    设$X$是Banach空间. 若$f\colon X \rightarrow \mathbb{R}$是凸函数, 则 
+    \begin{equation*}
+        f\ \text{序列下半连续}\ \Longleftrightarrow f\ \text{弱序列下半连续}.
+    \end{equation*}
+    特别地, 凸 $+$ 强连续 $\Rightarrow$ 弱序列下半连续.
+\end{proposition}
+
+\begin{example}\label{ex2.30}
+    设$\Omega$是$\mathbb{R}^n$中的有界区域. 考虑定义在$W_0^{1, p}(\Omega)$上的泛函
+    \begin{equation*}
+        I(u) = \int_{\Omega}(|\nabla u(x)|^p + c(x)|u(x)|^r) \,{\rm d}x,
+    \end{equation*}
+    其中$1 \leq p < \infty, 1 \leq r \leq p^*, c \in L^{\infty}(\Omega), c \geq 0$.
+    容易验证, $I$是连续凸的, 所以也是弱下半连续的. 若去掉$c$的非负性限制, 此时$I$不再是凸的, 因此$I$未必是弱序列下半连续的.
+    然而, 若进一步假设$r < p^*$, 那么$I$仍是弱序列下半连续的. 事实上, 若$u_j$在$W_0^{1, p}(\Omega)$中收敛到$u$, 则 
+    \begin{equation*}
+        \int_{\Omega}|\nabla u(x)|^p \,{\rm d}x \leq \varliminf\limits_{j \rightarrow \infty}\int_{\Omega}|\nabla u_j(x)|^p \,{\rm d}x.
+    \end{equation*}
+    我们还有 
+    \begin{equation*}
+        \int_{\Omega}c(x)|\nabla u(x)|^r \,{\rm d}x \leq \varliminf\limits_{j \rightarrow \infty}\int_{\Omega}c(x)|\nabla u_j(x)|^r \,{\rm d}x,
+    \end{equation*}
+    由此足以说明$I$的弱序列下半连续性. 因若不然, 则存在$\varepsilon_0 > 0$以及子列$\{u_{k_j}\}$, 使得 
+    \begin{equation*}
+        \int_{\Omega}c(x)|\nabla u(x)|^r \,{\rm d}x + \varepsilon_0 > \int_{\Omega}c(x)|\nabla u_{k_n}(x)|^r \,{\rm d}x.
+    \end{equation*}
+    根据紧嵌入定理, 存在子列$\{u_{j'}\} \subseteq \{u_{k_j}\}$, 使得$u_{j'}$在$L^r$中收敛到$u$, 从而有 
+    \begin{equation*}
+        \int_{\Omega}c(x)|u_{j'}(x)|^r \,{\rm d}x \rightarrow \int_{\Omega}c(x)|u(x)|^r \,{\rm d}x,
+    \end{equation*}
+    矛盾!
+\end{example}
+
+我们现在回到对变分问题的讨论上去. 要使$I = I(u)$对于$u$是凸的, 则Lagrange函数$L = L(x, u, p)$对于$(u, p)$是凸的. 
+下述命题表明, 对$u$的凸性要求可以由一定的增长性条件替代:
+
+\begin{theorem}[Tonelli-Morrey]
+    设$L\colon \overline{\Omega} \times \mathbb{R}^N \times \mathbb{R}^{nN} \rightarrow \mathbb{R}$, 且满足 
+    \begin{itemize}
+        \item $L \in C^1(\overline{\Omega} \times \mathbb{R}^N \times \mathbb{R}^{nN})$, 
+        \item $L \geq 0$,
+        \item 对任意的$(x, u) \in \Omega \times \mathbb{R}^N$, $p \mapsto L(x, u, p)$是凸的,
+    \end{itemize}
+    则$I(u) = \int_{\Omega}L(x, u(x), \nabla u(x)) \,{\rm d}x$在$W^{1, q}(\Omega)\ (1 \leq q < \infty)$上是弱下半连续的.
+    \begin{proof}
+        设$u_j$在$W^{1, q}$中弱收敛到$u$. 由紧嵌入定理可知, 存在子列, 不妨记为$\{u_j\}$, 使得$u_j$在$L^q$中收敛到$u$.
+        再由Riesz定理, 存在子列的子列, 仍记为$\{u_j\}$, 使得$u_j(x) \rightarrow u(x)$ a.e. $x \in \Omega$.
+        现对任意的$\varepsilon > 0$, 选取紧集$K \subseteq \Omega$使得$|\Omega \smallsetminus K| < \varepsilon$, 且 
+        \begin{itemize}
+            \item $u_j$在$K$上一致收敛到$u$ (Egorov定理), 
+            \item $u$和$\nabla u$在$K$上是连续的 (Luzin定理), 
+            \item 若$I(u) < +\infty$, 则 
+            \begin{equation*}
+                \int_KL(x, u(x), \nabla u(x)) \,{\rm d}x \geq \int_{\Omega}L(x, u(x), \nabla u(x)) - \varepsilon
+            \end{equation*}
+            (Lebesgue积分的绝对连续性). 若$I(u) = +\infty$, 则取 
+            \begin{equation*}
+                \int_KL(x, u(x), \nabla u(x)) \,{\rm d}x > \frac{1}{\varepsilon}.
+            \end{equation*}
+        \end{itemize}
+        现利用$L$的凸性, 我们有 
+        \begin{align*}
+            I(u_j) &\geq \int_KL(x, u_j(x), \nabla u_j(x)) \,{\rm d}x \\ 
+            &\geq \int_KL_p(x, u_j(x), \nabla u(x))(\nabla u_j(x) - \nabla u(x)) \,{\rm d}x + \int_KL(x, u_j(x), \nabla u(x)) \,{\rm d}x \\ 
+            &= \int_KL(x, u_j(x), \nabla u(x)) \,{\rm d}x + \int_KL_p(x, u(x), \nabla u(x))(\nabla u_j(x) - \nabla u(x)) \,{\rm d}x \\
+            + &\int_K(L_p(x, u_j(x), \nabla u(x)) - L_p(x, u(x), \nabla u(x)))(\nabla u_j(x) - \nabla u(x)) \,{\rm d}x \\ 
+            &= I_1 + I_2 + I_3.
+        \end{align*}
+        对于$I_1$, 注意到$u_j$在$K$上一致收敛到$u$, 故由$L$的连续性可知, 
+        \begin{equation*}
+            I_1 \rightarrow \int_KL(x, u(x), \nabla u(x)) \,{\rm d}x.
+        \end{equation*}
+        对于$I_2$, 由于$L_p \in L^{\infty}(\Omega)$, 从而有$\chi_KL_p \in L^{\infty}(\Omega) \subseteq L^{q'}(\Omega)$.
+        利用条件$u_j \rightharpoonup u \ \text{in}\ W^{1, q}(\Omega)$, 我们有$\nabla u_j \rightharpoonup \nabla u\ \text{in}\ L^q(\Omega)$.
+        由此表明 
+        \begin{equation*}
+            \lim\limits_{j \rightarrow \infty}I_2 = \lim\limits_{j \rightarrow \infty}\int_KL_p(x, u(x), \nabla u(x))(\nabla u_j(x) - \nabla u(x)) \,{\rm d}x = 0.
+        \end{equation*}
+        最后, 注意到弱收敛列是有界列, 故存在$C_1, C_2 > 0$使得 
+        \begin{equation*}
+            \Vert \nabla u_j - \nabla u\Vert_{L^1} \leq C_1(\Vert \nabla u_j - \nabla u\Vert_{L^q}) \leq C_1(\Vert \nabla u_j\Vert_{L^q} + \Vert \nabla u\Vert_{L^q}) \leq C_2.
+        \end{equation*}
+        再注意到$L_p(x, u_j(x), \nabla u(x))$在$K$上一致收敛到$L_p(x, u(x), \nabla u(x))$, 从而有 
+        \begin{equation*}
+            \lim\limits_{j \rightarrow \infty}I_3 = 0.
+        \end{equation*}
+        综上所述, 当$I(u) < +\infty$时, 有 
+        \begin{equation*}
+            \varliminf\limits_{j \rightarrow \infty}I(u_j) \geq \int_KL(x, u(x), \nabla u(x)) \geq I(u) - \varepsilon.
+        \end{equation*}
+        由$\varepsilon > 0$的任意性, 即可表明$I$的弱序列下半连续性. $I(u) = +\infty$的情形的证明是类似的.
+    \end{proof}
+\end{theorem}
+
+\begin{remark}
+    事实上, 上述定理中对$L$可微性的假设可以减弱为:
+    \begin{itemize}
+        \item 对a.e. $(x, u) \in \Omega \times \mathbb{R}^N$, $p \mapsto L(x, u, p)$是可微的.
+        \item $L$和$L_p$满足Carathéodory条件.
+    \end{itemize}
+\end{remark}
+
+\begin{corollary}[存在性]\label{coro2.33}
+    设$\Omega$是$\mathbb{R}^n$中的有界区域. $\varphi \in W^{1, q}(\Omega)\ (1 < q < \infty)$.
+    又设 
+    \begin{itemize}
+        \item $L$和$L_p$满足Carathéodory条件,
+        \item 存在$a \in L^1(\Omega)$和$b > 0$, 使得对任意的$(x, u, p) \in \Omega \times \mathbb{R}^N \times \mathbb{R}^{nN}$, 有$L(x, u, p) \geq -a(x) + b|p|^q$,
+        \item 对任意的$(x, u) \in \Omega \times \mathbb{R}^N$, $p \mapsto L(x, u, p)$是凸的,
+    \end{itemize}
+    那么泛函 
+    \begin{equation*}
+        I(u) = \int_{\Omega}L(x, u(x), \nabla u(x)) \,{\rm d}x
+    \end{equation*}
+    在$\varphi + W_0^{1, p}(\Omega)$上达到极小值.
+    \begin{proof}
+        在自反的Banach空间$W_0^{1, q}(\Omega)$上考虑泛函$v \mapsto I(\varphi + v)$.
+        将Tonelli-Morrey定理运用到泛函$I' = I + \int_{\Omega}a(x) \,{\rm d}x$上, 即可说明$I'$是弱序列下半连续的, 从而$I$也是弱序列下半连续的.
+        为证明极小值点的存在性, 现只需证明$I$是强制的. 事实上, 对任意的$v \in W_0^{1, q}(\Omega)$, 由Poincaré不等式可知, 存在$\alpha, \beta > 0$使得 
+        \begin{equation*}
+            I(\varphi + v) \geq -\int_{\Omega}a(x) \,{\rm d}x + b\int_{\Omega}|\nabla (u_0 + v)|^q \,{\rm d}x \geq \alpha\Vert v \Vert_{1, q}^q - \beta.
+        \end{equation*}
+        由此表明$I$是强制的.
+    \end{proof}
+\end{corollary}
+
+\begin{example}
+    给定$\mathbb{R}^n$上的有界区域$\Omega$. 那么对任意的$f \in L^2(\Omega)$, 存在$u \in H_0^1(\Omega)$, 满足等式$-\Delta u = f$, 即Poisson方程
+    \begin{equation*}
+        \begin{cases}
+            -\Delta u = f \quad &\text{in}\ \Omega, \\ 
+            u = 0 \quad &\text{on}\ \partial\Omega
+        \end{cases}
+    \end{equation*}
+    存在广义解. 事实上, 先将Poisson方程转化成等价的泛函 
+    \begin{equation*}
+        I(u) = \int_{\Omega}\left(\frac{1}{2}|\nabla u|^2 - fu\right) \,{\rm d}x.
+    \end{equation*}
+    容易验证, $I$满足推论\ref{coro2.33}的假设条件, 故$I$存在极小值点.
+\end{example}
+
+\subsubsection{拟凸性}
+
+\emph{Motivation}: 降低对Lagrange函数凸性的要求. 例如, 设$\Omega$是$\mathbb{R}^n$中的有界区域. 
+$u = (u^1, \cdots, u^n) \in C^1(\Omega)$, $f \in C^1(\mathbb{R})$是凸函数.
+考虑$u$的Jacobi行列式$A = \det (\nabla u)$, 定义Lagrange函数 
+\begin{equation*}
+    L\colon \mathbb{R}^{n \times n} \rightarrow \mathbb{R}, A \mapsto f(\det A).
+\end{equation*}
+可以验证, $L$对$p$不是凸的.
+
+考虑特殊情形: $L$只依赖于$p$.
+
+\begin{proposition}
+    设$\Omega \subseteq \mathbb{R}^n$是一个区域, $L \in C(\mathbb{R}^{n \times N})$. 
+    如果 
+    \begin{equation*}
+        I(u) = \int_{\Omega}L(\nabla u(x)) \,{\rm d}x
+    \end{equation*}
+    在$W^{1, \infty}(\Omega)$上是弱\textsuperscript{*}下半连续的, 那么对于任意的立方体$D \subset \subset \Omega$和$A \in \mathbb{R}^{n \times N}$, 有 
+    \begin{equation*}
+        \int_DL(A + \nabla\varphi(x)) \,{\rm d}x \geq L(A)|D|, \quad \forall \varphi \in W_0^{1, \infty}(\mathbb{R}^N).
+    \end{equation*}
+    \begin{proof}
+        不妨设$D = [0, 1]^n$. 对任意的$k \in \mathbb{Z}_{> 0}$, 将$D$作$2^k$等分: $D = \bigcup_{l = 1}^{2^{kn}}D_l^k$, 其中$D_l^k$是边长为$2^{-k}$, 中心在$c_l^k = 2^{-k}(y_1^l + 1/2 + \cdots y_n^l)$的立方体,
+        其中$(y_1^l, \cdots, y_n^l)$遍历$(0, 1, \cdots, 2^k - 1)^n$. 对任意的$v \in W_0^{1, \infty}(D)$, 将其周期扩展到$\mathbb{R}^n$上. 
+        令 
+        \begin{equation*}
+            w_k(x) = \frac{1}{2^k}v(2^k(x - c_l^k)), \quad x \in D_l^k, \forall l = 1, 2, \cdots, 2^{kn}.
+        \end{equation*}  
+        容易验证,  
+        \begin{equation*}
+            \begin{cases}
+                w_k \rightharpoonup 0, \\
+                \nabla w_k \rightharpoonup^* 0
+            \end{cases}
+            \quad \text{in}\ L^{\infty}(D).
+        \end{equation*}
+        现对任意的$A \in \mathbb{R}^{n \times N}$, 定义$u_k(x)= Ax + w_k(x), k = 1, 2, \cdots$, 并且令其在$D$外为0.
+        由前述分析可知, $u_k \rightharpoonup^* u = Ax$. 一方面, 我们有$I(u) = |\Omega|L(A)$; 另一方面, 
+        \begin{align*}
+            I(u_k) &= \int_DL(A + \nabla w_k(x)) \,{\rm d}x + \int_{\Omega\smallsetminus D}L(A) \,{\rm d}x \\ 
+            &= \sum_{l = 1}^{2^{kn}}\int_{D^k_l}L(A + \nabla v(2^k(x - c_l^k))) \,{\rm d}x + L(A)|\Omega \smallsetminus D| \\ 
+            &= \int_DL(A + \nabla v(x)) \,{\rm d}x + L(A)|\Omega \smallsetminus D|.
+        \end{align*}
+        再利用$I$的弱\textsuperscript{*}序列下半连续性, 我们便证得了所需结果.
+    \end{proof}
+\end{proposition}
+
+\begin{definition}
+    函数$f$称为\textbf{拟凸的}, 如果对任意的$A \in \mathbb{R}^{n \times N}$和立方体$D \subseteq \mathbb{R}^n$, 有 
+    \begin{equation*}
+        \boxed{|D|f(A) \leq \int_Df(A + \nabla u(x)) \,{\rm d}x, \qquad \forall v \in W_0^{1, \infty}(D).}
+    \end{equation*}
+\end{definition}
+
+\begin{itemize}
+    \item 设$p \mapsto L(p)$是凸的, 则对任意的$\varphi \in W_0^{1, \infty}(\Omega)$, 由Jensen不等式可得: 
+    \begin{align*}
+        L(p) = L\left(|D|^{-1}\int_D(p + \nabla \varphi(x)) \,{\rm d}x\right) \leq |D|^{-1}\int_DL(p + \nabla\varphi(x)) \,{\rm d}x.
+    \end{align*}
+    这表明$L$也是拟凸的. 即拟凸的确是凸的推广.
+    \item 事实上, 当$n = 1$或$N = 1$时, 拟凸和凸是等价的.
+    \begin{itemize}
+        \item $n = 1$. 取$\xi, \eta \in \mathbb{R}^N$. 对任意的$\lambda \in [0, 1]$, 令 
+        \begin{equation*}
+            \xi_1 = \xi + (1 - \lambda)\eta, \xi_2 = \xi - \lambda\eta,
+        \end{equation*}
+        即有 
+        \begin{equation*}
+            \xi = \lambda\xi_1 + (1 - \lambda)\xi_2, \eta = \xi_1 - \xi_2.
+        \end{equation*}
+        定义函数 
+        \begin{equation*}
+            \varphi(t) = 
+            \begin{cases}
+                t(1 - \lambda)\eta \quad &t \in [0, \lambda), \\ 
+                (1 - t)\lambda\eta \quad &t \in [\lambda, 1],
+            \end{cases}
+        \end{equation*}
+        再利用$L$的拟凸性, 有 
+        \begin{align*}
+            L(\xi) \leq \int_0^1L(\xi + D\varphi(t)) \,{\rm d}t &= \int_0^{\lambda}L(\xi_1) \,{\rm d}t + \int_{\lambda}^1L(\xi_2) \\
+            &= \lambda L(\xi_1) + (1 - \lambda)L(\xi_2).
+        \end{align*}
+        这表明$p \mapsto L(p)$是凸的.
+    \end{itemize}
+\end{itemize}
+
+\begin{example}
+    事实上, 存在不是凸的拟凸函数. 例如, 设$n = N = 2$, 考虑函数$f\colon \varphi \mapsto \det(\nabla\varphi)$, 则$f$不是凸的.
+    注意到 
+    \begin{equation*}
+        \det(\nabla\varphi) = \partial_1\varphi^1\partial_2\varphi^2 - \partial_1\varphi^2\partial_2\varphi^1 = \partial_1(\varphi^1\partial_2\varphi^2) - \partial_2(\varphi^1\partial_1\varphi^2), 
+    \end{equation*}
+    所以 
+    \begin{equation*}
+        \int_D\det(\nabla\varphi) \,{\rm d}x = 0, \qquad \forall \varphi \in W_0^{1, \infty}(\Omega).
+    \end{equation*}
+    从而对任意的$A = (a_{ij})$, 有 
+    \begin{align*}
+        |D|^{-1}\int_Df(A + \nabla\varphi) \,{\rm d}x = &|D|^{-1}\int_D(\det A + \det(\nabla\varphi) + a_{11}\partial_2\varphi^2 + a_{22}\partial_1\varphi^1 \\
+        &- a_{12}\partial_1\varphi^2 - a_{21}\partial_2\varphi^1) \,{\rm d}x \\ 
+        &= f(A).
+    \end{align*}
+    这表明$f$是拟凸的.
+\end{example}
+
+下述定理表明, 拟凸性同样可以保证泛函的弱序列下半连续性.
+
+\begin{theorem}[Morrey-Acerbi-Fusco]
+    当$1 \leq p < \infty$时, 若 
+    \begin{equation*}
+        I(u) = \int_{\Omega}L(\nabla u(x)) \,{\rm d}x
+    \end{equation*}
+    在$W^{1, p}(\Omega)$上是弱序列下半连续的(或当$p = \infty$时, $I$是弱\textsuperscript{*}序列下半连续的), 则$L$是拟凸的.
+    反之, 若$L$是拟凸的, 且满足如下增长性条件:
+    \begin{equation*}
+        \begin{cases}
+            |L(A)| \leq \alpha(1 + |A|) \quad &p = 1, \\ 
+            -\alpha(1 + |A|^q) \leq L(A) \leq \alpha(1 + |A|^p) \quad &1 \leq q < p < \infty, \\
+            |L(A)| \leq \eta(|A|) \quad &p = \infty,
+        \end{cases}
+    \end{equation*}
+    其中$\alpha > 0$是常数, $\eta$是一个递增的连续函数. 则当$1 \leq p < \infty$时, $I$在$W^{1, p}(\Omega)$是弱序列下半连续的(或当$p = \infty$时, $I$是弱\textsuperscript{*}序列下半连续的).
+\end{theorem}
+
+\begin{corollary}[存在性]
+    设$L \in C(\mathbb{R}^{n \times N})$是拟凸的, 并存在常数$C_2 > C_1 > 0$使得 
+    \begin{equation*}
+        C_1|A|^p \leq L(A) \leq C_2(1 + |A|^p), \qquad 1 < p < \infty.
+    \end{equation*}
+    那么泛函 
+    \begin{equation*}
+        I(u) = \int_{\Omega}L(\nabla u(x)) \,{\rm d}x
+    \end{equation*}
+    在$M = \varphi + W_0^{1, p}(\Omega)$上达到极小值, 其中$\varphi \in W^{1, p}(\Omega)$.
+\end{corollary}
