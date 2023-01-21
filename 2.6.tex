@@ -1,0 +1,189 @@
+\subsection{专题二: 特征值问题}
+
+设$\Omega \subseteq \mathbb{R}^n$是一个有界区域. 考虑边值问题(算子$-\Delta$的\textbf{特征值问题}) 
+\begin{equation}\label{43}
+    \begin{cases}
+        -\Delta u = \lambda u \quad &{\rm in}\ \Omega, \\ 
+        u = 0 \quad &{\rm on}\ \partial\Omega.
+    \end{cases}
+\end{equation}
+问对于哪些$\lambda \in \mathbb{R}$, 上述特征值问题存在非零解? 
+称对应着非零解的数$\lambda$为\textbf{谱}. 若这个非零解$u \in L^2(\Omega)$, 则称其为\textbf{特征函数}, 并称相应的$\lambda$为\textbf{特征值}.
+
+利用约束变分方法, 我们有如下结果:
+
+\begin{theorem}\label{th2.49}
+    设$\Omega$为$\mathbb{R}^n$中的有界区域, 则方程\eqref{43}有一列特征值$\{\lambda_k\}$, 且满足 
+    \begin{itemize}
+        \item $0 < \lambda_1 \leq \lambda_2 \leq \cdots \leq \lambda_i \leq \cdots$;
+        \item $\lambda_i \rightarrow +\infty$,
+    \end{itemize}
+    以及对应的特征函数$\{\varphi_i\} \subseteq H_0^1(\Omega)$, 且满足 
+    \begin{itemize}
+        \item $-\Delta\varphi_j = \lambda_j\varphi_j, \Vert \varphi_j \Vert_{L^2} = 1, \forall i = 1, 2, \cdots$;
+        \item $(\varphi_j, \varphi_k)_{H_0^1} = 0 = (\varphi_j, \varphi_k)_{L^2}, \forall i \neq j$.
+    \end{itemize}
+    进一步地, $\{\varphi_i/\sqrt{\lambda_i}\}$是$H_0^1(\Omega)$中的一组正规正交基, 从而$\{\varphi_i\}$是$L^2(\Omega)$中的一组正规正交基.
+    \begin{proof}
+        考虑泛函 
+        \begin{equation*}
+            I(u) = \int_{\Omega}|\nabla u|^2 \,{\rm d}x
+        \end{equation*}
+        以及 
+        \begin{equation*}
+            N(u) = \int_{\Omega}|u|^2 \,{\rm d}x.
+        \end{equation*}
+        容易验证, 若$\varphi_1 \in C^2(\overline{\Omega})$是变分问题 
+        \begin{equation}\label{44}
+            \min_{u \in H_0^1(\Omega) \cap N^{-1}(1)}I(u)
+        \end{equation}
+        的极小点, 则由Lagrange乘子法可知, 存在$\lambda_1 \in \mathbb{R}$满足$-\Delta\varphi_1 = \lambda_1\varphi_1$.
+        以下验证\eqref{44}解的存在性. 显然$I$是强制的, 并且是弱序列下半连续的.
+        结合存在性和正则性定理, 以下只需验证集合 
+        \begin{equation*}
+            M = H_0^1(\Omega) \cap N^{-1}(1)
+        \end{equation*}
+        是弱序列闭的. 具体地, 设$\{u_j\}$在$H_0^1$中收敛到$u$, 注意到紧嵌入$H_0^1(\Omega) \hookrightarrow L^2(\Omega)$, 故存在子列$\{u_{j'}\} \subseteq \{u_j\}$, 使得$u_{j'}$在$L^2$中收敛到$u$.
+        由于$\Vert u_{j'} \Vert_{L^2} = 1$, 从而有$\Vert u \Vert_{L^2} = 1$.
+        这表明$u \in M_1$, 故$M_1$是弱序列闭的. 
+
+        再取集合 
+        \begin{equation*}
+            M_2 = \left\{u \in M_1\colon \int_{\Omega}u\varphi_1 \,{\rm d}x = 0\right\},
+        \end{equation*}
+        并考虑变分问题$\min_{u \in M_2}I(u)$. 若$\varphi_2 \in C^2$是极小点, 则存在$\lambda_2, \mu_2 \in \mathbb{R}$使得 
+        \begin{equation}\label{45}
+            -\Delta\varphi_2 = \lambda_2\varphi_2 + \mu_2\varphi_1.
+        \end{equation} 
+        一方面, 在等式$-\Delta\varphi_1 = \lambda_1\varphi_1$两边乘以$\varphi_2$再积分, 并利用Green公式, 即得 
+        \begin{equation*}
+            \int_{\Omega}\nabla\varphi_1 \cdot \nabla\varphi_2 \,{\rm d}x = -\int_{\Omega}\Delta\varphi_1\varphi_2 \,{\rm d}x = \lambda_1\int_{\Omega}\varphi_1\varphi_2 \,{\rm d}x = 0;
+        \end{equation*}
+        另一方面, 在\eqref{45}等式两侧乘以$\varphi_1$后积分, 得 
+        \begin{equation*}
+            \int_{\Omega}\nabla\varphi_1 \cdot \varphi_2 \,{\rm d}x = \mu_2\int_{\Omega}|\varphi_1|^2 \,{\rm d}x = \mu_2.
+        \end{equation*}
+        故$\mu_2 = 0$. 这表明$\lambda_2$是一个特征值, $\varphi_2$是相应的特征函数, $\varphi_1 \neq \varphi_2$, 且 
+        \begin{equation*}
+            \lambda_2 = I(\varphi_2) = \min\{I(u)\colon u \in M_2\} \geq \lambda_1.
+        \end{equation*}
+        以下只需要说明$\varphi \in C^2$的极小点. 同理, 我们只需说明$M_2$是弱序列闭的, 而这一点可以由紧嵌入定理保证.
+
+        如此进行下去, 在第$i$步时, 令 
+        \begin{equation*}
+            M_i = \left\{u \in M_{i - 1}\colon \int_{\Omega}u\varphi_{i - 1} \,{\rm d}x = 0\right\}.
+        \end{equation*}
+        可以证明它是弱序列闭的, 从而变分问题$\min_{u \in M_i}I(u)$有解$\varphi_i \neq 0$, 满足 
+        \begin{equation*}
+            -\Delta\varphi_i = \lambda_i\varphi_i + \sum_{j = 1}^{i - 1}\mu_j\varphi_j.
+        \end{equation*}
+        同理, 我们有$\mu_1 = \cdots = \mu_{i - 1} = 0$, 由此即表明$\lambda_i$是一个特征值, $\varphi_i$是对应的特征函数, 且 
+        \begin{equation*}
+            \lambda_i = I(\varphi_i) = \min\{I(u)\colon u \in M_i\} \geq \lambda_{i - 1}.
+        \end{equation*}
+
+        以下说明$\lambda_i \rightarrow +\infty$. 若存在$C > 0$使得$\lambda_i \leq C, \forall i$, 那么 
+        \begin{equation*}
+            \int_{\Omega}|\nabla\varphi_i|^2 \,{\rm d}x = \lambda_i\int_{\Omega}|\varphi_i|^2 \,{\rm d}x = \lambda_i \leq C, \qquad \forall i.
+        \end{equation*}
+        由此表明$\{\varphi_i\}$是$H_0^1(\Omega)$中的有界列, 从而有弱收敛子列$\{\varphi_{j'}\}$.
+        一方面, 根据紧嵌入定理, 有子列$\{\varphi_{j''}\}$在$L^2$中收敛到$\varphi$; 另一方面, 注意到$(\varphi_j, \varphi_k)_{L^2} = 0, j \neq k$, 故有 
+        \begin{equation*}
+            \int_{\Omega}|\varphi_j - \varphi_k|^2 \,{\rm d}x = \int_{\Omega}(\varphi_j^2 + \varphi_k^2) \,{\rm d}x = 2, \qquad i \neq j.
+        \end{equation*}
+        从而有 
+        \begin{equation*}
+            \int_{\Omega}|\varphi^* - \varphi_{j'}|^2 \,{\rm d}x = 2,
+        \end{equation*}
+        矛盾.
+
+        最后证明$\{\varphi_i\}$是完备的, 即对任意的$u \in H_0^1(\Omega)$, 部分和
+        \begin{equation*}
+            s_m = \sum_{i = 1}^mc_i\varphi_i
+        \end{equation*}
+        在$H_0^1$中收敛到$u$, 这里$c_i = (u, \varphi_i)_{H_0^1}$. 一方面, 由正交性直接计算得 
+        \begin{align*}
+            \int_{\Omega}|\nabla(u - s_m)|^2 \,{\rm d}x = \int_{\Omega}|\nabla u|^2 \,{\rm d}x - \sum_{n = 1}^m|c_n|^2.
+        \end{align*}
+        另一方面, 注意到$u - s_m \in M_{m + 1}$, 故有 
+        \begin{equation*}
+            \int_{\Omega}|\nabla(u - s_m)|^2 \,{\rm d}x \geq \lambda_{m + 1}\int_{\Omega}|u - s_m|^2 \,{\rm d}x.
+        \end{equation*}
+        因此 
+        \begin{equation*}
+            \int_{\Omega}|u - s_m|^2 \,{\rm d}x \leq \frac{1}{\lambda_{m + 1}}\int_{\Omega}|\nabla u|^2 \,{\rm d}x \rightarrow 0 \qquad (m \rightarrow \infty),
+        \end{equation*}
+        即$s_m$在$L^2$意义下收敛到$u$. 进一步地, 由Bessel不等式可知, 当$m > n$时, 有 
+        \begin{equation*}
+            \int_{\Omega}|\nabla(s_m - s_n)|^2 \,{\rm d}x = \sum_{i = n + 1}^m|c_i|^2 \rightarrow 0 \qquad (n \rightarrow +\infty).
+        \end{equation*}
+        结合上述分析可知, $s_m$也在$H_0^1$中收敛到$u$.
+    \end{proof}
+\end{theorem}
+
+\begin{example}
+    在区间$J = [a, b] \subseteq \mathbb{R}$上给定$p \in C^1(J), q \in C(J)$, 并假设存在$\alpha \in \mathbb{R}$使得$p(x) \geq \alpha$, 且$q(x) \geq 0$.
+    考虑具有Dirichlet边界条件的Sturm-Liouville问题 
+    \begin{equation*}
+        \begin{cases}
+            \mathcal{L}u = -(pu')' + qu = \lambda u \quad &{\rm in}\ J, \\ 
+            u(a) = u(b) = 0.
+        \end{cases}
+    \end{equation*}
+    和定理\ref{th2.49}中的讨论过程类似, 在空间$H_0^1(J)$上考察泛函 
+    \begin{equation*}
+        I(u) = \frac{1}{2}\int_J(p|u'|^2 + q|u|^2) \,{\rm d}x,
+    \end{equation*}
+    此时$H_0^1(\Omega)$上的内积规定为 
+    \begin{equation*}
+        (u, v) = \int_J(pu'v' + quv) \,{\rm d}x.
+    \end{equation*}
+    通过逐次引入约束$M_1 = \{u \in H_0^1(J)\colon \Vert u \Vert^2 = 1\}$, $M_2 = \{u \in M_1\colon (u, \varphi_1) = 0\} \cdots$, 同样可以得到一列恒正递增区域无穷的特征值$\{\lambda_i\}$, 以及对应的特征函数$\{\varphi_i\} \subseteq C^2(J)$.
+    此外, $\{\varphi_i\}$也是$H_0^1(\Omega)$中的一组正交基.
+\end{example}
+
+\begin{remark}
+    上述讨论均涉及的是Dirichlet边界的情形. 对于Neumann边界, 由于Poincar\'e不等式在$H^1(\Omega)$上不再成立, 对应的泛函未必是强制的.
+    然而, 注意到如下结果:
+    \begin{proposition}[Poincaré不等式]
+        设$\Omega$为$\mathbb{R}^n$中的有界区域, 其边界是$C^1$的. 那么对任意的$u \in W^{1, p}(\Omega)\ (1 \leq p \leq \infty)$, 存在常数$C = C(n, p, \Omega) > 0$, 使得 
+        \begin{equation*}
+            \left\Vert u - \int_{\Omega}u \,{\rm d}x \right\Vert_{L^p} \leq C\Vert \nabla u \Vert_{L^p}.
+        \end{equation*}
+        由此可知, 我们可以将对应的泛函限制到子空间 
+        \begin{equation*}
+            X = \left\{u \in H^1(\Omega)\colon \int_{\Omega}u \,{\rm d}x = 0\right\}
+        \end{equation*}
+        上, 此时Poincaré不等式在$X$上仍成立, 我们可以在$X$上(相当于添加一个约束条件, 其对应的Lagrange乘子事实上为零)求对应泛函的极小值.
+    \end{proposition}
+\end{remark}
+
+在前述的讨论中, 方程\eqref{43}的特征值$\{\lambda_i\}$是通过递归给出的.
+下述定理直接给出了$\lambda_i$的刻画:
+
+\begin{theorem}[Courant极小极大定理]
+    记$\{\lambda_n\}$为方程\eqref{43}的特征值, 则有 
+    \begin{equation*}
+        \lambda_n = \max_{E_{n - 1}}\min_{u \in E_{n - 1}^{\bot} \smallsetminus \{0\}}\frac{\displaystyle\int_{\Omega}|\nabla u|^2 \,{\rm d}x}{\displaystyle \int_{\Omega}|u|^2 \,{\rm d}x},
+    \end{equation*}
+    其中$E_{n - 1}$是$H_0^1(\Omega)$中任意$(n - 1)$维线性子空间.
+    \begin{proof}
+        记$E_{n - 1} = {\rm span}\{v_1, \cdots, v_n\}$是$H_0^1(\Omega)$中任一$(n - 1)$维线性子空间, 其中$\{v_n\} \subseteq H_0^1(\Omega)$线性无关.
+        再记 
+        \begin{equation*}
+            \mu(E_{n - 1}) = \min_{u \in E_{n - 1}^{\bot} \smallsetminus \{0\}}\frac{\displaystyle\int_{\Omega}|\nabla u|^2 \,{\rm d}x}{\displaystyle \int_{\Omega}|u|^2 \,{\rm d}x}.
+        \end{equation*}
+        一方面, 由于$\lambda_1 \leq \lambda_2 \leq \cdots \leq \lambda_n$, 
+        \begin{equation*}
+            \mu(E_{n - 1}) \leq \frac{\displaystyle\int_{\Omega}|\nabla u|^2 \,{\rm d}x}{\displaystyle \int_{\Omega}|u|^2 \,{\rm d}x} = \frac{\displaystyle\sum_{i = 1}^n\lambda_i|c_i|^2}{\displaystyle\sum_{i = 1}^n|c_i|^2} \leq \lambda_n;
+        \end{equation*}
+        另一方面, 令$\{\varphi_1, \cdots, \varphi_n\}$为前$n$个特征函数, 注意到 
+        \begin{equation*}
+            (E_{n - 1}^{\bot} \smallsetminus \{0\}) \cap {\rm span}\{\varphi_1, \cdots, \varphi_n\} \neq \varnothing,
+        \end{equation*}
+        取$\widetilde{E_{n - 1}} = {\rm span}\{\varphi_1, \cdots, \varphi_{n - 1}\}$, 便有 
+        \begin{equation*}
+            \max_{E_{n - 1}}\mu(E_{n - 1}) \geq \mu(\widetilde{E_{n - 1}}) = \lambda_n.
+        \end{equation*}
+    \end{proof}
+\end{theorem}
