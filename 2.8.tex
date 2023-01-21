@@ -1,0 +1,210 @@
+\subsection{专题四: 对偶最小作用量原理}
+
+Hamilton方程组对应的泛函不是下方有界的, 故不能采用直接求极值的方法. 然而, 若$H$是凸的, 我们可以通过Legendre变换将问题转化.
+这便是\textbf{对偶最小作用量原理}.
+
+\subsubsection{凸分析初步: Legendre变换}
+
+首先回顾一些关于Legendre变换的基本概念. 在第五节中, 我们主要考虑的是$C^1$函数的情形.
+在本节中, 我们集中于$\mathbb{R}^n$上的Legendre变换, 而对函数的可微性不做进一步的要求.
+具体地, 设$f\colon \mathbb{R}^n \rightarrow (-\infty, +\infty]$, 且$f \not\equiv +\infty$ (此时称$f$为\textbf{真}函数).
+定义 
+\begin{equation*}
+    \boxed{f^*(\xi) = \sup_{x \in \mathbb{R}^n}((\xi, x)_{\mathbb{R}^n} - f(x))}.
+\end{equation*}
+称$f^*$为$f$的\textbf{Legendre变换.}
+
+
+\begin{proposition}
+    设$f\colon \mathbb{R}^n \rightarrow (-\infty, +\infty]$是真函数. 记$f^*$为$f$的Legendre变换.
+    那么 
+    \begin{enumerate}
+        \item $f^*$是下半连续的凸函数;
+        \item 若$f$是真的, 下半连续的凸函数, 则$f^*$是真函数;
+        \item 若$f \leq g$, 则$g^* \leq f^*$; \label{prop2.63-3}
+        \item (Young不等式) $(x, \xi) \leq f(x) + f^*(\xi)$, 其中等号成立当且仅当$\xi \in \partial f(x)$. \label{prop2.63-4}
+        这里$\partial f(x)$为$f$的在$x$处的次微分:
+        \begin{equation*}
+            \partial f(x) = \{\xi \in \mathbb{R}^n\colon f(y) \geq f(x) + (\xi, y - x), \forall y \in D(f)\}.
+        \end{equation*}
+    \end{enumerate}
+    \begin{proof}
+        1. 注意到$f^*$可以看作是一族凸的, 连续的(从而也是下半连续的)函数之上确界, 而凸且下半连续的函数族的上确界还是凸且下半连续的.
+
+        2. 由于$f$是真的, 故可以选取$x_0 \in \mathbb{R}^n$使得$f(x_0) < +\infty$.
+        由假设可知, 上图
+        \begin{equation*}
+            {\rm epi}\ f = \{(x, t) \in \mathbb{R}^n \times \mathbb{R}\colon f(x) \leq t\}
+        \end{equation*}
+        是非空凸闭集. 取$t_0 < f(x_0)$, 则$(x_0, t_0) \notin {\rm epi}\ f$. 再利用凸集分离定理, 存在$\Phi \in (\mathbb{R}^n \times \mathbb{R})^*$和$\alpha \in \mathbb{R}$, 使得超平面$\{\Phi = \alpha\}$严格分离${\rm epi}\ f$和$(x_0, t_0)$.
+        利用$\mathbb{R}^n$的自共轭性, 我们可以找到$(\xi, \lambda) \in \mathbb{R}^n \times \mathbb{R}$, 使得对任意的$(x, t)$, 有 
+        \begin{equation*}
+            \Phi((x, t)) = (\xi, x)_{\mathbb{R}^n} + \lambda t.
+        \end{equation*}
+        综上所述, 我们有 
+        \begin{equation*}
+            (\xi, x)_{\mathbb{R}^n} + \lambda t > \alpha > (\xi, x_0)_{\mathbb{R}^n} + \lambda t_0, \qquad \forall (x, t) \in {\rm epi}\ f.
+        \end{equation*}
+        特别地, 
+        \begin{equation*}
+            (\xi, x_0)_{\mathbb{R}^n} + \lambda f(x_0) > \alpha > (\xi, x_0)_{\mathbb{R}^n} + \lambda t_0,
+        \end{equation*}
+        从而$\lambda > 0$, 并且 
+        \begin{equation*}
+            \left(-\frac{1}{\lambda}\xi, x\right)_{\mathbb{R}^n} - f(x) < -\frac{\alpha}{\lambda},
+        \end{equation*}
+        故有 
+        \begin{equation*}
+            f^*\left(-\frac{\xi}{\lambda}\right) < -\frac{\alpha}{\lambda} < +\infty.
+        \end{equation*}
+        由此即表明$f \not\equiv +\infty$.
+    
+        3. 显然.
+    
+        4. Young不等式可以由Legendre变换的定义直接得出. 此外, 我们有 
+        \begin{align*}
+            \xi \in \partial f(x) &\Longleftrightarrow (\xi, y - x)_{\mathbb{R}^n} \leq f(y) - f(x), \quad \forall y \in \mathbb{R}^n, \\ 
+            &\Longleftrightarrow (\xi, y)_{\mathbb{R}^n} - f(y) \leq (\xi, x)_{\mathbb{R}^n} - f(x), \quad \forall y \in \mathbb{R}^n, \\ 
+            &\Longleftrightarrow f^*(\xi) \leq (\xi, x)_{\mathbb{R}^n} - f(x).
+        \end{align*}
+    \end{proof}
+\end{proposition}
+
+\begin{theorem}[Fenchel-Moreau]\footnote{该定理结论对一般的Legendre变换也成立(利用凸集分离定理证明, 即Hahn-Banach定理的几何形式).}
+    若$f$是一个真的, 下半连续的凸函数, 则$f^{**} = f$.
+\end{theorem}
+
+\begin{corollary}\label{coro2.65}
+    对于一个真的, 下半连续的凸函数$f$, 我们有 
+    \begin{equation*}
+        \xi \in \partial f(x) \ \Longleftrightarrow \ x \in \partial f^*(\xi).
+    \end{equation*}
+    \begin{proof}
+        利用Fenchel-Moreau定理和命题2.63\eqref{prop2.63-4}即可.
+    \end{proof}
+\end{corollary}
+
+\begin{corollary}
+    设$f\colon \mathbb{R}^n \rightarrow (-\infty, +\infty]$是真函数, 则 
+    \begin{equation*}
+        f^{**} = {\rm conv}\ f = \sup\{\varphi \colon \varphi\ \text{proper and convex}, \varphi (x) \leq f(x), \forall x \in \mathbb{R}^n\}.
+    \end{equation*}
+    \begin{proof}
+        一方面, 设$g \leq f$是凸的, 则它还是真的. 由命题2.63\eqref{prop2.63-3}和Fenchel-Moreau定理, 即得 
+        \begin{equation*}
+            g = g^{**} \leq f^{**}.
+        \end{equation*}
+        另一方面, 注意到$f^{**}$本身便是凸的, 由此我们便证得了所需结论.
+    \end{proof}
+\end{corollary}
+
+\subsubsection{对偶最小作用量原理}
+
+\textbf{Question:} 给定一个凸的Hamilton函数$H \in C^1(\mathbb{R}^N \times \mathbb{R}^N)$, 并满足如下的增长条件:
+\begin{equation*}
+    0 \leq H(u, \xi) \leq C(|u|^2 + |\xi|^2).
+\end{equation*}
+求满足下列Hamilton方程组的周期解$(u(t), \xi(t))$:
+\begin{equation}\label{59}
+    \begin{cases}
+        \dot \xi(t) = H_u(u(t), \xi(t)), \\ 
+        \dot u(t) = -H_{\xi}(u(t), \xi(t)).
+    \end{cases}
+\end{equation}
+
+\emph{Solution.} 先求解下列方程的以$2\pi$为周期的解$(v(t), \eta(t))$:
+\begin{equation}\label{60}
+    \begin{cases}
+        \dot \eta(t) = \lambda H_v(v(t), \eta(t)), \\ 
+        \dot v(t) = -\lambda H_{\eta}(v(t), \eta(t)).
+    \end{cases}
+\end{equation}
+事实上, 若已求得满足方程\eqref{60}的解$(v(t), \eta(t))$, 令 
+\begin{equation*}
+    u(t) = v(\lambda^{-1}t), \quad \xi(t) = \eta(\lambda^{-1}t),
+\end{equation*}
+则$(u(t), \xi(t))$满足\eqref{59}, 它以$2\lambda\pi$为周期($\lambda > 0$).
+
+现将\eqref{60}转化成一个约束极小值问题: 求泛函 
+\begin{equation*}
+    I(w, \rho) = \int_0^{2\pi}H^*(\dot\rho(t), -\dot w(t)) \,{\rm d}t
+\end{equation*}
+在约束 
+\begin{equation*}
+    G(w, \rho) = \int_0^{2\pi}(-\dot\rho(t) \cdot w(t) + \dot w(t) \cdot \rho(t)) \,{\rm d}t = -\pi
+\end{equation*}
+下的极小值. 这里$H^*$代表$H$的Legendre变换. 事实上, 若$(w_0, \rho_0)$是该约束极值问题的极小点, 则存在$\lambda \in \mathbb{R}$, 使得 
+\begin{equation*}
+    \begin{cases}
+        \frac{{\rm d}}{{\rm d}t}(H_{\rho}^*(\dot\rho_0(t), -\dot w_0(t)) - \frac{\lambda}{2} w_0(t)) = \frac{\lambda}{2} \dot w_0(t), \\ 
+        \frac{{\rm d}}{{\rm d}t}(-H_w^*(\dot\rho_0(t), -\dot w_0(t)) + \frac{\lambda}{2}\rho_0(t)) = -\frac{\lambda}{2} \dot\rho_0(t).
+    \end{cases}
+\end{equation*}
+再利用\ref{coro2.65}, 上式等价于 
+\begin{equation*}
+    \begin{cases}
+        \dot\rho_0(t) = H_w(\lambda w_0(t), \lambda\rho_0(t)), \\
+        \dot w_0(t) = -H_{\rho}(\lambda w_0(t), \lambda\rho_0(t)).
+    \end{cases}
+\end{equation*}
+令$\eta_0 = \lambda\rho_0, v_0 = \lambda w_0$, 容易验证$(\eta_0, v_0)$满足\eqref{60}.
+
+以下利用直接方法来验证极小点$(w_0, \rho_0)$的存在性. 显然, $I$是连续的, 从而也是弱序列下半连续的.
+其次, 由$H$的增长性条件可知 
+\begin{equation*}
+    H^*(w, \rho) \geq \frac{1}{C}(|w|^2 + |\rho|^2),
+\end{equation*}
+从而有 
+\begin{equation*}
+    I(w, \rho) \geq \frac{1}{C}\int_0^{2\pi}(|\dot w|^2 + |\dot \rho|^2) \,{\rm d}t.
+\end{equation*}
+这表明$I$是下方有界, 且是强制的. 此时定义域$M = G^{-1}(-\pi)$上的范数规定为 
+\begin{equation*}
+    \Vert (w, \rho)\Vert = \left(\int_0^{2\pi}(|\dot w|^2 + |\dot \rho|^2) \,{\rm d}t\right)^{1/2}.
+\end{equation*}
+最后, 设$\{(w_i, \rho_i)\} \subseteq M$在$H_{{\rm per}}^1(0, 2\pi)$上弱收敛到$(w^*, \rho^*)$.
+由紧嵌入$H^1 \hookrightarrow L^2$可知, $w_j$和$\rho_j$在$L^2(0, 2\pi)$中分别收敛到$w^*$和$\rho^*$.
+从而有 
+\begin{align*}
+    -\pi = \lim\limits_{j \rightarrow \infty}G(w_j, \rho_j) &= \lim\limits_{j \rightarrow \infty}\int_0^{2\pi}(-\dot\rho_j \cdot w_j + \dot w_j \cdot \rho_j) \,{\rm d}t \\ 
+    &= \int_0^{2\pi}(-\dot\rho^* \cdot w^* + \dot w^* \cdot \rho^*) \,{\rm d}t = G(w^*, \rho^*).
+\end{align*}
+这表明$(w^*, \rho^*) \in M$, 故$M$是弱序列闭的. 综上所述, 我们利用直接方法验证了极小点$(w_0, \rho_0)$的存在性.
+
+最后, 为使得到的极小点$(w_0, \rho_0)$是非平凡的, 我们还需说明$\lambda > 0$.
+使用记号 
+\begin{equation*}
+    \langle (w, \rho), (u, \xi)\rangle = \int_0^{2\pi}(w \cdot u + \rho \cdot \xi) \,{\rm d}t.
+\end{equation*}
+在前述推导中我们得到了等式 
+\begin{equation*}
+    \nabla H^*(\dot \rho_0, -\dot w_0) = \lambda(w_0, \rho_0).
+\end{equation*}
+从而 
+\begin{equation*}
+    \langle \nabla H^*(\dot \rho_0, -\dot w_0), (\dot\rho_0, -\dot w_0)\rangle = -\lambda G(w_0, \rho_0) = \lambda\pi.
+\end{equation*}
+利用$H$的增长条件, 易得$\nabla H(0, 0) = (0, 0)$, 故 
+\begin{equation*}
+    H^*(0, 0) = -H(0, 0) = 0.
+\end{equation*}
+由于$H$是凸的, 从而有 
+\begin{equation*}
+    H^*(0, 0) - H^*(\dot\rho_0, -\dot w_0) \geq -\langle \nabla H^*(\dot\rho_0, -\dot w_0), (\dot \rho_0, -\dot w_0)\rangle,
+\end{equation*}
+即 
+\begin{equation*}
+    \lambda\pi = \langle \nabla H^*(\dot\rho_0, -\dot w_0), (\dot \rho_0, -\dot w_0)\rangle \geq H^*(\dot\rho_0, -\dot w_0) \geq 0.
+\end{equation*}
+这表明$\lambda \geq 0$. 以下验证$\lambda \neq 0$. 若$\lambda = 0$, 那么必有 
+\begin{equation*}
+    \nabla H^*(\dot\rho_0, -\dot w_0) = (0, 0).
+\end{equation*}
+从而 
+\begin{equation*}
+    \begin{cases}
+        \dot\rho_0 = H_w(0, 0), \\ 
+        \dot w_0 = -H_{\rho}(0, 0).
+    \end{cases}
+\end{equation*}
+再利用$H$的增长条件, 即得$(\dot\rho_0, \dot w_0) = (0, 0)$, 而这与约束条件矛盾!
