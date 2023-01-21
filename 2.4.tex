@@ -1,0 +1,226 @@
+\subsection{正则性\texorpdfstring{$(n = 1)$}{}}
+
+在得到极小点的存在性后, 还需要验证极小点是E-L方程的经典解. 这便是\textbf{正则性}问题.
+
+以下恒假设Lagrange函数$L \in C^2$.
+
+\begin{proposition}
+    设$u^* \in C^1(J)$是泛函 
+    \begin{equation*}
+        I(u) = \int_JL(t, u(t), \dot u(t)) \,{\rm d}t
+    \end{equation*}
+    的极小点. 若对任意的$t \in J$, $\det(L_{p_ip_j}(t, u^*(t), \dot u^*(t))) \neq 0$, 那么$u^* \in C^2(J)$.
+    \begin{proof}
+        由积分形式的E-L方程可知, 存在常数$C$, 使得 
+        \begin{equation*}
+            L_p(t, u^*(t), \dot u^*(t)) = \int_{t_0}^tL_u(\tau, u^*(\tau), \dot u^*(\tau)) \,{\rm d}\tau - C.
+        \end{equation*} 
+        将上式等号右侧的函数记为$q = q(t)$. 令
+        \begin{equation*}
+            \varphi(t, p) = L_p(t, u^*(t), p) - q(t) \qquad ((t, p) \in J \times \mathbb{R}^N).
+        \end{equation*}
+        显然, $\varphi \in C^1$, 且有$\varphi(t, u^*(t)) = 0$. 此外, 由于
+        \begin{equation*}
+            \det(\partial_p\varphi(t, p)) = \det(L_{p_ip_j}(t, u^*(t), \dot u^*(t))) \neq 0,
+        \end{equation*} 
+        故由隐函数定理可知, 对任意的$t \in J$, 存在$t$的邻域$U$以及唯一的$\lambda \in C^1(U)$, 等式 
+        \begin{equation*}
+            \varphi(t, \lambda(t)) = 0
+        \end{equation*}
+        对任意的$t \in U$成立. 注意到整体上有等式$\varphi(t, u^*(t)) = 0$, 故$\dot u \in C^1$, 从而$u \in C^2$. 
+    \end{proof}
+\end{proposition}
+
+\begin{example}
+    若条件$\det(L_{p_ip_j}(t, u^*(t), \dot u^*(t))) \neq 0$不被满足, 则存在这样的泛函$I$, 其极值函数是$C^1$的, 而不是$C^2$的.
+    事实上, 设$M = \{u \in C^1[-1, 1]\colon u(-1) = 0, u(1) = 1\}$, Lagrange函数$L = L(t, u, p) = u^2(p - 2t)^2$.
+    容易验证, $L$对应的变分积分有极小点 
+    \begin{equation*}
+        u^*(t) = 
+        \begin{cases}
+            0 \quad &t < 0, \\ 
+            t^2 \quad &t \geq 0.
+        \end{cases}
+    \end{equation*}
+    此时$u^* \in C^1 \smallsetminus C^2$, 而当$t < 0$时, $L_{pp}(t, u^*(t), \dot u^*(t)) = 2(u^*(t))^2 = 0$.
+\end{example}
+
+\begin{theorem}\label{th2.42}
+    设$L$满足如下增长条件:
+    \begin{equation*}
+        \begin{cases}
+            |L| + |L_u| + |L_p| \leq C(1 + |p|^r) \quad &1 < r < \infty, \\ 
+            {\rm None} \quad &r = \infty.
+        \end{cases}
+    \end{equation*}
+    又设对任意的$(t, u, p) \in J \times \mathbb{R}^N \times \mathbb{R}^N$, $(L_{p_ip_j}(t, u, p))$是正定的.
+    若$u^* \in W^{1, r}(J)$是泛函 
+    \begin{equation*}
+        I(u) = \int_JL(t, u(t), \dot u(t)) \,{\rm d}t
+    \end{equation*}
+    的极小点, 则可以改变$u^*$在一个零测集上的值, 使得$u^* \in C^2$.
+    \begin{proof}
+        只需证明, 改变$u^*$在一个零测集上的值以后, 有$u^* \in C^1$.
+
+        由题设条件可知, 存在常数$C$, 使得 
+        \begin{equation*}
+            L_p(t, u^*(t), \dot u^*(t)) = q(t), \qquad {\rm a.e.}\ t \in J,
+        \end{equation*}
+        其中 
+        \begin{equation*}
+            q(t) = \int_{t_0}^tL_u(\tau, u^*(\tau), \dot u^*(\tau)) \,{\rm d}\tau - C.
+        \end{equation*}
+        注意到对$L$的增长性假设, 我们还有$q \in {\rm AC(J)}$.
+        定义函数 
+        \begin{equation*}
+            \varphi\colon J \times \mathbb{R}^N \times \mathbb{R}^N \times \mathbb{R}^N \rightarrow \mathbb{R}, (t, u, p, q) \mapsto L_p(t, u, p) - q.
+        \end{equation*}
+        根据隐函数定理, 方程$\varphi(t, u, p, q) = 0$存在唯一的局部$C^1$解$p = \lambda(t, u, q)$.
+        尽管$\dot u$可能不是连续的, 但若能说明上述隐函数定理得到的局部解还是整体唯一的, 则有 
+        \begin{equation*}
+            \dot u(t) = \lambda(t, u^*(t), q(t)), \qquad {\rm a.e.}\ t \in J,
+        \end{equation*}
+        再注意到嵌入关系$W^{1, r}(J) \hookrightarrow C(\overline{J})$, 故$\dot u^*$是几乎处处连续的. 事实上, 设$p_1$和$p_2$是方程$\varphi = 0$的整体解, 那么 
+        \begin{equation*}
+            q = L_p(t, u, p_1) = L_p(t, u, p_2),
+        \end{equation*}
+        从而有 
+        \begin{equation*}
+            0 = (L_p(t, u, p_1) - L_p(t, u, p_2)) \cdot (p_1 - p_2) = (B(p_1 - p_2)) \cdot (p_1 - p_2),
+        \end{equation*}
+        其中 
+        \begin{equation*}
+            B = \int_0^1L_{pp}(t, u, p_1 + \tau(p_2 - p_1)) \,{\rm d}\tau.
+        \end{equation*}
+        由题设条件可知, $B$是正定的, 从而$p_1 = p_2$.
+    \end{proof}
+\end{theorem}
+
+\begin{example}
+    若去掉定理\ref{th2.42}中对于矩阵$(L_{p_ip_j}(t, u^*(t), \dot u^*(t)))$整体的正定性假设, 则极小点未必是$C^1$的.
+    考虑Lagrange函数$L = L(p) = (p^2 - 1)^2$, 以及定义域
+    \begin{equation*}
+        M = \{u \in {\rm Lip}[0, 1]\colon u(0) = u(1) = 0\}.
+    \end{equation*}
+    容易验证, $L$对应的变分积分有极小值$0$, 此时$L_{pp} = 4(3p^2 - 1)$不是正定的.
+    若$u \in C^1$是极小点, 则有$\dot u(t) = \pm 1$, 但无论处于何种情况, 都不可能有满足边值条件$u(0) = u(1) = 0$的解.
+\end{example}
+
+总结:
+
+\begin{equation*}
+    \text{直接方法} \leadsto \text{找极小化序列}
+    \begin{cases}
+        \text{存在性}
+        \begin{cases}
+            \text{合适的空间: Sobolev空间} \\ 
+            \text{弱下半连续性}
+        \end{cases} \\ 
+        \text{正则性}
+    \end{cases}
+\end{equation*}
+
+最后, 我们以几个具体的变分问题为例, 探究其极小点的存在性与正则性.
+
+\begin{example}[两点边值问题]
+    记区间$J = (t_0, t_1)$, 环面$\mathbb{T}^2 = \mathbb{R}^2/\mathbb{Z}^2$.
+    给定$a_0, a_1 \in \mathbb{T}^2, F \in C^2(J \times \mathbb{T}^2)$. 
+    考虑如下方程 
+    \begin{equation}\label{40}
+        \ddot u(t) = \nabla_uF(t, u(t))
+    \end{equation}
+    的$C^2$解, 且满足边值条件$u(t_i) = a_i, i = 0, 1$.
+\end{example}
+
+先将$F$周期延拓到全空间上去, 即对任意的$t \in J$, 定义 
+\begin{equation*}
+    F(t, u_1 + 1, u_2) = F(t, u_1 + 1, u_2) = F(t, u_1, u_2).
+\end{equation*}
+将扩张后的函数仍记为$F$, 定义泛函 
+\begin{equation*}
+    I(u) = \int_J\left(\frac{1}{2}|\dot u(t)|^2 + F(t, u(t))\right) \,{\rm d}t
+\end{equation*}
+以及定义域$M = u^* + H_0^1(J)$, 这里 
+\begin{equation*}
+    u^*(t) = \frac{a_0(t_1 - t) + a_1(t - t_0)}{t_1 - t_0}.
+\end{equation*}
+容易验证, $I$对应的E-L方程正是\eqref{40}. 在$H_0^1(J)$上赋予等价范数$v \mapsto \left(\int|\dot v|^2 \,{\rm d}x\right)^{1/2}$.
+\begin{itemize}
+    \item 显然$M$是弱序列闭的. 此外, $I$在$M$上还是强制的.
+    \item 设$u_n$在$H^1(\Omega)$上弱收敛到$u$, 则$\{u_n\}$是有界集.
+    注意到嵌入$H^1(J) \hookrightarrow C(\overline{J})$是紧的, 且$F$是连续的, 故$I$还是弱序列下半连续的(参考例\ref{ex2.30}中使用的方法). 
+\end{itemize}
+综上所述, $I$在$M$上有极小点$u^*$. 此时$L$满足如定理\ref{th2.42}中所列出的增长性限制, 且$(L_{p_ip_j})$为单位阵, 当然是正定的.
+因此$u^* \in C^2$, 从而$u^*$是\eqref{40}的经典解.
+
+\begin{example}[强迫振动的周期解]
+    设$e$为周期为$T$, 且在$[0, T]$上的平均值为零的连续函数, 即 
+    \begin{equation}\label{41}
+        \int_0^Te(t) \,{\rm d}t = 0.
+    \end{equation}
+    求下列方程周期为$T$的解:
+    \begin{equation*}
+        \ddot u(t) + a\sin u(t) = e(t).
+    \end{equation*}
+\end{example}
+
+记$H_{{\rm per}}^1(0, T)$为周期为$T$的$C^{\infty}$函数在$H^1(0, T)$中的闭包.
+在其上考虑泛函 
+\begin{equation*}
+    I(u) = \int_0^T\left(\frac{1}{2}|\dot u(t)|^2 + a\cos u(t) + e(t)u(t)\right) \,{\rm d}t.
+\end{equation*}
+容易验证, $I$对应的E-L方程即为\eqref{42}式. 注意到$I$按照$H^1$范数并不是强制的, 故我们需要在$H_{{\rm per}}^1(0, T)$上选取其它的等价范数.
+事实上, 若将$I$改写为
+\begin{equation*}
+    I(u) = \int_0^T\left(\frac{1}{2}|\dot u(t)|^2 + a\cos u(t) - E(t)u(t)\right) \,{\rm d}t,
+\end{equation*}
+其中 
+\begin{equation*}
+    E(t) = \int_0^te(\tau) \,{\rm d}\tau,
+\end{equation*}
+则$I$有估计 
+\begin{equation*}
+    I(u) \geq \frac{1}{2}\Vert \dot u \Vert_{L^2}^2 - |a| - C\Vert E \Vert_{L^{\infty}}\Vert \dot u \Vert_{L^2},
+\end{equation*}
+其中$C$是一个正常数. 由上式可以看出, 若能说明$u \mapsto \Vert \dot u \Vert_{L^2}$是$H_{{\rm per}}^1(0, T)$上的一个等价范数, 则$I$便是强制的.
+
+\begin{lemma}[Wirtinger不等式]
+    设$u \in H_{{\rm per}}^1(0, T)$. 若 
+    \begin{equation*}
+        \overline{u} = \int_0^Tu(t) \,{\rm d}t = 0,
+    \end{equation*}
+    那么 
+    \begin{equation}\label{42}
+        \int_0^T|\dot u(t)|^2 \,{\rm d}t \geq \frac{4\pi^2}{T^2}\int_0^T|u(t)|^2 \,{\rm d}t.
+    \end{equation}
+    \begin{proof}
+        先对光滑函数证明\eqref{42}式. 由于$\overline{u} = 0$, 故$u$有Fourier展开 
+        \begin{equation*}
+            u(t) = \sum_{k = 1}^{\infty}\left(a_k\cos\frac{2\pi k}{T}t + b_k\sin\frac{2\pi k}{T}t\right).
+        \end{equation*}
+        从而 
+        \begin{equation*}
+            \dot u(t) = \frac{2\pi}{T}\sum_{k = 1}^{\infty}\left(-ka_k\sin\frac{2\pi k}{T}t + kb_k\cos\frac{2\pi k}{T}t\right).
+        \end{equation*}
+        再利用Parseval等式, 便有 
+        \begin{align*}
+            \int_0^T|\dot u(t)|^2 \,{\rm d}t = \frac{4\pi^2}{T^2}\sum_{k = 1}^{\infty}k^2(|a_k|^2 + |b_k|^2) \geq \frac{4\pi^2}{T^2}\sum_{k = 1}^{\infty}(|a_k|^2 + |b_k|^2) = \int_0^T|u(t)|^2 \,{\rm d}t.
+        \end{align*}
+
+        最后, 对任意的$u \in H_{{\rm per}}^1(0, T)$且满足$\overline{u} = 0$, 取一族周期为$T$的光滑函数$\{u_n\}$, 使得$u_n$在$H^1(0, T)$中收敛到$u$.
+        注意到此时$\overline{u_n}$不一定等于零. 令$v_n = u_n - \overline{u_n}$, 则$\overline{v_n} = 0$.
+        此外, 由H\"older不等式容易推出, $\overline{u_n} \rightarrow \overline{u} = 0$, 从而$v_n \rightarrow u$.
+        利用第一段中证明的结果, 我们便在一般情况下证明了\eqref{42}式.
+    \end{proof}
+\end{lemma}
+
+为使用Wirtinger不等式, 对任意的$u \in H_{{\rm per}}^1(0, T)$, 作分解$u = \widetilde{u} + \overline{u}$.
+显然, $\overline{\widetilde{u}} = 0$. 此外, 注意到$I(u) = I(u + 2\pi)$, 这表明我们不需在整个$H_{{\rm per}}^1(0, T)$上考虑$I$, 而是取集合 
+\begin{equation*}
+    M = \{u = \xi + \eta\colon \xi \in H_{{\rm per}}^1(0, T), \overline{\xi} = 0, \eta \in [0, 2\pi]\},
+\end{equation*}
+并将$I$限制在$M$上. 这样做的好处是$\overline{u}$只在$[0, 2\pi]$上变化.
+
+最后, 我们在$M$上考虑$I$. 显然$M$是弱序列闭的. 由上述分析可知, $I$在$M$上还是强制的.
+此外, 容易验证$I$是弱序列下半连续的, 故由存在性定理可知, $I$在$M \subseteq H_{{\rm per}}^1$上存在极小点.
+再利用正则性定理, 此极小点还是$C^2$的.
