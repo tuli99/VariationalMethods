@@ -1,0 +1,371 @@
+\subsection{Sobolev空间初步}
+
+从上一节的分析中可以看出, 若要使用定理\ref{th2.10}来验证极小点的存在性, 选取的函数空间应该是某个Banach空间的对偶空间(特别地, 自反空间), 这要求该空间至少是完备的;
+此外, 由于泛函是含导数的变分积分, 则此空间应至少包含函数的一阶导数(或更弱意义下的导数)信息. 以下介绍的Sobolev空间便满足这些要求.
+
+\subsubsection{基本定义和性质}
+
+\emph{Motivation}: 分部积分公式. 若$u \in C^k(\Omega)$, 则对任意的$\alpha \in \mathbb{Z}^n_{\geq 0}\colon |\alpha| \leq k$和$\varphi \in C_0^{\infty}(\Omega)$, 我们有
+\begin{equation*}
+    \int_{\Omega}\partial^{\alpha}u\varphi \,{\rm d}x = (-1)^{|\alpha|}\int_{\Omega}u\partial^{\alpha}\varphi \,{\rm d}x.
+\end{equation*}
+
+\begin{definition}
+    设$u, v \in L^1_{{\rm loc}}(\Omega)$, $\alpha \in \mathbb{Z}^n_{\geq 0}$.
+    称$v$为$u$的$\alpha$阶\textbf{广义导数}, 如果对于任意的$\varphi \in C_0^{\infty}(\Omega)$, 有
+    \begin{equation*}
+        \boxed{\int_{\Omega}v\varphi \,{\rm d}x = (-1)^{|\alpha|}\int_{\Omega}u\partial^{\alpha}\varphi \,{\rm d}x.}
+    \end{equation*}
+    记作$v = D^{\alpha}u$.
+\end{definition}
+
+\begin{definition}
+    设$p \in [1, \infty]$, $k \in \mathbb{Z}_{\geq 0}$. 定义 
+    \begin{equation*}
+        \boxed{W^{k, p}(\Omega) := \{u \in L^p(\Omega)\colon D^{\alpha}u \in L^p(\Omega), \forall \alpha\in \mathbb{Z}_{\geq 0}\colon |\alpha| \leq k\}.}
+    \end{equation*}
+    并规定其上的范数为 
+    \begin{equation*}
+        \Vert u \Vert_{k, p} := 
+        \begin{cases}
+            \displaystyle\left(\sum_{|\alpha| \leq k}\int_{\Omega}|D^{\alpha}u|^p \,{\rm d}x\right)^{1/p} \quad &1 \leq p < \infty, \\ 
+            \displaystyle\mathop{{\rm esssup}}\limits_{\Omega}\sum_{|\alpha| \leq k}|D^{\alpha}u| \quad &p = \infty.
+        \end{cases}
+    \end{equation*}
+    容易验证, $(W^{k, p}(\Omega), \Vert \cdot \Vert_{k, p})$是赋范线性空间, 且是完备的.
+    称此空间为\textbf{Sobolev空间}.
+\end{definition}
+
+\begin{remark}
+    我们有时也用下式定义$W^{k, p}(\Omega)$上的范数:
+    \begin{equation*}
+        \Vert u \Vert_{k, p}' := 
+        \begin{cases}
+            \displaystyle\sum_{|\alpha| \leq k}\left(\int_{\Omega}|D^{\alpha}u|^p \,{\rm d}x\right)^{1/p} = \sum_{|\alpha| \leq m}\Vert D^{\alpha}f\Vert_{L^p} \quad &1 \leq p < \infty, \\ 
+            \displaystyle\sum_{|\alpha| \leq k}\mathop{{\rm esssup}}\limits_{\Omega}|D^{\alpha}u| = \sum_{|\alpha| \leq m}\Vert D^{\alpha}f\Vert_{L^{\infty}} \quad &p = \infty.
+        \end{cases}
+    \end{equation*}
+    可以验证, $\Vert \cdot \Vert_{k, p}$和$\Vert \cdot \Vert_{k, p}'$是等价的.
+\end{remark}
+
+\begin{proposition}
+    Sobolev空间$W^{k, p}(\Omega)$具有如下简单性质:
+    \begin{enumerate}
+        \item 对于有界区域, 有 
+        \begin{gather*}
+            W^{k, \infty}(\Omega) \subseteq W^{k, q}(\Omega) \subseteq W^{k, p}(\Omega) \subseteq W^{k, 1}(\Omega), \qquad 1 \leq p \leq q \leq \infty, \\ 
+            W^{m, p}(\Omega) \subseteq W^{l, p}(\Omega), \qquad 0 \leq l \leq m.
+        \end{gather*}
+        \item 若$\Omega_1 \subseteq \Omega_2$, 则对任意的$u \in W^{k, p}(\Omega_2)$, 有$u|_{\Omega_1} \in W^{k, p}(\Omega_1)$.
+        \item 设$u \in W^{k, p}(\Omega), \psi \in C_0^{\infty}(\Omega)$, 则有$\psi u \in W_0^{k, p}(\Omega)$, 并且对任意的$\alpha \in \mathbb{Z}_{\geq 0}\colon |\alpha| \leq k$, 有${\rm supp}(D^{\alpha}(\psi u)) \subseteq {\rm supp}\ \psi$, 
+        \begin{equation*}
+            D^{\alpha}(\psi u) = \sum_{\beta \leq \alpha}\binom{\alpha}{\beta}D^{\beta}\psi D^{\alpha - \beta}u,
+        \end{equation*} 
+        其中$\binom{\alpha}{\beta} = \frac{\alpha!}{\beta!(\alpha - \beta)!}$.
+        \item $W_0^{k, p}(\mathbb{R}^n) = W^{k, p}(\mathbb{R}^n)$.
+    \end{enumerate}
+    \begin{proof}
+        1和2是显然的. 对于3, 先利用数学归纳法归结于$k = 1$的情形, 再使用广义导数的定义和分部积分公式即可.
+        
+        4. 显然有$W_0^{k, p}(\mathbb{R}^n) \subseteq W^{k, p}(\mathbb{R}^n)$.
+        另一方面, 注意到$C_0^{\infty}(\mathbb{R}^n)$在$L^p(\mathbb{R}^n)$中稠密, 且$W_0^{k, p}(\mathbb{R}^n)$是闭的, 故反包含关系也成立.
+    \end{proof}
+\end{proposition}
+
+\begin{example}
+    设$J = [a, b] \subseteq \mathbb{R}$, 则$W^{1, 1}(J) = {\rm AC(J)}$, 并且
+    \begin{equation*}
+        Du(x) = \dot u(x), \qquad a.e. \ x \in J.
+    \end{equation*}
+
+    事实上, 对于任意的$u \in {\rm AC(J)}$, 则其导数$\dot u$几乎处处存在, 并且属于$L^1(J)$, 因此$u \in W^{1, 1}(J)$.
+    此外, 注意到对任意的$x, y \in J$, 我们有 
+    \begin{equation*}
+        u(x) = \int_y^x\dot u(t) \,{\rm d}t + u(y),
+    \end{equation*}
+    从而对任意的$\varphi \in C_0^{\infty}(J)$, 有
+    \begin{equation*}
+        \int_Ju(x)\dot \varphi(x) \,{\rm d}x = -\int_J\dot u(x)\varphi(x) \,{\rm d}x,
+    \end{equation*}
+    此即$Du = \dot u$, a.e.
+
+    另一方面, 对任意的$u \in W^{1, 1}(J)$, 令 
+    \begin{equation*}
+        \varphi_n(t) = 
+        \begin{cases}
+            \displaystyle n(t - a) \quad &t \in \left[a, a + \frac{1}{n}\right], \\ 
+            \displaystyle 1 \quad &t \in \left[a + \frac{1}{n}, x - \frac{1}{n}\right], \\ 
+            \displaystyle -n(x - t) \quad &t \in \left[x - \frac{1}{n}, x\right], \\ 
+            0 \quad &t \in [x, b]
+        \end{cases}
+        \qquad (n = 1, 2, \cdots),
+    \end{equation*}
+    再将$\varphi_n$磨光, 即对任意$\varphi_n$, 取$\xi_{n, k} \in C_0^{\infty}(J), \Vert \xi_{n, k} \Vert_{C^1} \leq 2n$, 使得$\xi_{n, k}$在$J$上一致收敛到$\varphi_n$, 且$\dot\xi_{n, k} \rightarrow \dot \varphi_n$, a.e. $t \in J$.
+    在等式 
+    \begin{equation*}
+        \int_Ju(t)\dot\xi_{n, k}(t) \,{\rm d}t = -\int_JDu(t)\varphi_n(t) \,{\rm d}t
+    \end{equation*}
+    两端先令$k \rightarrow \infty$, 即得 
+    \begin{equation*}
+        \int_Ju(t)\dot\varphi_n(t) \,{\rm d}t = -\int_JDu(t)\varphi_n(t).
+    \end{equation*}
+    再令$n \rightharpoonup \infty$, 有 
+    \begin{equation*}
+        u(x) - u(a) = \int_a^xDu(t) \,{\rm d}t, \qquad \forall x \in J.
+    \end{equation*}
+    这表明$u \in {\rm AC(J)}$, 并且$\dot u = Du$, a.e. $x \in J$.
+
+    此外, 利用绝对连续函数的Newton-Leibniz公式, 我们还可以证明$W^{1, \infty}(J) = {\rm Lip}(J)$.
+\end{example}
+
+最后我们来探究$W^{k, p}(\Omega)$的对偶空间具有何种形式. 这对于研究其上的弱收敛是有帮助的.
+考虑如下映射:
+\begin{equation*}
+    i\colon W^{k, p}(\Omega) \rightarrow \mathop{\times}\limits_{|\alpha| \leq m}L^p(\Omega), u \mapsto (D^{\alpha}u)_{|\alpha| \leq m},
+\end{equation*}
+其中乘积空间$\times_{|\alpha| \leq k}L^p(\Omega)$上的范数规定为
+\begin{equation*}
+    \Vert u \Vert = \sum_{|\alpha| \leq k}\Vert D^{\alpha}u \Vert_{L^p}.
+\end{equation*}
+容易验证, 在此范数下, $\times_{|\alpha| \leq k}L^p(\Omega)$是Banach空间, 其对偶空间$(\times_{|\alpha| \leq k}L^p(\Omega))^* \cong \times_{|\alpha| \leq k}L^{p'}(\Omega)$.
+这里的同构具体表现为: 规定$(\times_{|\alpha| \leq k}L^p(\Omega))^*$中的元素均具有形式$f = (f_{\alpha})_{|\alpha| \leq k}$, 且 
+\begin{equation*}
+    \langle f, u\rangle = \sum_{|\alpha| \leq k}\langle f_{\alpha}, D^{\alpha}u\rangle.
+\end{equation*} 
+那么有$f_{\alpha} \in L^{p'}(\Omega)$, 且$\Vert f \Vert = \max_{|\alpha| \leq k}\Vert f_{\alpha} \Vert$.
+
+由上述分析可知, $i$是等距嵌入映射. 再根据Hahn-Banach定理和Riesz表示定理, 则有: $f \in (W^{k, p}(\Omega))^*$, 当且仅当存在$(\psi_{\alpha})_{|\alpha| \leq k} \in \times_{|\alpha| \leq k}L^{p'}(\Omega)$, 使得
+\begin{equation*}
+    \langle f, u\rangle = \sum_{|\alpha| \leq k}\int_{\Omega}D^{\alpha}u\psi_{\alpha} \,{\rm d}x.
+\end{equation*} 
+从而$W^{k, p}(\Omega)$中的弱收敛可表现为:
+\begin{equation*}
+    \boxed{u_j \rightharpoonup u \ \text{in}\ W^{k, p} \Longleftrightarrow \sum_{|\alpha| \leq k}D^{\alpha}(u_j - u)\psi_{\alpha} \,{\rm d}x \rightarrow 0, \forall (\psi_{\alpha}) \in \times_{|\alpha| \leq k}L^{p'}(\Omega).}
+\end{equation*}
+
+\begin{corollary}
+    $W^{k, p}(\Omega)$是自反且可分的Banach空间.
+    \begin{proof}
+        注意到$i$是等距嵌入, 从而$W^{k, p}(\Omega)$可以看作是$\times_{|\alpha| \leq m}L^p(\Omega)$的闭子空间.
+        由此足以证得所需结论.
+    \end{proof}
+\end{corollary}
+
+\subsubsection{延拓, 逼近与嵌入}
+
+\begin{itemize}
+    \item \textbf{延拓}. 基本问题是: 给定$u \in W^{k, p}(\Omega)$, 是否总能存在$\widetilde{u} \in W^{k, p}(\mathbb{R}^n)$, 使得$\widetilde{u}|_{\Omega} = u$?
+    事实上, 对于$W_0^{k, p}(\Omega)$型空间, 不论区域$\Omega$如何选取, 延拓总是可能的, 且此延拓是有界的.
+    我们只需将$u$在$\Omega$外定义为零即可. 但对于$W^{k, p}$型空间, 由于函数在边界处可能趋于无穷, 故我们不能采取零延拓的方式.
+    然而, 若$\Omega$具有充分光滑的边界, 那么延拓是可能的:
+\end{itemize}
+
+\begin{theorem}
+    设$\Omega$是$\mathbb{R}^n$中的有界区域, 其中$\partial\Omega$是一致$C^k$的.
+    那么对任意的$l \in [0, k], p \in [1, \infty)$, 存在有界线性算子$T\colon W^{l, p}(\Omega) \rightarrow W^{l, p}(\mathbb{R}^n)$, 使得$Tu(x) = u(x)$, a.e. $x \in \Omega$.
+\end{theorem}
+
+\begin{itemize}
+    \item \textbf{逼近}. 我们已经知道$C_c^{\infty}(\Omega)$在$L^p(\Omega)$中稠密. 特别地, $C^{\infty}(\Omega) \cap L^p(\Omega)$在$L^p(\Omega)$中稠密.
+    以下逼近定理将此结果推广到了Sobolev空间上: 
+\end{itemize}
+
+\begin{theorem}[Serrin-Meyers]
+    设$\Omega$是$\mathbb{R}^n$中的有界区域. 若$p \in [1, \infty)$, 则$C^{\infty}(\Omega) \cap W^{k, p}(\Omega)$在$W^{k, p}(\Omega)$中稠密.
+    \begin{proof}
+        我们先证明局部的逼近, 再利用单位分解得到整体的逼近.
+
+        取一族光滑化子$\{\eta_{\varepsilon}\}_{\varepsilon > 0}$. 令
+        \begin{equation*}
+            u_{\varepsilon}(x) = (\eta_{\varepsilon} \ast u)(x), \qquad x \in \Omega_{\varepsilon},
+        \end{equation*}
+        其中$\Omega_{\varepsilon} = \{x \in \Omega\colon {\rm dist}(x, \partial\Omega) > \varepsilon\}$.
+        显然对任意的$\varepsilon > 0$, $u_{\varepsilon} \in C^{\infty}(\Omega_{\varepsilon})$. 再根据恒等逼近的理论可知, 当$\varepsilon \rightarrow 0$时, $u_{\varepsilon}$在$W_{{\rm loc}}^{k, p}(\Omega)$中收敛到$u$.
+
+        现取$\Omega$的一族开覆盖$\{\Omega_i\}$, 使得$\Omega = \bigcup_{i = 1}^{\infty}\Omega_i$, 且对任意的$i$, 有$\overline{\Omega_i} \subseteq \Omega_{i + 1}$.
+        再令$V_i = \Omega_{i + 1} \smallsetminus \overline{\Omega_{i - 1}}, i = 1, 2, \cdots$, 其中$U_0 = \varnothing$.
+        显然有$\Omega = \bigcup_{i = 1}^{\infty}V_i$. 且对任意的$x \in \Omega$, 只有有限个$V_i$包含$x$.
+        今取$\{V_i\}$对应的一族单位分解$\{\zeta_i\}$. 对任意的$u \in W^{k, p}(\Omega)$, 显然有$\zeta_iu \in W^{k, p}(\Omega)$, 且${\rm supp}\ \zeta_i \subseteq V_i$, 根据前述的局部逼近, 对任意的$\eta > 0$, 我们总可以选取足够小的$\delta_i > 0$, 使得 
+        \begin{equation*}
+            \Vert \eta_{\delta_i} \ast (\zeta_iu) - \zeta_iu\Vert_{k, p} \leq \frac{\eta}{2^i} \qquad (i = 1, 2, \cdots).
+        \end{equation*}
+        记$u^i = \eta_{\delta_i} \ast (\zeta_iu)$. 令$v = \sum_{i = 1}^{\infty}u^i$.
+        一方面, 注意到对任意的$x \in \Omega$, $\sum_{i = 1}^{\infty}u^i$是有限和, 故$v \in C^{\infty}(\Omega)$.
+        另一方面, 取$V \subseteq \Omega$使得$\overline{V} \subseteq \Omega$, 我们有
+        \begin{equation*}
+            \Vert v - u \Vert_{W^{k, p}(V)} \leq \sum_{i = 1}^{\infty}\Vert u^i - \zeta u\Vert_{W^{k, p}(V)} \leq \eta.
+        \end{equation*}
+        注意到$V$是任意的, 故有$\Vert v - u \Vert_{W^{k, p}(\Omega)} \leq \eta$. 由此同时表明$v \in W^{k, p}(\Omega)$.
+    \end{proof}
+\end{theorem}
+
+利用光滑函数在Sobolev空间中的稠密性, 我们可以轻松地将Poincar\'e不等式推广到$W_0^{1, p}(\Omega) (1 \leq p < \infty)$上:
+
+\begin{corollary}[Poincaré不等式]
+    设$\Omega \subseteq \mathbb{R}^n$是有界区域. 若$u \in W_0^{1, p}(\Omega), 1 \leq p < \infty$, 那么存在常数$C = C(p, \Omega) > 0$, 使得 
+    \begin{equation*}
+        \Vert u \Vert_{L^p} \leq C\Vert \nabla u \Vert_{L^p}.
+    \end{equation*}
+\end{corollary}
+
+回顾前几节中对于空间$H^1$的定义: $C^1(\overline{\Omega})$在范数$\Vert \cdot \Vert_{H^1}$下的完备化.
+注意到$W^{1, 2}(\Omega)$是包含$C^1(\overline{\Omega})$的完备空间, 因此$H^1(\Omega) \subseteq W^{1, 2}(\Omega)$.
+另一方面, 根据上述定理逼近可知, $W^{1, 2}(\Omega) \subseteq H^1(\Omega)$. 从而
+\begin{equation*}
+    \boxed{H^1(\Omega) = W^{1, 2}(\Omega).}
+\end{equation*} 
+这也是$H^1(\Omega)$的一种等价定义.
+
+此外, 由Poincaré不等式可知, 
+\begin{equation*}
+    \boxed{u \mapsto \left(\int_{\Omega}|\nabla u|^p \,{\rm d}x\right)^{1/p}}
+\end{equation*}
+是$W_0^{1, p}(\Omega)$上的一个等价范数, 其中$\Omega$是$\mathbb{R}^n$中的有界区域, $1 \leq p < \infty$.
+
+\begin{itemize}
+    \item \textbf{嵌入.} 利用嵌入定理, 我们可以将某些特别的Sobolev空间看作是某些常见函数空间的闭子空间.
+    特别地, 若该嵌入还是紧的(有界集映到列紧集), 则我们可以使用一些特殊的定理, 如Arzelà-Ascoli定理, 来判断有界集合的列紧性.
+\end{itemize}
+
+\begin{theorem}[Sobolev嵌入定理]
+    设$\Omega$是$\mathbb{R}^n$中具有一致$C^m$边界的有界区域, $1 \leq q < \infty$, $k \in \mathbb{Z}_{\geq 0}$.
+    则对任意的$j \in \mathbb{Z}_{\geq 0}$, 有嵌入关系:
+    \begin{gather*}
+        W^{k, p}(\Omega) \hookrightarrow L^r(\Omega), \qquad \frac{1}{r} \geq \frac{1}{p} - \frac{k}{n}\ \left(k < \frac{n}{p}\right), \\
+        W^{k + j, p}(\Omega) \hookrightarrow C^{j, \lambda}(\overline{\Omega}), \qquad 0 < \lambda \leq k - \frac{n}{p}\ \left(k > \frac{n}{p}\right),
+    \end{gather*}
+    其中$C^{j, \lambda}(\overline{\Omega})$是H\"older型空间.
+\end{theorem}
+
+最常用的是$k = 1$的情形: 记$p^* = \frac{np}{n - p}$为$q$的\textbf{Sobolev型共轭指标}, 则 
+\begin{gather*}
+    W^{1, p}(\Omega) \hookrightarrow L^r(\Omega), \qquad 1 \leq r \leq p^*\ (n > p), \\ 
+    W^{1, p}(\Omega) \hookrightarrow C(\overline{\Omega}) \qquad (p > n).
+\end{gather*}
+
+\begin{remark}
+    当$k = n = 1, \Omega = (a, b) \subseteq \mathbb{R}$时, 嵌入定理的结论很容易从H\"older不等式推出.
+    注意到此时$p^* = p'$, 且广义导数和几乎处处导数是一致的, 故对任意的$x, y \in (a, b)$, 有 
+    \begin{equation*}
+        |u(x) - u(y)| = \left|\int_a^b\dot u(t) \,{\rm d}t\right| \leq |x - y|^{1/p'}\Vert \dot u \Vert_{L^p},
+    \end{equation*}
+\end{remark}
+
+\begin{theorem}[Rellich-Kondrachov]
+    设$\Omega$是$\mathbb{R}^n$中具有一致$C^m$边界的有界区域, $1 \leq p \leq \infty$, $m \in \mathbb{Z}_{\geq 0}$, 则如下嵌入 
+    \begin{gather*}
+        W^{k, p}(\Omega) \hookrightarrow L^r(\Omega), \qquad 1 \leq r < \frac{np}{n - kp}\ \left(k < \frac{n}{p}\right), \\
+        W^{k, p}(\Omega) \hookrightarrow C(\overline{\Omega}), \qquad \left(k > \frac{n}{p}\right)
+    \end{gather*}
+    均是紧的.
+\end{theorem}
+
+以下是一种常见的特殊情形:
+
+\begin{proposition}[Rellich]
+    设$\Omega$为$\mathbb{R}^n$中的有界区域, $1 \leq p < \infty$, 则$W_0^{1, p}(\Omega)$中的单位闭球是$L^p(\Omega)$中的列紧集.
+    \begin{proof}
+        记$\mathbb{B}$为$W_0^{1, p}(\Omega)$中的单位闭球. 以下证明对任意的$\varepsilon > 0$, 在$L^p$模下, $\mathbb{B}$是完全有界的, 即存在有限的$\varepsilon$-网. 
+
+        令$S = C_0^{\infty}(\Omega) \cap \mathbb{B}$. 取一族光滑化子$\{\eta_{\delta}\}_{\delta > 0}$.
+        对任意的$\delta > 0$, 记$S_{\delta} = \{v_{\delta}\colon v \in S\}$, 其中$v_{\delta} = v \ast \eta_{\delta}$.
+        由恒等逼近的理论可知, 对任意的$v \in S$和$\varepsilon > 0$, 存在充分小的$\delta_0 = \delta(\varepsilon) > 0$, 使得 
+        \begin{equation*}
+            \Vert v - v_{\delta} \Vert_{L^p} < \varepsilon, \qquad \forall \delta \in (0, \delta_0].
+        \end{equation*}
+        现固定$\delta = \delta_0$. 一方面, 由卷积不等式可知, $S_{\delta_0}$是完全有界的; 另一方面, 注意到 
+        \begin{equation*}
+            |\nabla v_{\delta}(x)| = |(v \ast \nabla\eta_{\delta})(x)| \leq \Vert v \Vert_{L^p},
+        \end{equation*}
+        其中$C$是一个不依赖于$\delta$的常数, 由此表明$S_{\delta_0}$还是等度连续的. 
+        根据Arzelà-Ascoli定理, 我们可以找到$\{w_i\}_{i = 1}^l \subseteq S_{\delta_0}$, 使得对任意的$v_{\delta_0} \in S_{\delta_0}$, 总存在$w_i$, 使得 
+        \begin{equation}\label{36}
+            \Vert v_{\delta_0} - w_i\Vert_C < \frac{\varepsilon}{5|\Omega|}.
+        \end{equation} 
+        注意到此时$w_i$不一定在$\mathbb{B}$内. 然而, 每个$w_i$都对应着一个$v_{\delta_0}^i$使得不等式\eqref{36}成立, 其中$v^i \in S$.
+        若$v_{\delta_0}^i \notin \mathbb{B}$, 那么我们选取充分小的$\delta_i \in (0, \delta_0]$, 使得$w_i' = v_{\delta_i}^i$在支集落在$\Omega$内.
+        此时显然有$w_i' \in \mathbb{B}$, 且 
+        \begin{equation*}
+            \Vert w_i - w_i'\Vert_{L^p} \leq \Vert w_i - v^i_{\delta_0}\Vert_{L^p} + \Vert v^i_{\delta_0} - v_i\Vert_{L^p} +  \Vert w_i' - v^i\Vert_{L^p} < \frac{3\varepsilon}{5}.
+        \end{equation*}
+        今对任意的$u \in B$, 我们选取$v \in S$使得$\Vert u - v \Vert_{1, p} \leq \varepsilon/5$, 从而有 
+        \begin{equation*}
+            \Vert u - w_i'\Vert_{L^p} \leq \Vert u - v \Vert_{L^p} + \Vert v - v_{\delta_0} \Vert_{L^p} + \Vert w_i - w_i'\Vert_{L^p} < \varepsilon.
+        \end{equation*}
+        由此表明$\{w_i'\} \subseteq \mathbb{B}$是$\mathbb{B}$的$L^p$意义下的有限$\varepsilon$-网.
+    \end{proof}
+\end{proposition}
+
+\subsubsection{Euler-Lagrange方程}
+
+在这一节中, 我们旨在将E-L方程推广到$W^{1, p}(\Omega)$上. 给定Lagrange函数$L \in C(\Omega \times \mathbb{R}^N \times \mathbb{R}^{nN})$, 其中$\Omega \subseteq \mathbb{R}^n$为一有界区域, $L$是可微的.
+考虑泛函 
+\begin{equation*}
+    I(u) = \int_{\Omega}L(x, u(x), \nabla u(x)) \,{\rm d}x.
+\end{equation*}
+为了使泛函$I$是良定义的, 且E-L方程式有意义的, 我们还需要对$L$添加如下假设:
+
+\begin{enumerate}
+    \item $L, L_u, L_p$是连续的. \label{con1}
+    \item $|L(x, u, p)| \leq C(1 + |u|^q + |p|^q)$.\label{con2}
+    \item $|L_u(x, u, p)| + |L_p(x, u, p)| \leq C(1 + |u|^q + |p|^q)$.
+\end{enumerate}
+
+\begin{proposition}\label{prop2.25}
+    在上述假设下, 对任意的$u \in W^{1, q}(\Omega)$和$\varphi \in C_0^1(\Omega)$, 一阶变分有表达式:
+    \begin{equation}\label{37}
+        \delta I(u^*, \varphi) = \int_{\Omega}(L_u(x, u(x), \nabla u(x))\varphi(x) + L_p(x, u(x), \nabla u(x))\nabla\varphi(x)) \,{\rm d}x.
+    \end{equation}
+    \begin{proof}
+        直接计算即可. 其中极限号和积分号交换顺序的合理性由控制收敛定理保证.
+    \end{proof}
+\end{proposition}
+
+我们还可以将$L$的假设条件再放松一些: 
+\begin{itemize}
+    \item 连续性假设. 事实上, 若$L, L_u, L_p$满足如下\textbf{Carath\'eodory条件}:
+    \begin{align*}
+            &\forall (u, p) \in \mathbb{R}^N \times \mathbb{R}^{nN}, x \mapsto L(x, u, p)\ \text{是可测的}, \\ 
+            &\text{对}\ {\rm a.e.}\ x \in \Omega, (u, p) \mapsto L(x, u, p)\ \text{是连续的},
+    \end{align*}
+    则命题\ref{prop2.25}的结论仍成立.
+    \item 增长性假设. 利用嵌入定理, $|L_u| + |L_p|$的增长幂次可以放松为:
+    \begin{equation}\label{38}
+        |L_u(x, u, p)| + |L_p(x, u, p)| \leq 
+        \begin{cases}
+            C(1 + |u|^r + |p|^q) \quad (r \leq q^*) &q < n, \\ 
+            C(1 + |u|^r + |p|^q) \quad (r \geq 1) &q = n, \\ 
+            C(1 + |p|^q) \quad &q > n.
+        \end{cases}
+    \end{equation}
+\end{itemize} 
+
+因此, 若$L, L_u, L_p$满足Carathéodory条件, 且增长幂次满足条件\ref{con2}和\eqref{37}, 则一阶变分仍具有如\eqref{38}所示的表达式.
+特别地, 当$n = 1, \Omega = (a, b)$时, 若设$u^* \in M = \varphi + W_0^{1, q}(\mathbb{R}^n)$是$I$在$M$中的极小点, 其中$\varphi \in W^{1, q}(\Omega)$, 根据变分学基本引理, $u^*$还满足如下积分形式的E-L方程:
+\begin{equation*}
+    \boxed{\int_a^tL_u(t, u^*(t), \nabla u^*(t)) \,{\rm d}t - L_p(t, u^*(t), \nabla u^*(t)) = {\rm const.} \qquad a.e.}
+\end{equation*}
+
+\begin{remark}
+    相较于前述转化成一元函数的情形, 我们还可以直接考虑Banach空间上的微分.
+    \begin{definition}
+        设$X$是一个Banach空间, $U \subseteq X$是一个开集. 给定$U$上的函数$f \in C(U)$.
+        称$f$在$x_0 \in U$处是\textbf{G\^ateaux可微}的, 如果对任意的$h \in X$, 存在$c \in \mathbb{R}$, 使得 
+        \begin{equation*}
+            |f(x_0 + th) - f(x_0) - tc| = o(t) \qquad (t \rightarrow 0).
+        \end{equation*}
+        若上式成立, 则称实数$c$为$f$在$x_0$处的\textbf{G\^ateaux导数}, 记为${\rm d}f(x_0, h)$.
+    \end{definition}
+    由上述定义可知, 若考虑$W^{1, q}(\mathbb{R}^N)$上的泛函$I$, 则G\^ateaux导数${\rm d}I(u, \varphi)$中的$\varphi$属于$W_0^{1, q}(\Omega)$, 而不是变分$\delta I(u, \varphi)$中的$C_0^1(\Omega)$.
+    为使${\rm d}I(u, \varphi)$中的积分有定义, 根据嵌入定理, 我们需要规定$|L_u| + |L_p|$的增长条件:
+    \begin{equation}\label{39}
+        |L_u(x, u, p)| + |L_p(x, u, p)| \leq 
+        \begin{cases}
+            C(1 + |u|^{r - 1} + |p|^{q - 1}) \quad (r \leq q^*) &q < n, \\ 
+            C(1 + |u|^r + |p|^{q - 1}) \quad (r \geq 1) &q = n, \\ 
+            C(1 + |p|^{q - 1}) \quad &q > n.
+        \end{cases}
+    \end{equation}
+    在此约束下, 若更设$L$满足条件\ref{con1}和\ref{con2}, 则${\rm d}I(u, \varphi)$的表达式与$\delta I(u, \varphi)$的表达式相同; 如\eqref{37}所示.
+    注意到增长条件\eqref{39}比\eqref{38}更强, 故在变分学中我们一般不使用G\^ateaux导数, 而直接使用变分导数.
+\end{remark}
